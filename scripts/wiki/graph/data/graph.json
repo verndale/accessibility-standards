@@ -32,6 +32,12 @@
       "githubRefs": [
         {
           "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 4,
+          "url": "https://github.com/verndale/accessibility-standards/issues/4"
+        },
+        {
+          "repository": "verndale/accessibility-standards",
           "kind": "pull-request",
           "number": 1,
           "url": "https://github.com/verndale/accessibility-standards/pull/1"
@@ -49,7 +55,7 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 3161,
+      "bytes": 3765,
       "degree": 7,
       "x": 0.309017,
       "y": 0.951057,
@@ -74,6 +80,12 @@
       "aliases": [],
       "githubRefs": [
         {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 4,
+          "url": "https://github.com/verndale/accessibility-standards/issues/4"
+        },
+        {
           "repository": "verndale/ai-orchestration",
           "kind": "issue",
           "number": 609,
@@ -86,7 +98,7 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 17718,
+      "bytes": 17860,
       "degree": 11,
       "x": -0.309017,
       "y": 0.951057,
@@ -99,6 +111,12 @@
       "aliases": [],
       "githubRefs": [
         {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 4,
+          "url": "https://github.com/verndale/accessibility-standards/issues/4"
+        },
+        {
           "repository": "verndale/ai-orchestration",
           "kind": "issue",
           "number": 609,
@@ -111,7 +129,7 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 821,
+      "bytes": 902,
       "degree": 3,
       "x": -0.809017,
       "y": 0.587785,
@@ -187,8 +205,15 @@
         "generated projection",
         "hooks"
       ],
-      "githubRefs": [],
-      "bytes": 2473,
+      "githubRefs": [
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 4,
+          "url": "https://github.com/verndale/accessibility-standards/issues/4"
+        }
+      ],
+      "bytes": 2562,
       "degree": 8,
       "x": 0.309017,
       "y": -0.951057,

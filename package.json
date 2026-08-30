@@ -42,12 +42,14 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/commit-analyzer": "13.0.1",
     "@semantic-release/git": "10.0.1",
     "@semantic-release/github": "12.0.8",
     "@semantic-release/npm": "13.1.5",
     "@verndale/ai-commit": "2.7.0",
     "@verndale/ai-pr": "1.3.5",
     "ajv": "8.20.0",
+    "conventional-changelog-conventionalcommits": "9.3.1",
     "semantic-release": "25.0.3"
   },
   "publishConfig": {
