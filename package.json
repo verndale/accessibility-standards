@@ -6,9 +6,22 @@
   "private": false,
   "license": "MIT",
   "packageManager": "pnpm@11.1.1",
-  "engines": { "node": ">=24.14.0" },
-  "bin": { "accessibility-standards": "bin/accessibility-standards.mjs" },
-  "files": ["bin", "lib", "schemas", "src", "profiles", "dist", "README.md", "OPERATING.md"],
+  "engines": {
+    "node": ">=24.14.0"
+  },
+  "bin": {
+    "accessibility-standards": "bin/accessibility-standards.mjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "schemas",
+    "src",
+    "profiles",
+    "dist",
+    "README.md",
+    "OPERATING.md"
+  ],
   "scripts": {
     "build": "node bin/accessibility-standards.mjs build",
     "check": "node bin/accessibility-standards.mjs validate",
@@ -28,5 +41,8 @@
     "@verndale/ai-pr": "1.3.5",
     "semantic-release": "25.0.3"
   },
-  "publishConfig": { "access": "public", "provenance": true }
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
 }
