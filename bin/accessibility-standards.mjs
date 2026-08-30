@@ -14,7 +14,7 @@ const value = (name) => {
 try {
   if (command === 'validate') {
     const result = validateStandards(await loadStandards());
-    console.log(`PASS standards validation: ${result.semantics} semantics, ${result.patterns} patterns, ${result.applicability} applicability rows`);
+    console.log(`PASS standards validation: ${result.semantics} semantics, ${result.patterns} patterns, ${result.applicability} applicability rows, ${result.uiPatternBindings} UI pattern bindings`);
   } else if (command === 'build') {
     const result = await buildDistribution();
     console.log(`PASS distribution build: ${result.records} records, ${result.profiles} profiles`);

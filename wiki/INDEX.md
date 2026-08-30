@@ -14,6 +14,7 @@ This wiki is the durable project record for decisions, executed plans, and subst
 
 - [Standards authority](./topics/standards-authority.md)
 - [Semantic and pattern model](./topics/semantic-pattern-model.md)
+- [UI pattern bindings](./topics/ui-pattern-bindings.md)
 - [Consumer projections](./topics/consumer-projections.md)
 - [Sync and enforcement](./topics/sync-and-enforcement.md)
 - [Shared Accessibility Standards Delivery Plan](./plans/2026-08-30-shared-accessibility-standards-delivery.md) — partial

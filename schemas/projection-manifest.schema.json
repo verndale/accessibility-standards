@@ -1,1 +1,84 @@
-{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"projection-manifest.schema.json","type":"object","required":["package","profile","digests","projected_ids","lane_coverage"],"properties":{"package":{"type":"string"},"profile":{"type":"string"},"digests":{"type":"object"},"projected_ids":{"type":"array","items":{"type":"string"}},"lane_coverage":{"type":"object"}}}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "projection-manifest.schema.json",
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "uiDesignBrain": {
+      "type": "object",
+      "required": ["package", "package_version", "catalog_authority_version", "source_digest", "manifest_digest", "binding_digest"]
+    },
+    "consumer": {
+      "type": "object",
+      "required": [
+        "_generated",
+        "package",
+        "profile",
+        "profile_version",
+        "schema_version",
+        "digests",
+        "ui_design_brain",
+        "ui_pattern_ids",
+        "projected_ids",
+        "lane_coverage",
+        "output_paths",
+        "output_digests",
+        "manifest_digest"
+      ],
+      "properties": {
+        "_generated": { "type": "string" },
+        "package": { "type": "string" },
+        "profile": { "enum": ["conductor", "ai-orchestration"] },
+        "profile_version": { "type": "string" },
+        "schema_version": { "type": "integer" },
+        "digests": {
+          "type": "object",
+          "required": ["source", "profile", "ui_design_brain_bindings", "config", "routes"],
+          "additionalProperties": { "$ref": "#/$defs/digest" }
+        },
+        "ui_design_brain": { "$ref": "#/$defs/uiDesignBrain" },
+        "ui_pattern_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "projected_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "lane_coverage": { "type": "object" },
+        "output_paths": { "type": "object", "additionalProperties": { "type": "string" } },
+        "output_digests": { "type": "object", "additionalProperties": { "$ref": "#/$defs/digest" } },
+        "manifest_digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": true
+    },
+    "distribution": {
+      "type": "object",
+      "required": ["_generated", "package", "schema_version", "source_digest", "profile_digests", "ui_design_brain", "profiles"],
+      "properties": {
+        "_generated": { "type": "string" },
+        "package": { "type": "string" },
+        "schema_version": { "type": "integer" },
+        "source_digest": { "$ref": "#/$defs/digest" },
+        "profile_digests": {
+          "type": "object",
+          "required": ["conductor", "ai-orchestration"],
+          "additionalProperties": { "$ref": "#/$defs/digest" }
+        },
+        "ui_design_brain": { "$ref": "#/$defs/uiDesignBrain" },
+        "profiles": {
+          "type": "object",
+          "required": ["conductor", "ai-orchestration"],
+          "additionalProperties": {
+            "type": "object",
+            "required": ["version", "profile_digest", "source_digest", "outputs"],
+            "properties": {
+              "version": { "type": "string" },
+              "profile_digest": { "$ref": "#/$defs/digest" },
+              "source_digest": { "$ref": "#/$defs/digest" },
+              "outputs": { "type": "object", "additionalProperties": { "$ref": "#/$defs/digest" } }
+            }
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/$defs/consumer" },
+    { "$ref": "#/$defs/distribution" }
+  ]
+}

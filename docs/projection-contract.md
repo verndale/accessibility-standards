@@ -1,5 +1,16 @@
 # Projection contract
 
-Every consumer pins the package exactly and supplies `accessibility-standards.config.json` plus `accessibility-standards.routes.json`. A generated `accessibility.source.json` records package/profile/schema versions, source/config/route digests, projected IDs, and lane coverage.
+Every consumer pins the package exactly and supplies `accessibility-standards.config.json` plus `accessibility-standards.routes.json`. A generated `accessibility.source.json` records package/profile/schema versions, source/config/route digests, projected IDs, lane coverage, the pinned UI Design Brain source-manifest digest, and the accessibility-owned binding digest.
+
+Profile template files are contract inputs. Their stable paths and complete contents participate in both the profile digest and the common source digest, so changing packaged projection guidance invalidates every affected generated artifact.
+
+Both profiles generate `ui-design-brain-bindings.json`. Consumers load inputs in this order:
+
+1. The exact UI Design Brain catalog and provenance resolve names or aliases to ordered canonical slugs.
+2. The accessibility binding resolves those slugs to sorted accessibility pattern IDs. Caller slug order is preserved after ordered de-duplication; candidate mappings expose missing discriminator facts rather than inferring from prose.
+3. Accessibility semantics, patterns, and applicability expand the selected IDs.
+4. The project component index independently answers which real implementation component can be reused.
+
+UI Design Brain, the accessibility binding, and the component index are separate authorities. A consumer must not substitute one for another or re-resolve aliases after step 1.
 
 `sync --if-needed` compares these digests, renders to a sibling temporary directory, validates the full projection, and atomically promotes marker-owned files. It refuses to replace an unmarked or locally modified managed output. `check` is read-only.

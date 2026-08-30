@@ -1,1 +1,29 @@
-{"version":1,"facts":{"artifact.page_context":{"type":"boolean"},"content.has_non_text":{"type":"boolean"},"content.has_media":{"type":"boolean"},"component.has_form_fields":{"type":"boolean"},"component.submission_consequence":{"type":"array","items":"string"},"component.has_dynamic_status":{"type":"boolean"},"component.pattern":{"type":"string"},"interaction.has_motion_or_timing":{"type":"boolean"},"interaction.has_complex_pointer":{"type":"boolean"},"interaction.has_character_shortcuts":{"type":"boolean"},"content.uses_orientation_or_sensory_cues":{"type":"boolean"},"interaction.has_pointer_targets":{"type":"boolean"},"interaction.can_obscure_focus":{"type":"boolean"},"flow.has_authentication":{"type":"boolean"},"flow.repeats_entry":{"type":"boolean"},"artifact.has_help":{"type":"boolean"},"content.has_locale_or_bidi":{"type":"boolean"},"component.has_data_table_or_grid":{"type":"boolean"}}}
+{
+  "version": 1,
+  "facts": {
+    "artifact.page_context": { "type": "boolean" },
+    "content.has_non_text": { "type": "boolean" },
+    "content.has_media": { "type": "boolean" },
+    "component.ui_pattern_ids": { "type": "array", "items": "string", "source": "ui-design-brain" },
+    "component.accessibility_pattern_ids": { "type": "array", "items": "string", "derived": true },
+    "component.command_menu_trigger": { "type": "boolean" },
+    "component.has_form_fields": { "type": "boolean" },
+    "component.has_validation": { "type": "boolean" },
+    "component.submission_consequence": { "type": "array", "items": "string" },
+    "component.has_dynamic_status": { "type": "boolean" },
+    "component.message_urgency": { "type": "string" },
+    "component.overlay_model": { "type": "string" },
+    "component.selection_model": { "type": "string" },
+    "interaction.has_motion_or_timing": { "type": "boolean" },
+    "interaction.has_complex_pointer": { "type": "boolean" },
+    "interaction.has_character_shortcuts": { "type": "boolean" },
+    "content.uses_orientation_or_sensory_cues": { "type": "boolean" },
+    "interaction.has_pointer_targets": { "type": "boolean" },
+    "interaction.can_obscure_focus": { "type": "boolean" },
+    "flow.has_authentication": { "type": "boolean" },
+    "flow.repeats_entry": { "type": "boolean" },
+    "artifact.has_help": { "type": "boolean" },
+    "content.has_locale_or_bidi": { "type": "boolean" },
+    "component.has_data_table_or_grid": { "type": "boolean" }
+  }
+}

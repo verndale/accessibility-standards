@@ -1,0 +1,210 @@
+{
+  "version": 1,
+  "source": {
+    "package": "@verndale/ui-design-brain",
+    "package_version": "1.16.0",
+    "catalog_authority_version": "1.15.1",
+    "repository": "https://github.com/verndale/ui-design-brain",
+    "manifest_path": "skills/ui-design-brain/catalog-manifest.json",
+    "source_digest": "sha256:1eda596fe341786b5ada25742b6487bc06685fff17cbd582bc1b58302097e3ff",
+    "manifest_digest": "sha256:63a0bc8d9537d6d4c0aef8fd8a539bf4a9181a50d0761bd63eae6fe59b4eddc9",
+    "pattern_count": 80,
+    "tracking_issue": "https://github.com/verndale/ui-design-brain/issues/47"
+  },
+  "bindings": [
+    { "ui_pattern_id": "accordion", "classification": "direct", "pattern_ids": ["pattern.accordion"] },
+    {
+      "ui_pattern_id": "alert",
+      "classification": "candidate",
+      "discriminator_facts": ["component.has_dynamic_status", "component.message_urgency"],
+      "candidates": [
+        { "pattern_id": "pattern.alert", "when": { "equals": { "fact": "component.message_urgency", "value": "urgent" } } },
+        { "pattern_id": "pattern.dynamic-status", "when": { "equals": { "fact": "component.has_dynamic_status", "value": true } } }
+      ]
+    },
+    { "ui_pattern_id": "avatar", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.non-text-alternative"] },
+    {
+      "ui_pattern_id": "badge",
+      "classification": "candidate",
+      "discriminator_facts": ["component.has_dynamic_status"],
+      "candidates": [
+        { "pattern_id": "pattern.dynamic-status", "when": { "equals": { "fact": "component.has_dynamic_status", "value": true } } }
+      ]
+    },
+    { "ui_pattern_id": "breadcrumbs", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.landmarks", "semantics.native-elements"] },
+    { "ui_pattern_id": "button", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.name-role-value", "semantics.native-elements", "semantics.target-size"] },
+    { "ui_pattern_id": "button-group", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements"] },
+    { "ui_pattern_id": "card", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    { "ui_pattern_id": "carousel", "classification": "direct", "pattern_ids": ["pattern.carousel"] },
+    { "ui_pattern_id": "checkbox", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "color-picker", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "combobox", "classification": "direct", "pattern_ids": ["pattern.combobox", "pattern.field"] },
+    { "ui_pattern_id": "comparison-table", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.data-table"] },
+    {
+      "ui_pattern_id": "context-menu",
+      "classification": "candidate",
+      "discriminator_facts": ["component.command_menu_trigger"],
+      "candidates": [
+        { "pattern_id": "pattern.menu-button", "when": { "equals": { "fact": "component.command_menu_trigger", "value": true } } }
+      ]
+    },
+    { "ui_pattern_id": "date-input", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    {
+      "ui_pattern_id": "datepicker",
+      "classification": "candidate",
+      "pattern_ids": ["pattern.field"],
+      "discriminator_facts": ["component.overlay_model"],
+      "candidates": [
+        { "pattern_id": "pattern.dialog", "when": { "equals": { "fact": "component.overlay_model", "value": "modal" } } },
+        { "pattern_id": "pattern.popover", "when": { "equals": { "fact": "component.overlay_model", "value": "non-modal" } } }
+      ]
+    },
+    {
+      "ui_pattern_id": "drawer",
+      "classification": "candidate",
+      "discriminator_facts": ["component.overlay_model"],
+      "candidates": [
+        { "pattern_id": "pattern.dialog", "when": { "equals": { "fact": "component.overlay_model", "value": "modal" } } },
+        { "pattern_id": "pattern.disclosure", "when": { "equals": { "fact": "component.overlay_model", "value": "inline" } } },
+        { "pattern_id": "pattern.popover", "when": { "equals": { "fact": "component.overlay_model", "value": "non-modal" } } }
+      ]
+    },
+    {
+      "ui_pattern_id": "dropdown-menu",
+      "classification": "candidate",
+      "discriminator_facts": ["component.command_menu_trigger"],
+      "candidates": [
+        { "pattern_id": "pattern.menu-button", "when": { "equals": { "fact": "component.command_menu_trigger", "value": true } } }
+      ]
+    },
+    {
+      "ui_pattern_id": "empty-state",
+      "classification": "candidate",
+      "discriminator_facts": ["component.has_dynamic_status"],
+      "candidates": [
+        { "pattern_id": "pattern.dynamic-status", "when": { "equals": { "fact": "component.has_dynamic_status", "value": true } } }
+      ]
+    },
+    { "ui_pattern_id": "error-message", "classification": "direct", "pattern_ids": ["pattern.validation"] },
+    { "ui_pattern_id": "eyebrow", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    { "ui_pattern_id": "fieldset", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "file", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    { "ui_pattern_id": "file-upload", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    {
+      "ui_pattern_id": "filter",
+      "classification": "candidate",
+      "discriminator_facts": ["component.has_form_fields"],
+      "candidates": [
+        { "pattern_id": "pattern.field", "when": { "equals": { "fact": "component.has_form_fields", "value": true } } }
+      ]
+    },
+    { "ui_pattern_id": "footer", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.landmarks"] },
+    { "ui_pattern_id": "form", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "header", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.landmarks"] },
+    { "ui_pattern_id": "heading", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.headings"] },
+    { "ui_pattern_id": "helper-text", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    { "ui_pattern_id": "hero", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.headings"] },
+    { "ui_pattern_id": "icon", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.non-text-alternative"] },
+    { "ui_pattern_id": "image", "classification": "direct", "pattern_ids": ["pattern.image"] },
+    { "ui_pattern_id": "in-page-navigation", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.landmarks", "semantics.native-elements"] },
+    { "ui_pattern_id": "label", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.form-label"] },
+    { "ui_pattern_id": "link", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements", "semantics.target-size"] },
+    { "ui_pattern_id": "list", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    { "ui_pattern_id": "logo-bar", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.non-text-alternative"] },
+    { "ui_pattern_id": "marquee", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.motion-control"] },
+    { "ui_pattern_id": "masthead", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.headings", "semantics.landmarks"] },
+    { "ui_pattern_id": "media-object", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.non-text-alternative"] },
+    {
+      "ui_pattern_id": "mega-menu",
+      "classification": "candidate",
+      "discriminator_facts": ["component.command_menu_trigger"],
+      "candidates": [
+        { "pattern_id": "pattern.menu-button", "when": { "equals": { "fact": "component.command_menu_trigger", "value": true } } }
+      ]
+    },
+    { "ui_pattern_id": "modal", "classification": "direct", "pattern_ids": ["pattern.dialog"] },
+    {
+      "ui_pattern_id": "navigation",
+      "classification": "candidate",
+      "discriminator_facts": ["component.command_menu_trigger"],
+      "candidates": [
+        { "pattern_id": "pattern.menu-button", "when": { "equals": { "fact": "component.command_menu_trigger", "value": true } } }
+      ]
+    },
+    { "ui_pattern_id": "number-input", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "pagination", "classification": "direct", "pattern_ids": ["pattern.pagination"] },
+    { "ui_pattern_id": "popover", "classification": "direct", "pattern_ids": ["pattern.popover"] },
+    { "ui_pattern_id": "progress-bar", "classification": "direct", "pattern_ids": ["pattern.progress"] },
+    { "ui_pattern_id": "progress-indicator", "classification": "direct", "pattern_ids": ["pattern.progress"] },
+    { "ui_pattern_id": "quote", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    { "ui_pattern_id": "radio-button", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "rating", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.name-role-value"] },
+    { "ui_pattern_id": "rich-text", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.headings", "semantics.native-elements"] },
+    { "ui_pattern_id": "rich-text-editor", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.name-role-value"] },
+    { "ui_pattern_id": "search-input", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    {
+      "ui_pattern_id": "search-overlay",
+      "classification": "candidate",
+      "discriminator_facts": ["component.overlay_model"],
+      "candidates": [
+        { "pattern_id": "pattern.dialog", "when": { "equals": { "fact": "component.overlay_model", "value": "modal" } } },
+        { "pattern_id": "pattern.popover", "when": { "equals": { "fact": "component.overlay_model", "value": "non-modal" } } }
+      ]
+    },
+    { "ui_pattern_id": "section-header", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.headings"] },
+    { "ui_pattern_id": "segmented-control", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.selected-state"] },
+    {
+      "ui_pattern_id": "select",
+      "classification": "candidate",
+      "pattern_ids": ["pattern.field"],
+      "discriminator_facts": ["component.selection_model"],
+      "candidates": [
+        { "pattern_id": "pattern.combobox", "when": { "equals": { "fact": "component.selection_model", "value": "combobox" } } },
+        { "pattern_id": "pattern.listbox", "when": { "equals": { "fact": "component.selection_model", "value": "listbox" } } }
+      ]
+    },
+    { "ui_pattern_id": "separator", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    {
+      "ui_pattern_id": "sidebar",
+      "classification": "candidate",
+      "discriminator_facts": ["component.command_menu_trigger"],
+      "candidates": [
+        { "pattern_id": "pattern.menu-button", "when": { "equals": { "fact": "component.command_menu_trigger", "value": true } } }
+      ]
+    },
+    {
+      "ui_pattern_id": "skeleton",
+      "classification": "candidate",
+      "discriminator_facts": ["component.has_dynamic_status"],
+      "candidates": [
+        { "pattern_id": "pattern.dynamic-status", "when": { "equals": { "fact": "component.has_dynamic_status", "value": true } } }
+      ]
+    },
+    { "ui_pattern_id": "skip-link", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements"] },
+    { "ui_pattern_id": "slider", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "spinner", "classification": "direct", "pattern_ids": ["pattern.progress"] },
+    { "ui_pattern_id": "stack", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    { "ui_pattern_id": "stat", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    { "ui_pattern_id": "stepper", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "table", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.data-table"] },
+    { "ui_pattern_id": "tabs", "classification": "direct", "pattern_ids": ["pattern.tabs"] },
+    { "ui_pattern_id": "text-input", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "textarea", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    {
+      "ui_pattern_id": "toast",
+      "classification": "candidate",
+      "discriminator_facts": ["component.has_dynamic_status", "component.message_urgency"],
+      "candidates": [
+        { "pattern_id": "pattern.alert", "when": { "equals": { "fact": "component.message_urgency", "value": "urgent" } } },
+        { "pattern_id": "pattern.dynamic-status", "when": { "equals": { "fact": "component.has_dynamic_status", "value": true } } }
+      ]
+    },
+    { "ui_pattern_id": "toggle", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "tooltip", "classification": "direct", "pattern_ids": ["pattern.tooltip"] },
+    { "ui_pattern_id": "tree-view", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.roles-states-properties", "semantics.selected-state"] },
+    { "ui_pattern_id": "utility-bar", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.landmarks"] },
+    { "ui_pattern_id": "video", "classification": "direct", "pattern_ids": ["pattern.media-player"] },
+    { "ui_pattern_id": "visually-hidden", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    { "ui_pattern_id": "wizard", "classification": "direct", "pattern_ids": ["pattern.field"] }
+  ]
+}
