@@ -1,3 +1,13 @@
+## [2.0.0](https://github.com/verndale/accessibility-standards/compare/v1.0.1...v2.0.0) (2026-08-30)
+
+### ⚠ BREAKING CHANGES
+
+* **release:** align breaking change analysis
+
+### Features
+
+* **release:** align breaking change analysis ([376c75c](https://github.com/verndale/accessibility-standards/commit/376c75cb481a1030b4f05d26e1e95316da728ff9))
+
 ## [1.0.1](https://github.com/verndale/accessibility-standards/compare/v1.0.0...v1.0.1) (2026-08-30)
 
 # 1.0.0 (2026-08-30)
