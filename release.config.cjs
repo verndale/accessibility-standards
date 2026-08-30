@@ -1,11 +1,43 @@
 module.exports = {
   branches: ['main'],
+  tagFormat: 'v${version}',
   plugins: [
-    '@semantic-release/commit-analyzer',
+    [
+      '@semantic-release/commit-analyzer',
+      {
+        releaseRules: [
+          { breaking: true, release: 'major' },
+          { type: 'feat', release: 'minor' },
+          { type: 'build', release: 'patch' },
+          { type: 'chore', release: 'patch' },
+          { type: 'ci', release: 'patch' },
+          { type: 'docs', release: 'patch' },
+          { type: 'fix', release: 'patch' },
+          { type: 'perf', release: 'patch' },
+          { type: 'refactor', release: 'patch' },
+          { type: 'revert', release: 'patch' },
+          { type: 'style', release: 'patch' },
+          { type: 'test', release: 'patch' },
+        ],
+      },
+    ],
     '@semantic-release/release-notes-generator',
     '@semantic-release/changelog',
     '@semantic-release/npm',
-    '@semantic-release/github',
-    ['@semantic-release/git', { assets: ['CHANGELOG.md', 'package.json', 'pnpm-lock.yaml'], message: 'chore(release): ${nextRelease.version} [skip ci]' }]
+    [
+      '@semantic-release/git',
+      {
+        assets: ['CHANGELOG.md'],
+        message: 'chore(release): ${nextRelease.version} [skip ci]',
+      },
+    ],
+    [
+      '@semantic-release/github',
+      {
+        successCommentCondition: false,
+        failCommentCondition: false,
+        releasedLabels: false,
+      },
+    ],
   ]
 };

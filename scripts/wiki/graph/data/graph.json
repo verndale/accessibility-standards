@@ -2,13 +2,13 @@
   "version": 1,
   "wikiRoot": "wiki",
   "counts": {
-    "nodes": 9,
-    "edges": 27,
+    "nodes": 10,
+    "edges": 38,
     "byType": {
       "index": 3,
       "journal": 1,
       "plan": 1,
-      "topic": 4
+      "topic": 5
     }
   },
   "nodes": [
@@ -18,8 +18,8 @@
       "type": "index",
       "aliases": [],
       "githubRefs": [],
-      "bytes": 1844,
-      "degree": 8,
+      "bytes": 1901,
+      "degree": 9,
       "x": 1,
       "y": 0,
       "size": 12
@@ -41,12 +41,18 @@
           "kind": "issue",
           "number": 609,
           "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        },
+        {
+          "repository": "verndale/ui-design-brain",
+          "kind": "issue",
+          "number": 47,
+          "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 863,
-      "degree": 6,
-      "x": 0.173648,
-      "y": 0.984808,
+      "bytes": 3161,
+      "degree": 7,
+      "x": 0.309017,
+      "y": 0.951057,
       "size": 8
     },
     {
@@ -57,8 +63,8 @@
       "githubRefs": [],
       "bytes": 2907,
       "degree": 2,
-      "x": 0.766044,
-      "y": 0.642788,
+      "x": 0.809017,
+      "y": 0.587785,
       "size": 12
     },
     {
@@ -72,12 +78,18 @@
           "kind": "issue",
           "number": 609,
           "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        },
+        {
+          "repository": "verndale/ui-design-brain",
+          "kind": "issue",
+          "number": 47,
+          "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 11733,
-      "degree": 9,
-      "x": -0.5,
-      "y": 0.866025,
+      "bytes": 17718,
+      "degree": 11,
+      "x": -0.309017,
+      "y": 0.951057,
       "size": 8
     },
     {
@@ -91,12 +103,18 @@
           "kind": "issue",
           "number": 609,
           "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        },
+        {
+          "repository": "verndale/ui-design-brain",
+          "kind": "issue",
+          "number": 47,
+          "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 738,
+      "bytes": 821,
       "degree": 3,
-      "x": -0.939693,
-      "y": 0.34202,
+      "x": -0.809017,
+      "y": 0.587785,
       "size": 12
     },
     {
@@ -114,12 +132,18 @@
           "kind": "issue",
           "number": 609,
           "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        },
+        {
+          "repository": "verndale/ui-design-brain",
+          "kind": "issue",
+          "number": 47,
+          "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 891,
-      "degree": 6,
-      "x": -0.939693,
-      "y": -0.34202,
+      "bytes": 1405,
+      "degree": 8,
+      "x": -1,
+      "y": 0,
       "size": 8
     },
     {
@@ -132,10 +156,10 @@
         "applicability matrix"
       ],
       "githubRefs": [],
-      "bytes": 821,
-      "degree": 7,
-      "x": -0.5,
-      "y": -0.866025,
+      "bytes": 1377,
+      "degree": 9,
+      "x": -0.809017,
+      "y": -0.587785,
       "size": 8
     },
     {
@@ -148,10 +172,10 @@
         "accessibility package"
       ],
       "githubRefs": [],
-      "bytes": 915,
-      "degree": 7,
-      "x": 0.173648,
-      "y": -0.984808,
+      "bytes": 1357,
+      "degree": 8,
+      "x": -0.309017,
+      "y": -0.951057,
       "size": 8
     },
     {
@@ -164,10 +188,39 @@
         "hooks"
       ],
       "githubRefs": [],
-      "bytes": 808,
-      "degree": 6,
-      "x": 0.766044,
-      "y": -0.642788,
+      "bytes": 2473,
+      "degree": 8,
+      "x": 0.309017,
+      "y": -0.951057,
+      "size": 8
+    },
+    {
+      "id": "wiki/topics/ui-pattern-bindings.md",
+      "label": "UI pattern bindings",
+      "type": "topic",
+      "aliases": [
+        "UI Design Brain binding",
+        "canonical UI slugs",
+        "accessibility pattern bridge"
+      ],
+      "githubRefs": [
+        {
+          "repository": "verndale/ai-orchestration",
+          "kind": "issue",
+          "number": 609,
+          "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        },
+        {
+          "repository": "verndale/ui-design-brain",
+          "kind": "issue",
+          "number": 47,
+          "url": "https://github.com/verndale/ui-design-brain/issues/47"
+        }
+      ],
+      "bytes": 2725,
+      "degree": 11,
+      "x": 0.809017,
+      "y": -0.587785,
       "size": 8
     }
   ],
@@ -222,9 +275,23 @@
       "relation": "link"
     },
     {
+      "id": "37016cb8c32f3e66",
+      "source": "wiki/topics/consumer-projections.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
       "id": "3b031a4a3abad5bc",
       "source": "wiki/topics/semantic-pattern-model.md",
       "target": "wiki/topics/sync-and-enforcement.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "433dd500d6f32f44",
+      "source": "wiki/topics/ui-pattern-bindings.md",
+      "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
       "type": "link",
       "relation": "link"
     },
@@ -234,6 +301,13 @@
       "target": "wiki/topics/standards-authority.md",
       "type": "topic",
       "relation": "topic"
+    },
+    {
+      "id": "5b3ee928e53a959f",
+      "source": "wiki/topics/sync-and-enforcement.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
+      "type": "link",
+      "relation": "link"
     },
     {
       "id": "6054eb89bc06ebe2",
@@ -260,6 +334,13 @@
       "id": "80be6179d873e118",
       "source": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
       "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "81cbad805dccf8f3",
+      "source": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
       "type": "topic",
       "relation": "topic"
     },
@@ -299,9 +380,23 @@
       "relation": "link"
     },
     {
+      "id": "b69fb46fcf55fc55",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
       "id": "bfb026031c18aa18",
       "source": "wiki/topics/standards-authority.md",
       "target": "wiki/topics/consumer-projections.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "cc31065ea2954238",
+      "source": "wiki/topics/semantic-pattern-model.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
       "type": "link",
       "relation": "link"
     },
@@ -313,9 +408,23 @@
       "relation": "link"
     },
     {
+      "id": "d89e4b86f88a971c",
+      "source": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "db5fa2eddae04feb",
       "source": "wiki/topics/semantic-pattern-model.md",
       "target": "wiki/topics/standards-authority.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "de1880f3fb614939",
+      "source": "wiki/topics/ui-pattern-bindings.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
       "type": "link",
       "relation": "link"
     },
@@ -353,6 +462,27 @@
       "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
       "type": "plan",
       "relation": "plan"
+    },
+    {
+      "id": "fab2acf99e4e3b5c",
+      "source": "wiki/topics/ui-pattern-bindings.md",
+      "target": "wiki/topics/sync-and-enforcement.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "fc59dfb3bd686241",
+      "source": "wiki/topics/standards-authority.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "fceef537e96e0b79",
+      "source": "wiki/topics/ui-pattern-bindings.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "link",
+      "relation": "link"
     },
     {
       "id": "fd9e0dd99229062b",

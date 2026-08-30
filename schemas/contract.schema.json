@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"contract.schema.json","type":"object","required":["schema_version","package_version"],"additionalProperties":false,"properties":{"schema_version":{"type":"integer","const":2},"package_version":{"type":"string","const":"2.0.0"}}}

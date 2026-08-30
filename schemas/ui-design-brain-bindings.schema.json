@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ui-design-brain-bindings.schema.json",
+  "type": "object",
+  "required": ["version", "source", "bindings"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "integer", "const": 1 },
+    "source": {
+      "type": "object",
+      "required": ["package", "package_version", "catalog_authority_version", "repository", "manifest_path", "source_digest", "manifest_digest", "pattern_count", "tracking_issue"],
+      "additionalProperties": false,
+      "properties": {
+        "package": { "const": "@verndale/ui-design-brain" },
+        "package_version": { "const": "1.16.0" },
+        "catalog_authority_version": { "const": "1.15.1" },
+        "repository": { "const": "https://github.com/verndale/ui-design-brain" },
+        "manifest_path": { "const": "skills/ui-design-brain/catalog-manifest.json" },
+        "source_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "manifest_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "pattern_count": { "type": "integer", "minimum": 1 },
+        "tracking_issue": { "const": "https://github.com/verndale/ui-design-brain/issues/47" }
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["ui_pattern_id", "classification"],
+        "additionalProperties": false,
+        "properties": {
+          "ui_pattern_id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "classification": { "enum": ["direct", "candidate", "baseline-only"] },
+          "pattern_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^pattern\\." },
+            "uniqueItems": true
+          },
+          "baseline_semantic_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^semantics\\." },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "discriminator_facts": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "candidates": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["pattern_id", "when"],
+              "additionalProperties": false,
+              "properties": {
+                "pattern_id": { "type": "string", "pattern": "^pattern\\." },
+                "when": { "type": "object", "minProperties": 1, "maxProperties": 1 }
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "classification": { "const": "direct" } } },
+            "then": { "required": ["pattern_ids"], "not": { "anyOf": [{ "required": ["candidates"] }, { "required": ["discriminator_facts"] }] } }
+          },
+          {
+            "if": { "properties": { "classification": { "const": "candidate" } } },
+            "then": { "required": ["discriminator_facts", "candidates"] }
+          },
+          {
+            "if": { "properties": { "classification": { "const": "baseline-only" } } },
+            "then": {
+              "required": ["baseline_semantic_ids"],
+              "not": { "anyOf": [{ "required": ["pattern_ids"] }, { "required": ["candidates"] }, { "required": ["discriminator_facts"] }] }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
