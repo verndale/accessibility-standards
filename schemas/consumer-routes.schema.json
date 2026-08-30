@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"consumer-routes.schema.json","type":"object","required":["version","outputs"],"properties":{"version":{"const":1},"outputs":{"type":"object","additionalProperties":{"type":"string"}}},"additionalProperties":false}

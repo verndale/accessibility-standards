@@ -1,0 +1,1 @@
+{"id":"policy.target-size","version":"1.0.0","title":"Target size policy","kind":"policy","requirement":"Enforce WCAG 2.5.8 at 24 by 24 CSS pixels or a documented exception; report 44 by 44 as enhanced guidance, never as the AA minimum."}

@@ -1,0 +1,1 @@
+{"version":1,"authorities":[{"id":"wcag-2.2","url":"https://www.w3.org/TR/WCAG22/","normative":true},{"id":"wai-aria-1.2","url":"https://www.w3.org/TR/wai-aria-1.2/","normative":true},{"id":"aria-apg","url":"https://www.w3.org/WAI/ARIA/apg/","normative":false}],"precedence":["platform-semantics","wcag-2.2","wai-aria-1.2","aria-apg","product-policy"]}

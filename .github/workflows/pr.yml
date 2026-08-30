@@ -1,0 +1,31 @@
+name: Create or update PR
+on:
+  workflow_dispatch:
+    inputs:
+      base_branch: { description: Target base branch, required: true, default: main }
+      draft: { description: Create PR as draft, required: true, default: "true" }
+  push:
+    branches-ignore: [main, "bot/wiki-**"]
+permissions:
+  contents: read
+  pull-requests: write
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+jobs:
+  pr:
+    if: ${{ !startsWith(github.ref_name, 'bot/wiki-') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: "24.14.0" }
+      - run: corepack enable && corepack prepare pnpm@11.1.1 --activate
+      - run: pnpm install --frozen-lockfile
+      - name: Create or update draft PR
+        env:
+          GH_TOKEN: ${{ secrets.PR_BOT_TOKEN }}
+          PR_BASE_BRANCH: ${{ github.event.inputs.base_branch || 'main' }}
+          PR_HEAD_BRANCH: ${{ github.ref_name }}
+          PR_DRAFT: ${{ github.event.inputs.draft || 'true' }}
+        run: pnpm exec ai-pr

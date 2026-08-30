@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"projection-manifest.schema.json","type":"object","required":["package","profile","digests","projected_ids","lane_coverage"],"properties":{"package":{"type":"string"},"profile":{"type":"string"},"digests":{"type":"object"},"projected_ids":{"type":"array","items":{"type":"string"}},"lane_coverage":{"type":"object"}}}
