@@ -1,3 +1,8 @@
+const conventionalCommits = {
+  preset: 'conventionalcommits',
+  presetConfig: {},
+};
+
 module.exports = {
   branches: ['main'],
   tagFormat: 'v${version}',
@@ -5,6 +10,7 @@ module.exports = {
     [
       '@semantic-release/commit-analyzer',
       {
+        ...conventionalCommits,
         releaseRules: [
           { breaking: true, release: 'major' },
           { type: 'feat', release: 'minor' },
@@ -21,7 +27,7 @@ module.exports = {
         ],
       },
     ],
-    '@semantic-release/release-notes-generator',
+    ['@semantic-release/release-notes-generator', conventionalCommits],
     '@semantic-release/changelog',
     '@semantic-release/npm',
     [
