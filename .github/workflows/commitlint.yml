@@ -1,0 +1,24 @@
+name: Commit message lint
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited]
+permissions:
+  contents: read
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: "24.14.0" }
+      - run: corepack enable && corepack prepare pnpm@11.1.1 --activate
+      - run: pnpm install --frozen-lockfile
+      - name: Lint PR title
+        env: { PR_TITLE: "${{ github.event.pull_request.title }}" }
+        run: printf '%s\n' "$PR_TITLE" | pnpm exec commitlint --config commitlint.config.cjs --verbose
+      - name: Lint commits
+        run: pnpm exec commitlint --config commitlint.config.cjs --from "${{ github.event.pull_request.base.sha }}" --to "${{ github.event.pull_request.head.sha }}" --verbose

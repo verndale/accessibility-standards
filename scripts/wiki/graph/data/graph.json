@@ -1,0 +1,359 @@
+{
+  "version": 1,
+  "wikiRoot": "wiki",
+  "counts": {
+    "nodes": 9,
+    "edges": 27,
+    "byType": {
+      "index": 3,
+      "journal": 1,
+      "plan": 1,
+      "topic": 4
+    }
+  },
+  "nodes": [
+    {
+      "id": "wiki/INDEX.md",
+      "label": "Context wiki",
+      "type": "index",
+      "aliases": [],
+      "githubRefs": [],
+      "bytes": 1844,
+      "degree": 8,
+      "x": 1,
+      "y": 0,
+      "size": 12
+    },
+    {
+      "id": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
+      "label": "Shared accessibility standards delivery",
+      "type": "journal",
+      "aliases": [],
+      "githubRefs": [
+        {
+          "repository": "verndale/ai-orchestration",
+          "kind": "issue",
+          "number": 609,
+          "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        }
+      ],
+      "bytes": 812,
+      "degree": 6,
+      "x": 0.173648,
+      "y": 0.984808,
+      "size": 8
+    },
+    {
+      "id": "wiki/MECHANICS.md",
+      "label": "Wiki mechanics",
+      "type": "index",
+      "aliases": [],
+      "githubRefs": [],
+      "bytes": 2907,
+      "degree": 2,
+      "x": 0.766044,
+      "y": 0.642788,
+      "size": 12
+    },
+    {
+      "id": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "label": "Shared Accessibility Standards Delivery Plan",
+      "type": "plan",
+      "aliases": [],
+      "githubRefs": [
+        {
+          "repository": "verndale/ai-orchestration",
+          "kind": "issue",
+          "number": 609,
+          "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        }
+      ],
+      "bytes": 11733,
+      "degree": 9,
+      "x": -0.5,
+      "y": 0.866025,
+      "size": 8
+    },
+    {
+      "id": "wiki/plans/INDEX.md",
+      "label": "Plan ledger",
+      "type": "index",
+      "aliases": [],
+      "githubRefs": [
+        {
+          "repository": "verndale/ai-orchestration",
+          "kind": "issue",
+          "number": 609,
+          "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        }
+      ],
+      "bytes": 738,
+      "degree": 3,
+      "x": -0.939693,
+      "y": 0.34202,
+      "size": 12
+    },
+    {
+      "id": "wiki/topics/consumer-projections.md",
+      "label": "Consumer projections",
+      "type": "topic",
+      "aliases": [
+        "Conductor projection",
+        "ai-orchestration projection",
+        "accessibility sidecar"
+      ],
+      "githubRefs": [
+        {
+          "repository": "verndale/ai-orchestration",
+          "kind": "issue",
+          "number": 609,
+          "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        }
+      ],
+      "bytes": 891,
+      "degree": 6,
+      "x": -0.939693,
+      "y": -0.34202,
+      "size": 8
+    },
+    {
+      "id": "wiki/topics/semantic-pattern-model.md",
+      "label": "Semantic and pattern model",
+      "type": "topic",
+      "aliases": [
+        "accessibility semantics",
+        "pattern composition",
+        "applicability matrix"
+      ],
+      "githubRefs": [],
+      "bytes": 821,
+      "degree": 7,
+      "x": -0.5,
+      "y": -0.866025,
+      "size": 8
+    },
+    {
+      "id": "wiki/topics/standards-authority.md",
+      "label": "Standards authority",
+      "type": "topic",
+      "aliases": [
+        "WCAG authority",
+        "ARIA authority",
+        "accessibility package"
+      ],
+      "githubRefs": [],
+      "bytes": 915,
+      "degree": 7,
+      "x": 0.173648,
+      "y": -0.984808,
+      "size": 8
+    },
+    {
+      "id": "wiki/topics/sync-and-enforcement.md",
+      "label": "Sync and enforcement",
+      "type": "topic",
+      "aliases": [
+        "accessibility sync",
+        "generated projection",
+        "hooks"
+      ],
+      "githubRefs": [],
+      "bytes": 808,
+      "degree": 6,
+      "x": 0.766044,
+      "y": -0.642788,
+      "size": 8
+    }
+  ],
+  "edges": [
+    {
+      "id": "012be8fdfbda7146",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "03dba8792d6e23f9",
+      "source": "wiki/topics/standards-authority.md",
+      "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "0702bb0a3ff6678e",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/topics/sync-and-enforcement.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "0b734da6b6603902",
+      "source": "wiki/topics/standards-authority.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "0efe20936305b72c",
+      "source": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "10cabd743d92fda1",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "355b085344694472",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/MECHANICS.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "3b031a4a3abad5bc",
+      "source": "wiki/topics/semantic-pattern-model.md",
+      "target": "wiki/topics/sync-and-enforcement.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "47508db56bfb0150",
+      "source": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
+      "target": "wiki/topics/standards-authority.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "6054eb89bc06ebe2",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/plans/INDEX.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "6e628b1ea7bc9148",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "715f3fc5e5e59d0e",
+      "source": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "target": "wiki/topics/standards-authority.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "80be6179d873e118",
+      "source": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "8a5fb3978a345098",
+      "source": "wiki/topics/semantic-pattern-model.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "8c23dbeb6974d625",
+      "source": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "target": "wiki/topics/sync-and-enforcement.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "93f55e68ae84784e",
+      "source": "wiki/plans/INDEX.md",
+      "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "95aa5328bc38f3e1",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "9b180a967cc375bd",
+      "source": "wiki/topics/sync-and-enforcement.md",
+      "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "bfb026031c18aa18",
+      "source": "wiki/topics/standards-authority.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "cc65466a12d49ee3",
+      "source": "wiki/topics/sync-and-enforcement.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "db5fa2eddae04feb",
+      "source": "wiki/topics/semantic-pattern-model.md",
+      "target": "wiki/topics/standards-authority.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "e56d58329e2a8982",
+      "source": "wiki/MECHANICS.md",
+      "target": "wiki/plans/INDEX.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "e66d294fe35cafd8",
+      "source": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
+      "target": "wiki/topics/sync-and-enforcement.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "e6b3bb021c1781c4",
+      "source": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "eb3c3f70b46105f1",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/topics/standards-authority.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "f7d5fab128fd2771",
+      "source": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
+      "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "type": "plan",
+      "relation": "plan"
+    },
+    {
+      "id": "fd9e0dd99229062b",
+      "source": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "topic",
+      "relation": "topic"
+    }
+  ]
+}

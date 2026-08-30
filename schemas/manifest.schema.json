@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"manifest.schema.json","type":"object","required":["package","schema_version","records"],"properties":{"package":{"type":"string"},"schema_version":{"type":"integer"},"records":{"type":"array","items":{"type":"object","required":["id","digest"]}}}}

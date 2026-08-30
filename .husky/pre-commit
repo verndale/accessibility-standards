@@ -1,0 +1,2 @@
+#!/bin/sh
+pnpm check && node scripts/wiki/pre-commit.cjs

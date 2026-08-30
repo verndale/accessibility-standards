@@ -1,0 +1,2 @@
+#!/bin/sh
+pnpm verify:ci && node scripts/wiki/check.cjs

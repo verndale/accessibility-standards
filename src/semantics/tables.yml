@@ -1,0 +1,1 @@
+[{"id":"semantics.data-table","version":"1.0.0","title":"Data table","kind":"semantic","requirement":"Tabular relationships use table markup with associated headers; interactive grids implement their full keyboard model.","proof":["axe","e2e","human"]}]

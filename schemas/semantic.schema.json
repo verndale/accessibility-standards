@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"semantic.schema.json","allOf":[{"$ref":"record.schema.json"},{"type":"object","required":["kind","requirement","proof"],"properties":{"kind":{"const":"semantic"},"requirement":{"type":"string"},"proof":{"type":"array","items":{"enum":["unit","axe","e2e","human"]},"minItems":1,"uniqueItems":true}}}]}

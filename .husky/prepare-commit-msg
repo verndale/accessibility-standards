@@ -1,0 +1,2 @@
+#!/bin/sh
+pnpm exec ai-commit prepare "$1" "$2" "$3"

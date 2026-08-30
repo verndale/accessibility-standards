@@ -1,0 +1,1 @@
+{"id":"foundation.standards-hierarchy","version":"1.0.0","title":"Standards hierarchy","kind":"foundation","requirement":"Prefer native platform semantics; apply WCAG conformance, ARIA only where needed, APG interaction guidance, then non-conflicting product policy."}
