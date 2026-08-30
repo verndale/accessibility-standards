@@ -31,13 +31,19 @@
       "aliases": [],
       "githubRefs": [
         {
+          "repository": "verndale/accessibility-standards",
+          "kind": "pull-request",
+          "number": 1,
+          "url": "https://github.com/verndale/accessibility-standards/pull/1"
+        },
+        {
           "repository": "verndale/ai-orchestration",
           "kind": "issue",
           "number": 609,
           "url": "https://github.com/verndale/ai-orchestration/issues/609"
         }
       ],
-      "bytes": 812,
+      "bytes": 863,
       "degree": 6,
       "x": 0.173648,
       "y": 0.984808,
