@@ -25,11 +25,19 @@ unchanged.
 
 ## Release boundary
 
-The source branch prepares a reviewable patch. Consumer migrations remain
-blocked on publication of the corrected schema-3 package; no consumer bypass
-or downgrade is accepted.
+The provenance correction computes patch release `3.1.1`. The implementation
+PR exposed the release preflight's target-version guard because the package,
+profile, schema, and projection constants still declared `3.1.0`. Follow-up
+branch `codex/gh-17-release-3-1-1` aligns those exact version surfaces so the
+release can publish without weakening the guard. Consumer migrations remain
+blocked until npm serves the corrected artifact; no consumer bypass or
+downgrade is accepted.
 
 ## Verification
 
-`pnpm check`, the focused contract suite, and `pnpm build` pass before the full
-CI and wiki gates.
+`pnpm release:preflight`, `pnpm verify:ci`, `pnpm wiki:check`, and
+`pnpm graph:check` cover the combined provenance and release-target change.
+The full CI verifier now begins with release preflight, so future source PRs
+cannot merge a conventional release whose declared package contract disagrees
+with the computed next version. The versioning guide also records the exact
+consumer pin, sync, runtime-gate, and verification sequence.

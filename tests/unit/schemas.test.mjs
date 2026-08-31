@@ -57,7 +57,7 @@ test('every source and consumer contract validates against its published JSON sc
   for (const profile of Object.values(data.profiles)) assertValid(ajv, 'profile.schema.json', profile, profile.name);
 
   const config = {
-    package: '@verndale/accessibility-standards@3.1.0',
+    package: '@verndale/accessibility-standards@3.1.1',
     profile: 'conductor',
     routes: 'accessibility-standards.routes.json',
     outputRoot: '.',
