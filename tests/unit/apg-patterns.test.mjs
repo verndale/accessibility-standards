@@ -137,6 +137,7 @@ test('switch, alert-dialog, and toolbar contracts preserve their APG distinction
   assert.match(switchPattern.scope, /excludes tri-state checkboxes and toggle buttons/);
   assert.match(switchBehavior, /Expose role="switch" on both native checkbox and custom focusable hosts/);
   assert.match(switchBehavior, /expose only true or false checked state/);
+  assert.match(switchBehavior, /checkbox's native checked state or aria-checked on a custom host/);
   assert.match(switchBehavior, /never expose a mixed state/);
   assert.match(switchBehavior, /accessible label stable when state changes/);
   assert.match(switchBehavior, /Space toggles the focused switch exactly once/);
@@ -149,6 +150,9 @@ test('switch, alert-dialog, and toolbar contracts preserve their APG distinction
   assert.match(alertDialog.scope, /require a user response/);
   assert.match(alertDialog.scope, /excludes passive alerts and general-purpose dialogs/);
   assert.ok(alertDialog.requires.includes('semantics.native-dialog'));
+  for (const semanticId of ['semantics.focus-order', 'semantics.focus.visible', 'semantics.keyboard']) {
+    assert.ok(alertDialog.requires.includes(semanticId), `alert dialog must compose ${semanticId}`);
+  }
   assert.ok(!alertDialog.requires.includes('semantics.alert'), 'alert dialog must not inherit passive alert/status behavior');
   assert.match(alertDialogBehavior, /Expose alertdialog semantics with aria-modal true/);
   assert.match(alertDialogBehavior, /accessible description that references the alert message/);
@@ -358,4 +362,13 @@ test('switch, alert-dialog, and toolbar bindings retain base outcomes and requir
     () => resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, { 'component.ui_pattern_ids': ['button-group'], 'component.control_group_model': 1 }),
     /Observed value for component.control_group_model must be string/,
   );
+
+  const prohibitedInference = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+    'component.ui_pattern_ids': ['alert', 'rich-text-editor', 'utility-bar'],
+    'component.has_dynamic_status': false,
+    'component.message_urgency': 'urgent',
+  });
+  assert.deepEqual(prohibitedInference.pattern_ids, ['pattern.alert']);
+  assert.ok(!prohibitedInference.pattern_ids.includes('pattern.alert-dialog'));
+  assert.ok(!prohibitedInference.pattern_ids.includes('pattern.toolbar'));
 });

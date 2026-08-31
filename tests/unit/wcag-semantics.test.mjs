@@ -115,6 +115,19 @@ test('WCAG 2.2 additions have dedicated semantics and normative plus explanatory
 test('Phase 2 semantic-gap rules use stable IDs, complete proof lanes, and paired WCAG references', async () => {
   const data = await loadStandards();
   assert.equal(phaseTwoSemantics.length, 21);
+  assert.deepEqual({
+    semantics: data.semantics.length,
+    patterns: data.patterns.length,
+    applicabilityRows: data.matrix.rows.length,
+    facts: Object.keys(data.facts.facts).length,
+    uiBindings: data.uiDesignBrainBindings.bindings.length,
+  }, {
+    semantics: 50,
+    patterns: 28,
+    applicabilityRows: 28,
+    facts: 36,
+    uiBindings: 80,
+  });
 
   for (const [id, criterion, level, slug, proof] of phaseTwoSemantics) {
     const semantic = semanticById(data, id);
@@ -145,12 +158,20 @@ test('Phase 2 semantic-gap rules use stable IDs, complete proof lanes, and paire
     'semantics.content-on-hover-or-focus': ['dismissed', 'pointer moves over it', 'information becomes invalid', 'controlled by the user agent'],
     'semantics.character-key-shortcuts': ['turn the shortcut off', 'remap', 'has focus'],
     'semantics.timing-adjustable': ['ten times', '20 seconds', 'real-time event', 'essential', '20 hours'],
+    'semantics.bypass-blocks': ['bypass blocks of content', 'repeat across multiple web pages'],
+    'semantics.page-title': ['title that describes its topic or purpose'],
+    'semantics.focus-order': ['navigated sequentially', 'affects meaning or operation', 'order that preserves meaning and operability'],
+    'semantics.link-purpose': ['link text alone', 'programmatically determined link context', 'ambiguous to users in general'],
+    'semantics.multiple-ways': ['result of, or a step in, a process'],
+    'semantics.pointer-gestures': ['multipoint or path-based gesture', 'single pointer without a path-based gesture', 'essential', 'user agent or assistive technology'],
     'semantics.pointer-cancellation': ['down-event', 'up-event', 'abort', 'undo', 'reverse', 'essential'],
     'semantics.motion-actuation': ['user interface components', 'disabled', 'accessibility-supported interface', 'essential'],
+    'semantics.language.page': ['default human language', 'programmatically determined'],
     'semantics.language.parts': ['proper names', 'technical terms', 'indeterminate language', 'vernacular'],
+    'semantics.context-change.focus': ['receiving focus', 'does not initiate a change of context'],
     'semantics.context-change.input': ['advised of that behavior before using the component'],
     'semantics.consistent-navigation': ['same relative order', 'unless the user initiates'],
-    'semantics.multiple-ways': ['result of, or a step in, a process'],
+    'semantics.consistent-identification': ['same functionality', 'consistently throughout a set of web pages'],
   };
   for (const [id, details] of Object.entries(requiredDetails)) {
     const requirement = semanticById(data, id).requirement;

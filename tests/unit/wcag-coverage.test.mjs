@@ -77,6 +77,7 @@ test('new WCAG 2.2 requirements and deferred APG backlog remain explicit', async
   assert.equal(data.wcagCoverage.criteria.find(({ id }) => id === '3.3.2').status, 'partial');
   assert.deepEqual(data.wcagCoverage.deferred_patterns.map(({ id }) => id), ['grid', 'treegrid']);
   assert.ok(data.wcagCoverage.deferred_patterns.every(({ reason }) => typeof reason === 'string' && reason.trim().length > 0));
+  assert.ok(data.wcagCoverage.deferred_patterns.every(({ id }) => !data.patterns.some(({ id: patternId }) => patternId === `pattern.${id}`)));
   assert.ok(!Object.hasOwn(data.facts.facts, 'component.has_data_table_or_grid'));
   assert.deepEqual(data.facts.facts['component.has_data_table'], { type: 'boolean' });
   assert.doesNotMatch(data.semantics.find(({ id }) => id === 'semantics.data-table').requirement, /interactive grid/i);
@@ -138,6 +139,10 @@ test('coverage and standards traceability validation fail closed', async () => {
   const duplicateDeferred = structuredClone(data);
   duplicateDeferred.wcagCoverage.deferred_patterns[1] = structuredClone(duplicateDeferred.wcagCoverage.deferred_patterns[0]);
   assert.throws(() => validateStandards(duplicateDeferred), /Duplicate deferred APG pattern|must retain deferred APG pattern grid/);
+
+  const implementedDeferred = structuredClone(data);
+  implementedDeferred.wcagCoverage.deferred_patterns.splice(1, 0, { id: 'switch', reason: 'Incorrectly left deferred after implementation.' });
+  assert.throws(() => validateStandards(implementedDeferred), /Deferred APG pattern switch conflicts with implemented pattern pattern\.switch/);
 
   const wrongUrl = structuredClone(data);
   wrongUrl.semantics[0].standards_refs[0].url = 'https://www.w3.org/TR/WCAG22/#wrong';
