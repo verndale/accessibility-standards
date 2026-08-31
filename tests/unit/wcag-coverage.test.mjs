@@ -30,7 +30,7 @@ test('WCAG 2.2 inventory contains exactly the canonical Level A and AA criteria'
   );
   assert.deepEqual(
     Object.fromEntries(['covered', 'partial', 'gap'].map((status) => [status, data.wcagCoverage.criteria.filter((criterion) => criterion.status === status).length])),
-    { covered: 16, partial: 8, gap: 31 },
+    { covered: 37, partial: 8, gap: 10 },
   );
   assert.equal(data.wcagCoverage.criteria.some(({ id }) => id === '4.1.1'), false);
 });
@@ -43,13 +43,41 @@ test('new WCAG 2.2 requirements and deferred APG backlog remain explicit', async
     assert.ok(nonText.note.includes(shortfall), `1.1.1 partial note omits ${shortfall}`);
   }
   const mapped = Object.fromEntries(data.wcagCoverage.criteria.map((criterion) => [criterion.id, criterion.semantic_ids]));
+  const phaseTwoMappings = {
+    '1.4.3': ['semantics.contrast-minimum'],
+    '1.4.10': ['semantics.reflow'],
+    '1.4.11': ['semantics.non-text-contrast'],
+    '1.4.12': ['semantics.text-spacing'],
+    '1.4.13': ['semantics.content-on-hover-or-focus'],
+    '2.1.4': ['semantics.character-key-shortcuts'],
+    '2.2.1': ['semantics.timing-adjustable'],
+    '2.4.1': ['semantics.bypass-blocks'],
+    '2.4.2': ['semantics.page-title'],
+    '2.4.3': ['semantics.focus-order'],
+    '2.4.4': ['semantics.link-purpose'],
+    '2.4.5': ['semantics.multiple-ways'],
+    '2.5.1': ['semantics.pointer-gestures'],
+    '2.5.2': ['semantics.pointer-cancellation'],
+    '2.5.4': ['semantics.motion-actuation'],
+    '3.1.1': ['semantics.language.page'],
+    '3.1.2': ['semantics.language.parts'],
+    '3.2.1': ['semantics.context-change.focus'],
+    '3.2.2': ['semantics.context-change.input'],
+    '3.2.3': ['semantics.consistent-navigation'],
+    '3.2.4': ['semantics.consistent-identification'],
+  };
+  for (const [criterion, semanticIds] of Object.entries(phaseTwoMappings)) {
+    assert.equal(data.wcagCoverage.criteria.find(({ id }) => id === criterion).status, 'covered');
+    assert.deepEqual(mapped[criterion], semanticIds);
+  }
   assert.deepEqual(mapped['2.5.7'], ['semantics.dragging-alternative']);
   assert.deepEqual(mapped['3.2.6'], ['semantics.consistent-help']);
   assert.deepEqual(mapped['3.3.7'], ['semantics.redundant-entry']);
   assert.deepEqual(mapped['3.3.8'], ['semantics.accessible-authentication']);
   assert.equal(data.wcagCoverage.criteria.find(({ id }) => id === '3.3.2').status, 'partial');
-  assert.deepEqual(data.wcagCoverage.deferred_patterns.map(({ id }) => id), ['alert-dialog', 'grid', 'switch', 'toolbar', 'treegrid']);
+  assert.deepEqual(data.wcagCoverage.deferred_patterns.map(({ id }) => id), ['grid', 'treegrid']);
   assert.ok(data.wcagCoverage.deferred_patterns.every(({ reason }) => typeof reason === 'string' && reason.trim().length > 0));
+  assert.ok(data.wcagCoverage.deferred_patterns.every(({ id }) => !data.patterns.some(({ id: patternId }) => patternId === `pattern.${id}`)));
   assert.ok(!Object.hasOwn(data.facts.facts, 'component.has_data_table_or_grid'));
   assert.deepEqual(data.facts.facts['component.has_data_table'], { type: 'boolean' });
   assert.doesNotMatch(data.semantics.find(({ id }) => id === 'semantics.data-table').requirement, /interactive grid/i);
@@ -112,6 +140,10 @@ test('coverage and standards traceability validation fail closed', async () => {
   duplicateDeferred.wcagCoverage.deferred_patterns[1] = structuredClone(duplicateDeferred.wcagCoverage.deferred_patterns[0]);
   assert.throws(() => validateStandards(duplicateDeferred), /Duplicate deferred APG pattern|must retain deferred APG pattern grid/);
 
+  const implementedDeferred = structuredClone(data);
+  implementedDeferred.wcagCoverage.deferred_patterns.splice(1, 0, { id: 'switch', reason: 'Incorrectly left deferred after implementation.' });
+  assert.throws(() => validateStandards(implementedDeferred), /Deferred APG pattern switch conflicts with implemented pattern pattern\.switch/);
+
   const wrongUrl = structuredClone(data);
   wrongUrl.semantics[0].standards_refs[0].url = 'https://www.w3.org/TR/WCAG22/#wrong';
   assert.throws(() => validateStandards(wrongUrl), /URL must be https:\/\/www\.w3\.org\/TR\/WCAG22\/#/);
@@ -142,7 +174,7 @@ test('coverage and standards traceability validation fail closed', async () => {
 
 test('deferred APG inventory is extensible while retaining the required backlog', async () => {
   const data = await loadStandards();
-  data.wcagCoverage.deferred_patterns.splice(1, 0, { id: 'feed', reason: 'Deferred pending a product-backed use case.' });
+  data.wcagCoverage.deferred_patterns.splice(0, 0, { id: 'feed', reason: 'Deferred pending a product-backed use case.' });
   assert.equal(validateStandards(data).wcagCriteria, 55);
   const ajv = await schemaValidator();
   const validate = ajv.getSchema('wcag-coverage.schema.json');

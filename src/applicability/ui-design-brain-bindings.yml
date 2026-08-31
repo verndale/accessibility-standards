@@ -33,7 +33,15 @@
     },
     { "ui_pattern_id": "breadcrumbs", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.landmarks", "semantics.native-elements"] },
     { "ui_pattern_id": "button", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.name-role-value", "semantics.native-elements", "semantics.target-size"] },
-    { "ui_pattern_id": "button-group", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements"] },
+    {
+      "ui_pattern_id": "button-group",
+      "classification": "candidate",
+      "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements"],
+      "discriminator_facts": ["component.control_group_model"],
+      "candidates": [
+        { "pattern_id": "pattern.toolbar", "when": { "equals": { "fact": "component.control_group_model", "value": "toolbar" } } }
+      ]
+    },
     { "ui_pattern_id": "card", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
     { "ui_pattern_id": "carousel", "classification": "direct", "pattern_ids": ["pattern.carousel"] },
     { "ui_pattern_id": "checkbox", "classification": "direct", "pattern_ids": ["pattern.checkbox", "pattern.field"] },
@@ -94,7 +102,7 @@
     { "ui_pattern_id": "image", "classification": "direct", "pattern_ids": ["pattern.image"] },
     { "ui_pattern_id": "in-page-navigation", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.landmarks", "semantics.native-elements"] },
     { "ui_pattern_id": "label", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.form-label"] },
-    { "ui_pattern_id": "link", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements", "semantics.target-size"] },
+    { "ui_pattern_id": "link", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.link-purpose", "semantics.native-elements", "semantics.target-size"] },
     { "ui_pattern_id": "list", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
     { "ui_pattern_id": "logo-bar", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.non-text-alternative"] },
     { "ui_pattern_id": "marquee", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.motion-control"] },
@@ -108,7 +116,15 @@
         { "pattern_id": "pattern.menu-button", "when": { "equals": { "fact": "component.command_menu_trigger", "value": true } } }
       ]
     },
-    { "ui_pattern_id": "modal", "classification": "direct", "pattern_ids": ["pattern.dialog"] },
+    {
+      "ui_pattern_id": "modal",
+      "classification": "candidate",
+      "pattern_ids": ["pattern.dialog"],
+      "discriminator_facts": ["component.dialog_purpose"],
+      "candidates": [
+        { "pattern_id": "pattern.alert-dialog", "when": { "equals": { "fact": "component.dialog_purpose", "value": "urgent-response" } } }
+      ]
+    },
     {
       "ui_pattern_id": "navigation",
       "classification": "candidate",
@@ -166,7 +182,7 @@
         { "pattern_id": "pattern.dynamic-status", "when": { "equals": { "fact": "component.has_dynamic_status", "value": true } } }
       ]
     },
-    { "ui_pattern_id": "skip-link", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements"] },
+    { "ui_pattern_id": "skip-link", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.bypass-blocks", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements"] },
     { "ui_pattern_id": "slider", "classification": "direct", "pattern_ids": ["pattern.field", "pattern.slider"] },
     { "ui_pattern_id": "spinner", "classification": "direct", "pattern_ids": ["pattern.progress"] },
     { "ui_pattern_id": "stack", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
@@ -185,7 +201,15 @@
         { "pattern_id": "pattern.dynamic-status", "when": { "equals": { "fact": "component.has_dynamic_status", "value": true } } }
       ]
     },
-    { "ui_pattern_id": "toggle", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    {
+      "ui_pattern_id": "toggle",
+      "classification": "candidate",
+      "pattern_ids": ["pattern.field"],
+      "discriminator_facts": ["component.toggle_model"],
+      "candidates": [
+        { "pattern_id": "pattern.switch", "when": { "equals": { "fact": "component.toggle_model", "value": "switch" } } }
+      ]
+    },
     { "ui_pattern_id": "tooltip", "classification": "direct", "pattern_ids": ["pattern.tooltip"] },
     { "ui_pattern_id": "tree-view", "classification": "direct", "pattern_ids": ["pattern.tree-view"] },
     { "ui_pattern_id": "utility-bar", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.landmarks"] },
