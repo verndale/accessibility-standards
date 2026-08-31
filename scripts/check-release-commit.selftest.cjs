@@ -8,6 +8,7 @@ const os = require('node:os');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const {
+  MIGRATED_BREAKING_BODY_COMMIT,
   computedNextVersion,
   readReleaseCommits,
   validateReleaseCommit,
@@ -21,6 +22,22 @@ assert.match(
   validateReleaseCommit({
     subject: 'ci: refresh release workflow',
     body: 'Combined changes\n\nBREAKING CHANGE: stale text from an earlier PR',
+  })[0],
+  /must not carry a BREAKING CHANGE body/,
+);
+assert.deepEqual(
+  validateReleaseCommit({
+    hash: MIGRATED_BREAKING_BODY_COMMIT,
+    subject: 'feat(wcag)!: Expand WCAG 2.2 coverage and APG patterns',
+    body: 'BREAKING CHANGE: duplicated historical footer',
+  }),
+  [],
+);
+assert.match(
+  validateReleaseCommit({
+    hash: `${MIGRATED_BREAKING_BODY_COMMIT.slice(0, -1)}5`,
+    subject: 'feat(wcag)!: Expand WCAG 2.2 coverage and APG patterns',
+    body: 'BREAKING CHANGE: duplicated historical footer',
   })[0],
   /must not carry a BREAKING CHANGE body/,
 );

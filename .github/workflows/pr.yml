@@ -28,4 +28,8 @@ jobs:
           PR_BASE_BRANCH: ${{ github.event.inputs.base_branch || 'main' }}
           PR_HEAD_BRANCH: ${{ github.ref_name }}
           PR_DRAFT: ${{ github.event.inputs.draft || 'true' }}
-        run: pnpm exec ai-pr
+          PR_AI: ${{ vars.PR_AI }}
+          PR_AI_ENDPOINT: ${{ vars.PR_AI_ENDPOINT }}
+          PR_AI_MODEL: ${{ vars.PR_AI_MODEL }}
+          PR_AI_API_KEY: ${{ secrets.PR_AI_API_KEY }}
+        run: pnpm run pr:create
