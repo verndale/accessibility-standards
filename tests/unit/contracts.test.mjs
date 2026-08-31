@@ -126,7 +126,7 @@ test('profile projections are byte stable and semantics precede patterns', async
     const bindings = JSON.parse(artifacts.get('uiDesignBrainBindings'));
     assert.equal(bindings.schema_version, 2);
     assert.equal(bindings.binding_schema_version, 1);
-    assert.equal(bindings.source.package_version, '1.16.0');
+    assert.equal(bindings.source.package_version, '1.16.1');
     assert.equal(bindings.source.catalog_authority_version, '1.15.1');
     assert.equal(bindings.source.source_digest, 'sha256:1eda596fe341786b5ada25742b6487bc06685fff17cbd582bc1b58302097e3ff');
     assert.equal(bindings.source.manifest_digest, 'sha256:63a0bc8d9537d6d4c0aef8fd8a539bf4a9181a50d0761bd63eae6fe59b4eddc9');

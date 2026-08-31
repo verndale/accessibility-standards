@@ -7,7 +7,7 @@ import { projection } from '../../lib/sync.mjs';
 
 async function fixture(profile = 'conductor') {
   const root = await mkdtemp(join(tmpdir(), 'a11y-sync-test-'));
-  await writeFile(join(root, 'accessibility-standards.config.json'), JSON.stringify({ package: '@verndale/accessibility-standards@2.0.0', profile, routes: 'accessibility-standards.routes.json', outputRoot: 'generated' }));
+  await writeFile(join(root, 'accessibility-standards.config.json'), JSON.stringify({ package: '@verndale/accessibility-standards@2.0.1', profile, routes: 'accessibility-standards.routes.json', outputRoot: 'generated' }));
   await writeFile(join(root, 'accessibility-standards.routes.json'), JSON.stringify({ version: 1, outputs: { source: 'accessibility.source.json', patterns: 'patterns' } }));
   return root;
 }
@@ -29,8 +29,8 @@ test('sync, no-op, and check are deterministic', async () => {
     const configPath = join(root, 'accessibility-standards.config.json');
     assert.equal((await projection({ configPath })).changed, true);
     const provenance = JSON.parse(await readFile(join(root, 'generated', 'accessibility.source.json'), 'utf8'));
-    assert.equal(provenance.package, '@verndale/accessibility-standards@2.0.0');
-    assert.equal(provenance.profile_version, '2.0.0');
+    assert.equal(provenance.package, '@verndale/accessibility-standards@2.0.1');
+    assert.equal(provenance.profile_version, '2.0.1');
     assert.equal(provenance.schema_version, 2);
     assert.match(provenance.digests.profile, /^[a-f0-9]{64}$/);
     assert.match(provenance.manifest_digest, /^[a-f0-9]{64}$/);
@@ -164,7 +164,7 @@ test('config, routes, traversal, collisions, and symlink escapes fail closed', a
     await writeFile(
       configPath,
       JSON.stringify({
-        package: '@verndale/accessibility-standards@2.0.0',
+        package: '@verndale/accessibility-standards@2.0.1',
         profile: 'conductor',
         routes: 'accessibility-standards.routes.json',
         unexpected: true,
@@ -175,7 +175,7 @@ test('config, routes, traversal, collisions, and symlink escapes fail closed', a
     await writeFile(
       configPath,
       JSON.stringify({
-        package: '@verndale/accessibility-standards@2.0.0',
+        package: '@verndale/accessibility-standards@2.0.1',
         profile: 'conductor',
         routes: 'accessibility-standards.routes.json',
         outputRoot: 'generated',
@@ -218,6 +218,6 @@ test('sync rejects a consumer pin that does not match the installed contract ver
   try {
     const configPath = join(root, 'accessibility-standards.config.json');
     await writeFile(configPath, JSON.stringify({ package: '@verndale/accessibility-standards@1.0.0', profile: 'conductor', routes: 'accessibility-standards.routes.json', outputRoot: 'generated' }));
-    await assert.rejects(() => projection({ configPath }), /Exact installed package pin required: @verndale\/accessibility-standards@2\.0\.0/);
+    await assert.rejects(() => projection({ configPath }), /Exact installed package pin required: @verndale\/accessibility-standards@2\.0\.1/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });

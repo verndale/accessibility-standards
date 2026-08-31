@@ -9,6 +9,7 @@ const packageFile = new URL('../../package.json', import.meta.url);
 test('release uses tokenless trusted publishing after complete package verification', async () => {
   const source = await readFile(workflow, 'utf8');
   assert.match(source, /id-token: write/);
+  assert.match(source, /branches:\n\s+- main\n\s+- '2\.x'/);
   assert.match(source, /pnpm verify:ci/);
   assert.match(source, /verify-packed-consumer\.mjs/);
   assert.match(source, /npm publish --dry-run --ignore-scripts --tag development/);

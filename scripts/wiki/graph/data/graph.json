@@ -2,11 +2,11 @@
   "version": 1,
   "wikiRoot": "wiki",
   "counts": {
-    "nodes": 10,
-    "edges": 38,
+    "nodes": 11,
+    "edges": 43,
     "byType": {
       "index": 3,
-      "journal": 1,
+      "journal": 2,
       "plan": 1,
       "topic": 5
     }
@@ -18,8 +18,8 @@
       "type": "index",
       "aliases": [],
       "githubRefs": [],
-      "bytes": 1901,
-      "degree": 9,
+      "bytes": 2017,
+      "degree": 10,
       "x": 1,
       "y": 0,
       "size": 12
@@ -57,8 +57,33 @@
       ],
       "bytes": 3765,
       "degree": 7,
-      "x": 0.309017,
-      "y": 0.951057,
+      "x": 0.415415,
+      "y": 0.909632,
+      "size": 8
+    },
+    {
+      "id": "wiki/journal/2026-08-31-schema-2-ui-projector-maintenance.md",
+      "label": "Schema-2 UI projector maintenance",
+      "type": "journal",
+      "aliases": [],
+      "githubRefs": [
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 9,
+          "url": "https://github.com/verndale/accessibility-standards/issues/9"
+        },
+        {
+          "repository": "verndale/ai-orchestration",
+          "kind": "issue",
+          "number": 609,
+          "url": "https://github.com/verndale/ai-orchestration/issues/609"
+        }
+      ],
+      "bytes": 996,
+      "degree": 5,
+      "x": -0.142315,
+      "y": 0.989821,
       "size": 8
     },
     {
@@ -69,8 +94,8 @@
       "githubRefs": [],
       "bytes": 2907,
       "degree": 2,
-      "x": 0.809017,
-      "y": 0.587785,
+      "x": 0.841254,
+      "y": 0.540641,
       "size": 12
     },
     {
@@ -86,6 +111,12 @@
           "url": "https://github.com/verndale/accessibility-standards/issues/4"
         },
         {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 9,
+          "url": "https://github.com/verndale/accessibility-standards/issues/9"
+        },
+        {
           "repository": "verndale/ai-orchestration",
           "kind": "issue",
           "number": 609,
@@ -98,10 +129,10 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 17860,
-      "degree": 11,
-      "x": -0.309017,
-      "y": 0.951057,
+      "bytes": 18262,
+      "degree": 12,
+      "x": -0.654861,
+      "y": 0.75575,
       "size": 8
     },
     {
@@ -117,6 +148,12 @@
           "url": "https://github.com/verndale/accessibility-standards/issues/4"
         },
         {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 9,
+          "url": "https://github.com/verndale/accessibility-standards/issues/9"
+        },
+        {
           "repository": "verndale/ai-orchestration",
           "kind": "issue",
           "number": 609,
@@ -129,10 +166,10 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 902,
+      "bytes": 996,
       "degree": 3,
-      "x": -0.809017,
-      "y": 0.587785,
+      "x": -0.959493,
+      "y": 0.281733,
       "size": 12
     },
     {
@@ -146,6 +183,12 @@
       ],
       "githubRefs": [
         {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 9,
+          "url": "https://github.com/verndale/accessibility-standards/issues/9"
+        },
+        {
           "repository": "verndale/ai-orchestration",
           "kind": "issue",
           "number": 609,
@@ -158,10 +201,10 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 1405,
-      "degree": 8,
-      "x": -1,
-      "y": 0,
+      "bytes": 1502,
+      "degree": 9,
+      "x": -0.959493,
+      "y": -0.281733,
       "size": 8
     },
     {
@@ -176,8 +219,8 @@
       "githubRefs": [],
       "bytes": 1377,
       "degree": 9,
-      "x": -0.809017,
-      "y": -0.587785,
+      "x": -0.654861,
+      "y": -0.75575,
       "size": 8
     },
     {
@@ -190,10 +233,10 @@
         "accessibility package"
       ],
       "githubRefs": [],
-      "bytes": 1357,
+      "bytes": 1404,
       "degree": 8,
-      "x": -0.309017,
-      "y": -0.951057,
+      "x": -0.142315,
+      "y": -0.989821,
       "size": 8
     },
     {
@@ -213,10 +256,10 @@
           "url": "https://github.com/verndale/accessibility-standards/issues/4"
         }
       ],
-      "bytes": 2562,
-      "degree": 8,
-      "x": 0.309017,
-      "y": -0.951057,
+      "bytes": 2763,
+      "degree": 9,
+      "x": 0.415415,
+      "y": -0.909632,
       "size": 8
     },
     {
@@ -230,6 +273,12 @@
       ],
       "githubRefs": [
         {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 9,
+          "url": "https://github.com/verndale/accessibility-standards/issues/9"
+        },
+        {
           "repository": "verndale/ai-orchestration",
           "kind": "issue",
           "number": 609,
@@ -242,10 +291,10 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 2725,
-      "degree": 11,
-      "x": 0.809017,
-      "y": -0.587785,
+      "bytes": 2829,
+      "degree": 12,
+      "x": 0.841254,
+      "y": -0.540641,
       "size": 8
     }
   ],
@@ -293,6 +342,13 @@
       "relation": "link"
     },
     {
+      "id": "1c67703aea41e4df",
+      "source": "wiki/journal/2026-08-31-schema-2-ui-projector-maintenance.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "355b085344694472",
       "source": "wiki/INDEX.md",
       "target": "wiki/MECHANICS.md",
@@ -321,6 +377,13 @@
       "relation": "link"
     },
     {
+      "id": "434966204c7204ab",
+      "source": "wiki/journal/2026-08-31-schema-2-ui-projector-maintenance.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "47508db56bfb0150",
       "source": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
       "target": "wiki/topics/standards-authority.md",
@@ -342,9 +405,23 @@
       "relation": "link"
     },
     {
+      "id": "65b471cfb2205a78",
+      "source": "wiki/journal/2026-08-31-schema-2-ui-projector-maintenance.md",
+      "target": "wiki/topics/sync-and-enforcement.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "6e628b1ea7bc9148",
       "source": "wiki/INDEX.md",
       "target": "wiki/topics/consumer-projections.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "6f75557242c5df67",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/journal/2026-08-31-schema-2-ui-projector-maintenance.md",
       "type": "link",
       "relation": "link"
     },
@@ -445,6 +522,13 @@
       "target": "wiki/topics/standards-authority.md",
       "type": "link",
       "relation": "link"
+    },
+    {
+      "id": "dd7e88cbdcf6bb35",
+      "source": "wiki/journal/2026-08-31-schema-2-ui-projector-maintenance.md",
+      "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "type": "plan",
+      "relation": "plan"
     },
     {
       "id": "de1880f3fb614939",

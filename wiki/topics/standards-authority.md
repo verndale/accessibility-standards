@@ -8,6 +8,6 @@ The public package [@verndale/accessibility-standards](https://github.com/vernda
 
 IDs are stable contracts. Authority, behavior, schema, or removal changes are major; additive records are minor; editorial corrections are patch. Compatibility fails closed across a major or when a consumer references records unavailable in its pinned version.
 
-[UI Design Brain](https://github.com/verndale/ui-design-brain) is authoritative only for UI vocabulary and aliases. It does not own accessibility requirements. This repository owns the [versioned mapping](./ui-pattern-bindings.md) from its canonical slugs to accessibility patterns. The schema-2 binding is a breaking authority/projection change targeted for `@verndale/accessibility-standards@2.0.0`; it cannot be stamped as version 1.0.0.
+[UI Design Brain](https://github.com/verndale/ui-design-brain) is authoritative only for UI vocabulary and aliases. It does not own accessibility requirements. This repository owns the [versioned mapping](./ui-pattern-bindings.md) from its canonical slugs to accessibility patterns. The schema-2 binding is a breaking authority/projection change introduced in `@verndale/accessibility-standards@2.0.0`; its public-projector provenance maintenance release is `2.0.1`, not a schema change.
 
 Related: [semantic and pattern model](./semantic-pattern-model.md), [consumer projections](./consumer-projections.md), and the [delivery plan](../plans/2026-08-30-shared-accessibility-standards-delivery.md).
