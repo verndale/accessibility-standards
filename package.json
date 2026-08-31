@@ -1,6 +1,6 @@
 {
   "name": "@verndale/accessibility-standards",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Deterministic accessibility semantics, patterns, applicability, and consumer projections",
   "type": "module",
   "private": false,
@@ -31,7 +31,7 @@
     "check": "node bin/accessibility-standards.mjs validate",
     "test": "node --test tests/unit/*.test.mjs && pnpm release:preflight:selftest",
     "contract:version:check": "node scripts/check-package-contract.cjs",
-    "verify:ci": "pnpm contract:version:check && pnpm check && pnpm test && pnpm build && git diff --exit-code -- . ':!dist'",
+    "verify:ci": "pnpm release:preflight && pnpm contract:version:check && pnpm check && pnpm test && pnpm build && git diff --exit-code -- . ':!dist'",
     "release:preflight": "node scripts/check-release-commit.cjs",
     "release:preflight:selftest": "node scripts/check-release-commit.selftest.cjs",
     "prepack": "node scripts/check-package-contract.cjs",

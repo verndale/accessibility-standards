@@ -19,6 +19,7 @@ test('release uses tokenless trusted publishing after complete package verificat
 test('release metadata matches the public GitHub repository and version policy', async () => {
   const config = await readFile(releaseConfig, 'utf8');
   const pkg = JSON.parse(await readFile(packageFile, 'utf8'));
+  assert.match(pkg.scripts['verify:ci'], /^pnpm release:preflight && /);
   assert.equal(pkg.repository.url, 'git+https://github.com/verndale/accessibility-standards.git');
   assert.deepEqual(pkg.publishConfig, { access: 'public', provenance: true });
   assert.match(config, /\{ breaking: true, release: 'major' \}/);
