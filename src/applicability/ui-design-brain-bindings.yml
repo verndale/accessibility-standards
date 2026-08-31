@@ -2,7 +2,7 @@
   "version": 1,
   "source": {
     "package": "@verndale/ui-design-brain",
-    "package_version": "1.16.0",
+    "package_version": "1.16.1",
     "catalog_authority_version": "1.15.1",
     "repository": "https://github.com/verndale/ui-design-brain",
     "manifest_path": "skills/ui-design-brain/catalog-manifest.json",
