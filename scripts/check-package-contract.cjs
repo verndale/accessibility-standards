@@ -10,7 +10,7 @@ function validatePackageContract({ pkg, contract, profiles }) {
   if (pkg.name !== '@verndale/accessibility-standards') failures.push(`unexpected package name ${pkg.name ?? '<missing>'}`);
   if (!/^\d+\.\d+\.\d+$/.test(pkg.version ?? '')) failures.push(`invalid package version ${pkg.version ?? '<missing>'}`);
   if (pkg.version !== contract.package_version) failures.push(`package.json ${pkg.version} does not match src/contract.yml ${contract.package_version}`);
-  if (contract.schema_version !== 2) failures.push(`unsupported contract schema ${contract.schema_version ?? '<missing>'}`);
+  if (contract.schema_version !== 3) failures.push(`unsupported contract schema ${contract.schema_version ?? '<missing>'}`);
   for (const [name, profile] of Object.entries(profiles)) {
     if (profile.name !== name || profile.version !== pkg.version) failures.push(`${name} profile ${profile.version ?? '<missing>'} does not match package ${pkg.version}`);
   }

@@ -11,7 +11,7 @@ The package projects the same source records into two purpose-specific profiles:
 
 Consumers pin an exact package version and commit a config, route map, and generated provenance. Generated outputs are deterministic and carry a do-not-edit marker plus source/config/route digests.
 
-The schema-2 projection is targeted for `@verndale/accessibility-standards@2.0.0`. It includes `ui-design-brain-bindings.json`, the UI catalog manifest digest, the binding digest, and both package/profile versions.
+The schema-3 projection is targeted for `@verndale/accessibility-standards@3.0.0`. It adds criterion-level standards references and a complete WCAG 2.2 Level A/AA coverage inventory to the existing deterministic UI-binding, evidence, and provenance outputs.
 
 ## Commands
 

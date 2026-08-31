@@ -9,9 +9,15 @@ import { validateStandards } from '../../lib/validate.mjs';
 
 test('source contracts validate with stable IDs and complete dependencies', async () => {
   const data = await loadStandards();
-  assert.deepEqual(validateStandards(data), { records: 49, semantics: 25, patterns: 19, applicability: 19, uiPatternBindings: 80 });
-  assert.equal(new Set(data.semantics.map(({ id }) => id)).size, 25);
-  assert.equal(new Set(data.patterns.map(({ id }) => id)).size, 19);
+  const result = validateStandards(data);
+  assert.equal(result.records, data.foundations.length + data.semantics.length + data.patterns.length + data.policies.length);
+  assert.equal(result.semantics, data.semantics.length);
+  assert.equal(result.patterns, data.patterns.length);
+  assert.equal(result.applicability, data.matrix.rows.length);
+  assert.equal(result.uiPatternBindings, data.uiDesignBrainBindings.source.pattern_count);
+  assert.equal(result.wcagCriteria, 55);
+  assert.equal(new Set(data.semantics.map(({ id }) => id)).size, data.semantics.length);
+  assert.equal(new Set(data.patterns.map(({ id }) => id)).size, data.patterns.length);
 });
 
 test('source validation fails closed for malformed authority and applicability contracts', async () => {
@@ -31,6 +37,16 @@ test('source validation fails closed for malformed authority and applicability c
     candidate.semantics[0].proof.push('foo');
   }, /Evidence routes must be exactly unit, axe, e2e, and human/);
   expectInvalid((candidate) => { candidate.uiDesignBrainBindings.bindings.find(({ ui_pattern_id }) => ui_pattern_id === 'button').baseline_semantic_ids = []; }, /baseline-only mapping must declare at least one baseline semantic/);
+  expectInvalid((candidate) => { candidate.semantics[0].unexpected = true; }, /has unsupported fields: unexpected/);
+  expectInvalid((candidate) => { candidate.patterns[0].unexpected = true; }, /has unsupported fields: unexpected/);
+  expectInvalid((candidate) => { candidate.semantics[0] = null; }, /Malformed semantic record/);
+  expectInvalid((candidate) => { candidate.uiDesignBrainBindings.bindings[0] = null; }, /Malformed UI Design Brain binding/);
+  expectInvalid((candidate) => { candidate.uiDesignBrainBindings.bindings.find(({ pattern_ids }) => pattern_ids).pattern_ids = 42; }, /pattern_ids must be an array/);
+  expectInvalid((candidate) => { candidate.wcagCoverage.criteria[0].semantic_ids = 42; }, /semantic_ids must be an array/);
+  expectInvalid((candidate) => {
+    candidate.sources.authorities.push({ id: 'example-standard', url: 'https://example.com/', normative: false });
+    candidate.sources.precedence.push('example-standard');
+  }, /Unsupported standards authority example-standard/);
 });
 
 test('applicability uses deterministic states and allowed expressions', async () => {
@@ -67,7 +83,7 @@ test('all UI Design Brain slugs are explicitly classified and modal maps to dial
   assert.deepEqual(data.uiDesignBrainBindings.bindings.map(({ ui_pattern_id }) => ui_pattern_id), expectedIds);
   assert.deepEqual(
     Object.fromEntries(['direct', 'candidate', 'baseline-only'].map((classification) => [classification, data.uiDesignBrainBindings.bindings.filter((binding) => binding.classification === classification).length])),
-    { direct: 29, candidate: 15, 'baseline-only': 36 }
+    { direct: 32, candidate: 13, 'baseline-only': 35 }
   );
   assert.deepEqual(data.uiDesignBrainBindings.bindings.find(({ ui_pattern_id }) => ui_pattern_id === 'modal'), {
     ui_pattern_id: 'modal',
@@ -124,17 +140,32 @@ test('profile projections are byte stable and semantics precede patterns', async
   for (const profile of ['conductor', 'ai-orchestration']) {
     const artifacts = buildArtifacts(data, profile);
     const bindings = JSON.parse(artifacts.get('uiDesignBrainBindings'));
-    assert.equal(bindings.schema_version, 2);
+    assert.equal(bindings.schema_version, 3);
     assert.equal(bindings.binding_schema_version, 1);
     assert.equal(bindings.source.package_version, '1.16.0');
     assert.equal(bindings.source.catalog_authority_version, '1.15.1');
     assert.equal(bindings.source.source_digest, 'sha256:1eda596fe341786b5ada25742b6487bc06685fff17cbd582bc1b58302097e3ff');
     assert.equal(bindings.source.manifest_digest, 'sha256:63a0bc8d9537d6d4c0aef8fd8a539bf4a9181a50d0761bd63eae6fe59b4eddc9');
     assert.match(bindings.binding_digest, /^[a-f0-9]{64}$/);
-    assert.equal(bindings.bindings.length, 80);
+    assert.equal(bindings.bindings.length, bindings.source.pattern_count);
     const coverage = JSON.parse(artifacts.get('coverageManifest'));
     assert.equal(coverage.ui_design_brain.binding_digest, bindings.binding_digest);
     assert.deepEqual(coverage.ui_pattern_ids, bindings.bindings.map(({ ui_pattern_id }) => ui_pattern_id));
+  }
+});
+
+test('canonical projections ignore JSON object insertion order', async () => {
+  const data = await loadStandards();
+  const reordered = structuredClone(data);
+  reordered.facts.facts = Object.fromEntries(Object.entries(reordered.facts.facts).reverse());
+  reordered.evidence.proof_kinds = Object.fromEntries(Object.entries(reordered.evidence.proof_kinds).reverse());
+  reordered.semantics[0] = Object.fromEntries(Object.entries(reordered.semantics[0]).reverse());
+  reordered.patterns[0].activation = Object.fromEntries(Object.entries(reordered.patterns[0].activation).reverse());
+  reordered.uiDesignBrainBindings.bindings[0] = Object.fromEntries(Object.entries(reordered.uiDesignBrainBindings.bindings[0]).reverse());
+
+  assert.equal(sourceContractDigest(reordered), sourceContractDigest(data));
+  for (const profile of ['conductor', 'ai-orchestration']) {
+    assert.deepEqual([...buildArtifacts(reordered, profile)], [...buildArtifacts(data, profile)]);
   }
 });
 
@@ -150,6 +181,9 @@ test('provenance covers all authority inputs while keeping source compatibility 
   const changedFacts = structuredClone(data);
   changedFacts.facts.facts['test.valid_flag'] = { type: 'boolean' };
   assert.notEqual(sourceContractDigest(changedFacts), sourceDigest);
+  const changedSchema = structuredClone(data);
+  changedSchema.schemas['semantic.schema.json'].description = 'Changed published schema contract.';
+  assert.notEqual(sourceContractDigest(changedSchema), sourceDigest);
 
   const artifacts = buildArtifacts(data, 'conductor');
   const coverage = JSON.parse(artifacts.get('coverageManifest'));
@@ -160,10 +194,10 @@ test('provenance covers all authority inputs while keeping source compatibility 
   assert.notEqual(aiManifest.digests.profile, manifest.digests.profile);
   assert.deepEqual(manifest.lane_coverage, coverage.lane_coverage);
   assert.ok(manifest.lane_coverage.e2e.includes('semantics.form-label'));
-  assert.ok(manifest.lane_coverage.unit.includes('semantics.native-elements'));
+  assert.ok(manifest.lane_coverage.axe.includes('semantics.native-elements'));
   const semantics = JSON.parse(artifacts.get('semanticsJson'));
   assert.equal(semantics.foundations.length, 3);
   assert.equal(semantics.policies.length, 2);
   const applicability = JSON.parse(artifacts.get('applicabilityMatrix'));
-  assert.deepEqual(Object.keys(applicability.evidence.proof_kinds), ['unit', 'axe', 'e2e', 'human']);
+  assert.deepEqual(Object.keys(applicability.evidence.proof_kinds).sort(), ['axe', 'e2e', 'human', 'unit']);
 });

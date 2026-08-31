@@ -1,3 +1,3 @@
 # Conductor patterns template
 
-Render activation, behavior, decisions, bindings, outcomes, and evidence without restating semantic rules.
+Render standards references, activation, behavior, decisions, bindings, outcomes, and evidence without restating semantic rules.

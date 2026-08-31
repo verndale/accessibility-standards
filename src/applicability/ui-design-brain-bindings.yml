@@ -36,18 +36,11 @@
     { "ui_pattern_id": "button-group", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements"] },
     { "ui_pattern_id": "card", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
     { "ui_pattern_id": "carousel", "classification": "direct", "pattern_ids": ["pattern.carousel"] },
-    { "ui_pattern_id": "checkbox", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "checkbox", "classification": "direct", "pattern_ids": ["pattern.checkbox", "pattern.field"] },
     { "ui_pattern_id": "color-picker", "classification": "direct", "pattern_ids": ["pattern.field"] },
     { "ui_pattern_id": "combobox", "classification": "direct", "pattern_ids": ["pattern.combobox", "pattern.field"] },
     { "ui_pattern_id": "comparison-table", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.data-table"] },
-    {
-      "ui_pattern_id": "context-menu",
-      "classification": "candidate",
-      "discriminator_facts": ["component.command_menu_trigger"],
-      "candidates": [
-        { "pattern_id": "pattern.menu-button", "when": { "equals": { "fact": "component.command_menu_trigger", "value": true } } }
-      ]
-    },
+    { "ui_pattern_id": "context-menu", "classification": "direct", "pattern_ids": ["pattern.menu"] },
     { "ui_pattern_id": "date-input", "classification": "direct", "pattern_ids": ["pattern.field"] },
     {
       "ui_pattern_id": "datepicker",
@@ -69,14 +62,7 @@
         { "pattern_id": "pattern.popover", "when": { "equals": { "fact": "component.overlay_model", "value": "non-modal" } } }
       ]
     },
-    {
-      "ui_pattern_id": "dropdown-menu",
-      "classification": "candidate",
-      "discriminator_facts": ["component.command_menu_trigger"],
-      "candidates": [
-        { "pattern_id": "pattern.menu-button", "when": { "equals": { "fact": "component.command_menu_trigger", "value": true } } }
-      ]
-    },
+    { "ui_pattern_id": "dropdown-menu", "classification": "direct", "pattern_ids": ["pattern.menu", "pattern.menu-button"] },
     {
       "ui_pattern_id": "empty-state",
       "classification": "candidate",
@@ -131,13 +117,13 @@
         { "pattern_id": "pattern.menu-button", "when": { "equals": { "fact": "component.command_menu_trigger", "value": true } } }
       ]
     },
-    { "ui_pattern_id": "number-input", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "number-input", "classification": "direct", "pattern_ids": ["pattern.field", "pattern.spinbutton"] },
     { "ui_pattern_id": "pagination", "classification": "direct", "pattern_ids": ["pattern.pagination"] },
     { "ui_pattern_id": "popover", "classification": "direct", "pattern_ids": ["pattern.popover"] },
     { "ui_pattern_id": "progress-bar", "classification": "direct", "pattern_ids": ["pattern.progress"] },
     { "ui_pattern_id": "progress-indicator", "classification": "direct", "pattern_ids": ["pattern.progress"] },
     { "ui_pattern_id": "quote", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
-    { "ui_pattern_id": "radio-button", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "radio-button", "classification": "direct", "pattern_ids": ["pattern.field", "pattern.radio-group"] },
     { "ui_pattern_id": "rating", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.name-role-value"] },
     { "ui_pattern_id": "rich-text", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.headings", "semantics.native-elements"] },
     { "ui_pattern_id": "rich-text-editor", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.name-role-value"] },
@@ -181,11 +167,11 @@
       ]
     },
     { "ui_pattern_id": "skip-link", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.native-elements"] },
-    { "ui_pattern_id": "slider", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "slider", "classification": "direct", "pattern_ids": ["pattern.field", "pattern.slider"] },
     { "ui_pattern_id": "spinner", "classification": "direct", "pattern_ids": ["pattern.progress"] },
     { "ui_pattern_id": "stack", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
     { "ui_pattern_id": "stat", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
-    { "ui_pattern_id": "stepper", "classification": "direct", "pattern_ids": ["pattern.field"] },
+    { "ui_pattern_id": "stepper", "classification": "direct", "pattern_ids": ["pattern.field", "pattern.spinbutton"] },
     { "ui_pattern_id": "table", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.data-table"] },
     { "ui_pattern_id": "tabs", "classification": "direct", "pattern_ids": ["pattern.tabs"] },
     { "ui_pattern_id": "text-input", "classification": "direct", "pattern_ids": ["pattern.field"] },
@@ -201,7 +187,7 @@
     },
     { "ui_pattern_id": "toggle", "classification": "direct", "pattern_ids": ["pattern.field"] },
     { "ui_pattern_id": "tooltip", "classification": "direct", "pattern_ids": ["pattern.tooltip"] },
-    { "ui_pattern_id": "tree-view", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.roles-states-properties", "semantics.selected-state"] },
+    { "ui_pattern_id": "tree-view", "classification": "direct", "pattern_ids": ["pattern.tree-view"] },
     { "ui_pattern_id": "utility-bar", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.landmarks"] },
     { "ui_pattern_id": "video", "classification": "direct", "pattern_ids": ["pattern.media-player"] },
     { "ui_pattern_id": "visually-hidden", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
