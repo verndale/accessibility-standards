@@ -33,3 +33,7 @@ test('generates notes with the same conventional commit parser', () => {
     presetConfig: {},
   });
 });
+
+test('keeps schema-2 maintenance releases on the explicit non-latest channel', () => {
+  assert.deepEqual(releaseConfig.branches, ['main', { name: '2.x', range: '2.x', channel: '2.x' }]);
+});

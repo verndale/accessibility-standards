@@ -8,17 +8,18 @@ evidence:
   - "Tracking issue https://github.com/verndale/ai-orchestration/issues/609"
   - "Azure Feature https://dev.azure.com/verndale/V00066-Cumulative-OperatingSystem/_workitems/edit/17"
   - "Accessibility implementation branch codex/gh-47-ui-pattern-binding-release"
+  - "Schema-2 maintenance https://github.com/verndale/accessibility-standards/issues/9"
   - "Failed v1.0.0 publication https://github.com/verndale/accessibility-standards/actions/runs/33325307696"
 topics: [standards-authority, semantic-pattern-model, ui-pattern-bindings, consumer-projections, sync-and-enforcement]
 source_tool: codex
 source: "Codex task: Shared Accessibility Standards Delivery Plan"
-digest: "e99766100e6b196dc60038ff6b73b8f8351e4a0c278dc07884ebc6fd8ebe3a34"
+digest: "c5698ffec519b5c966e6ff8d0109b98ec03aacdb82cf8e97f0edcfb637e127ce"
 ---
 # Shared Accessibility Standards Delivery Plan
 
 ## Objective and authority
 
-Publish the public repository [verndale/accessibility-standards](https://github.com/verndale/accessibility-standards) as the single normative source for accessibility foundations, semantic contracts, composed patterns, applicability, policies, and evidence routing. Version `1.0.0` predates the UI binding; the schema-2 binding and projection target `@verndale/accessibility-standards@2.0.0`. Consumer-specific prose is a projection and cannot add, omit, downgrade, or override obligations.
+Publish the public repository [verndale/accessibility-standards](https://github.com/verndale/accessibility-standards) as the single normative source for accessibility foundations, semantic contracts, composed patterns, applicability, policies, and evidence routing. Version `1.0.0` predates the UI binding; schema 2 was introduced at `2.0.0` and its public UI-projector maintenance target is `@verndale/accessibility-standards@2.0.1`. Consumer-specific prose is a projection and cannot add, omit, downgrade, or override obligations.
 
 [UI Design Brain](https://github.com/verndale/ui-design-brain) remains the separate normative source for canonical UI names, aliases, and pattern disambiguation. Accessibility Standards owns the exact-version bridge from canonical UI slugs to accessibility pattern IDs. A project component index remains separate implementation inventory.
 
@@ -84,7 +85,7 @@ Semantic records own native element, role, accessible name, state/property, head
 
 The applicability DSL permits only validated `all`, `any`, `not`, `equals`, `contains`, and `exists` expressions over typed facts. Its 19 ordered rows cover page context, non-text content, media, forms, validation, consequential submission, dynamic status, overlays, motion/timing, complex pointer input, character shortcuts, orientation/sensory cues, target size, focus obstruction, authentication/CAPTCHA, redundant entry, consistent help, locale/bidi, and data table/grid. Form fields and validation are separate rows so inactive validation creates no boilerplate. Standards-owned results are automatic; interview questions collect only missing trigger discriminators and product-owned decisions.
 
-The UI binding pins the UI Design Brain `1.16.0` projector, its `1.15.1` catalog-authority baseline, and the source and parsed-manifest SHA-256 digests for its 80 entries. Every canonical slug is exactly one of `direct`, `candidate`, or `baseline-only`. Direct mappings add sorted accessibility pattern IDs. Candidate mappings declare every typed discriminator fact used by their expressions; unresolved facts remain explicit `candidate`/`needs_input`. Baseline-only slugs add no specialized pattern from the name alone and must add explicit, capability-filtered `baseline_semantic_ids`; this prevents recognized primitives such as `button` from yielding an empty structured contract. Alias resolution happens only in UI Design Brain. Canonical UI IDs preserve caller order after ordered de-duplication, expanded accessibility IDs sort, `modal` maps to `pattern.dialog`, and unknown slugs or incorrectly typed runtime facts fail closed.
+The UI binding pins the public UI Design Brain `1.16.1` projector, its `1.15.1` catalog-authority baseline, and the source and parsed-manifest SHA-256 digests for its 80 entries. Every canonical slug is exactly one of `direct`, `candidate`, or `baseline-only`. Direct mappings add sorted accessibility pattern IDs. Candidate mappings declare every typed discriminator fact used by their expressions; unresolved facts remain explicit `candidate`/`needs_input`. Baseline-only slugs add no specialized pattern from the name alone and must add explicit, capability-filtered `baseline_semantic_ids`; this prevents recognized primitives such as `button` from yielding an empty structured contract. Alias resolution happens only in UI Design Brain. Canonical UI IDs preserve caller order after ordered de-duplication, expanded accessibility IDs sort, `modal` maps to `pattern.dialog`, and unknown slugs or incorrectly typed runtime facts fail closed.
 
 Proof kinds are exactly unit, axe, E2E, and human. Tool availability may change the route but never applicability. Missing required tooling is a blocker. Automated scanning is evidence, not conformance.
 
@@ -106,7 +107,7 @@ Commitlint is `@verndale/ai-commit@2.7.0`. PR automation uses `@verndale/ai-pr`,
 
 The initial `v1.0.0` GitHub release [failed](https://github.com/verndale/accessibility-standards/actions/runs/33325307696) because npm OIDC cannot trust a package that does not exist. The verified tag tarball is now published as [@verndale/accessibility-standards@1.0.0](https://www.npmjs.com/package/@verndale/accessibility-standards), and npm trusted publishing is configured for `verndale/accessibility-standards`, `release.yml`, and `npm publish` only. The first OIDC rerun exposed a parser mismatch: the local preflight accepts `type(scope)!:`, but semantic-release's default Angular parser did not, attempted an unpublished 1.0.1, and the `prepack` guard rejected the contract mismatch. The repair tracked in [issue 4](https://github.com/verndale/accessibility-standards/issues/4) pins the Conventional Commits parser for analysis and release notes, tests the real analyzer, and uses a breaking repair commit so the retained `v1.0.1` Git tag advances deterministically to 2.0.0. No existing tag is deleted or rewritten.
 
-Authority, behavior, schema, or ID-removal changes are major; additive stable records are minor; editorial changes are patch. Older same-major contracts may reference only IDs available then; newer or major-incompatible contracts fail. Unstamped legacy artifacts warn, while new or revised artifacts require a contract. `src/contract.yml` makes the schema-2/package-2.0.0 target explicit, and normal build/sync validation requires installed package metadata to match it.
+Authority, behavior, schema, or ID-removal changes are major; additive stable records are minor; editorial changes are patch. Older same-major contracts may reference only IDs available then; newer or major-incompatible contracts fail. Unstamped legacy artifacts warn, while new or revised artifacts require a contract. `src/contract.yml` makes the schema-2/package-2.0.1 target explicit, and normal build/sync validation requires installed package metadata to match it.
 
 ## COS/Conductor projection
 
@@ -128,12 +129,13 @@ The accessibility wiki owns this plan plus topics for standards authority, seman
 
 Tests cover malformed record rejection, typed DSL operands and observed values, exact evidence lanes, cycles, stable/duplicate IDs, all 80 UI slug classifications, direct/candidate/baseline-only semantic resolution, caller-order preservation, candidate discriminator states, unknown-slug failure, all 19 matrix rows/states, common-source versus profile-digest determinism, identical lane coverage, foundation/policy/evidence projection, sync version mismatch/no-op/change/repair/dirty-provenance refusal/atomic rollback, exact release-target calculation, COS parity/replay/sidecars/APIs/handoff, ai-orchestration loading/proof/review order, wiki reachability/graph/workflows, and clean packed consumers. A cross-repository golden traces ordered UI IDs through binding, COS facts, pattern/semantic IDs, Functional Spec contract, AX bindings, handoff, Build Pack, implementation, proof, and review.
 
-Rollout order: bootstrap authority and wiki; create tracking/cross-links and branches; recover the external 1.0.0 npm bootstrap; establish tokenless trusted publishing; implement and release UI Design Brain deterministic projections as 1.16.0; publish Accessibility Standards schema 2 as 2.0.0; implement ai-orchestration; implement COS; run all golden/sync/workflow/wiki checks; remove cron/raw copies and duplicated normative guidance only after parity; merge reviewed PRs and let wiki reconciliation replace pending evidence.
+Rollout order: bootstrap authority and wiki; create tracking/cross-links and branches; recover the external 1.0.0 npm bootstrap; establish tokenless trusted publishing; implement and release UI Design Brain deterministic projections as 1.16.1; publish Accessibility Standards schema-2 maintenance as 2.0.1; implement ai-orchestration; implement COS; run all golden/sync/workflow/wiki checks; remove cron/raw copies and duplicated normative guidance only after parity; merge reviewed PRs and let wiki reconciliation replace pending evidence.
 
 ## Risks and open completion work
 
 - `@verndale/accessibility-standards@1.0.0` is public and its trusted publisher is configured; the breaking release repair must publish the intended 2.0.0 from the retained, unpublished `v1.0.1` Git tag.
 - UI Design Brain issue [47](https://github.com/verndale/ui-design-brain/issues/47), ai-orchestration issue [609](https://github.com/verndale/ai-orchestration/issues/609), and COS [Azure Feature 17](https://dev.azure.com/verndale/V00066-Cumulative-OperatingSystem/_workitems/edit/17) must converge on the same source/manifest/binding digests and loader order.
+- [Issue 9](https://github.com/verndale/accessibility-standards/issues/9) owns the schema-2 maintenance release from `v2.0.0`. The `2.x` semantic-release channel must publish the exact `2.0.1` package without modifying `latest`, which remains schema 3.
 - Active COS sessions must keep snapshots while version 4 becomes the new default.
 - Consumer duplicate guidance is retained until cross-repository parity proves safe removal.
 - Azure status is explicit external evidence; GitHub issue-state automation cannot infer it.

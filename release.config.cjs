@@ -4,7 +4,7 @@ const conventionalCommits = {
 };
 
 module.exports = {
-  branches: ['main'],
+  branches: ['main', { name: '2.x', range: '2.x', channel: '2.x' }],
   tagFormat: 'v${version}',
   plugins: [
     [
