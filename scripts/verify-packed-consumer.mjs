@@ -16,7 +16,7 @@ try {
     const config = join(consumer, 'accessibility-standards.config.json');
     await mkdir(consumer, { recursive: true });
     await writeFile(config, `${JSON.stringify({
-      package: '@verndale/accessibility-standards@2.0.1',
+      package: '@verndale/accessibility-standards@2.0.2',
       profile,
       routes: 'accessibility-standards.routes.json',
       outputRoot: 'generated',

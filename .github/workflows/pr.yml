@@ -5,7 +5,7 @@ on:
       base_branch: { description: Target base branch, required: true, default: main }
       draft: { description: Create PR as draft, required: true, default: "true" }
   push:
-    branches-ignore: [main, "bot/wiki-**"]
+    branches-ignore: [main, "2.x", "bot/wiki-**"]
 permissions:
   contents: read
   pull-requests: write
@@ -13,7 +13,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 jobs:
   pr:
-    if: ${{ !startsWith(github.ref_name, 'bot/wiki-') }}
+    if: ${{ github.ref_name != '2.x' && !startsWith(github.ref_name, 'bot/wiki-') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +25,7 @@ jobs:
       - name: Create or update draft PR
         env:
           GH_TOKEN: ${{ secrets.PR_BOT_TOKEN }}
-          PR_BASE_BRANCH: ${{ github.event.inputs.base_branch || 'main' }}
+          PR_BASE_BRANCH: ${{ github.event.inputs.base_branch || (startsWith(github.ref_name, 'codex/2.x-') && '2.x') || 'main' }}
           PR_HEAD_BRANCH: ${{ github.ref_name }}
           PR_DRAFT: ${{ github.event.inputs.draft || 'true' }}
         run: pnpm exec ai-pr

@@ -13,7 +13,7 @@ evidence:
 topics: [standards-authority, semantic-pattern-model, ui-pattern-bindings, consumer-projections, sync-and-enforcement]
 source_tool: codex
 source: "Codex task: Shared Accessibility Standards Delivery Plan"
-digest: "c5698ffec519b5c966e6ff8d0109b98ec03aacdb82cf8e97f0edcfb637e127ce"
+digest: "b6f251761242ff89102b79b3db1e5f9a4500273c6ad04189860713dbd5069e15"
 ---
 # Shared Accessibility Standards Delivery Plan
 
@@ -107,7 +107,7 @@ Commitlint is `@verndale/ai-commit@2.7.0`. PR automation uses `@verndale/ai-pr`,
 
 The initial `v1.0.0` GitHub release [failed](https://github.com/verndale/accessibility-standards/actions/runs/33325307696) because npm OIDC cannot trust a package that does not exist. The verified tag tarball is now published as [@verndale/accessibility-standards@1.0.0](https://www.npmjs.com/package/@verndale/accessibility-standards), and npm trusted publishing is configured for `verndale/accessibility-standards`, `release.yml`, and `npm publish` only. The first OIDC rerun exposed a parser mismatch: the local preflight accepts `type(scope)!:`, but semantic-release's default Angular parser did not, attempted an unpublished 1.0.1, and the `prepack` guard rejected the contract mismatch. The repair tracked in [issue 4](https://github.com/verndale/accessibility-standards/issues/4) pins the Conventional Commits parser for analysis and release notes, tests the real analyzer, and uses a breaking repair commit so the retained `v1.0.1` Git tag advances deterministically to 2.0.0. No existing tag is deleted or rewritten.
 
-Authority, behavior, schema, or ID-removal changes are major; additive stable records are minor; editorial changes are patch. Older same-major contracts may reference only IDs available then; newer or major-incompatible contracts fail. Unstamped legacy artifacts warn, while new or revised artifacts require a contract. `src/contract.yml` makes the schema-2/package-2.0.1 target explicit, and normal build/sync validation requires installed package metadata to match it.
+Authority, behavior, schema, or ID-removal changes are major; additive stable records are minor; editorial changes are patch. Older same-major contracts may reference only IDs available then; newer or major-incompatible contracts fail. Unstamped legacy artifacts warn, while new or revised artifacts require a contract. `src/contract.yml` makes the current schema-2/package-2.0.2 target explicit, and normal build/sync validation requires installed package metadata to match it.
 
 ## COS/Conductor projection
 
