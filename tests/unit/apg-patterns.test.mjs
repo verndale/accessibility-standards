@@ -6,6 +6,7 @@ import { loadStandards } from '../../lib/load.mjs';
 const apgPatternRefs = {
   'pattern.accordion': ['accordion'],
   'pattern.alert': ['alert'],
+  'pattern.alert-dialog': ['alertdialog'],
   'pattern.carousel': ['carousel'],
   'pattern.checkbox': ['checkbox'],
   'pattern.combobox': ['combobox'],
@@ -17,7 +18,9 @@ const apgPatternRefs = {
   'pattern.radio-group': ['radio'],
   'pattern.slider': ['slider', 'slider-multithumb'],
   'pattern.spinbutton': ['spinbutton'],
+  'pattern.switch': ['switch'],
   'pattern.tabs': ['tabs'],
+  'pattern.toolbar': ['toolbar'],
   'pattern.tooltip': ['tooltip'],
   'pattern.tree-view': ['treeview'],
 };
@@ -86,7 +89,7 @@ test('dedicated APG patterns use exact official pattern slugs and activation IDs
     );
   }
 
-  for (const id of ['pattern.checkbox', 'pattern.menu', 'pattern.radio-group', 'pattern.slider', 'pattern.spinbutton', 'pattern.tree-view']) {
+  for (const id of ['pattern.alert-dialog', 'pattern.checkbox', 'pattern.menu', 'pattern.radio-group', 'pattern.slider', 'pattern.spinbutton', 'pattern.switch', 'pattern.toolbar', 'pattern.tree-view']) {
     const pattern = byId.get(id);
     assert.deepEqual(pattern.activation, { contains: { fact: 'component.accessibility_pattern_ids', value: id } });
     assert.ok(pattern.requires.length > 0);
@@ -122,6 +125,52 @@ test('dedicated APG patterns use exact official pattern slugs and activation IDs
     byId.get('pattern.slider').behavior.some((behavior) => behavior.includes('Right and Up increase') && behavior.includes('Left and Down decrease')),
     'pattern.slider must define value direction',
   );
+});
+
+test('switch, alert-dialog, and toolbar contracts preserve their APG distinctions', async () => {
+  const data = await loadStandards();
+  const byId = new Map(data.patterns.map((pattern) => [pattern.id, pattern]));
+
+  const switchPattern = byId.get('pattern.switch');
+  const switchBehavior = switchPattern.behavior.join('\n');
+  assert.match(switchPattern.scope, /Binary on\/off switches/);
+  assert.match(switchPattern.scope, /excludes tri-state checkboxes and toggle buttons/);
+  assert.match(switchBehavior, /Expose role="switch" on both native checkbox and custom focusable hosts/);
+  assert.match(switchBehavior, /expose only true or false checked state/);
+  assert.match(switchBehavior, /never expose a mixed state/);
+  assert.match(switchBehavior, /accessible label stable when state changes/);
+  assert.match(switchBehavior, /Space toggles the focused switch exactly once/);
+  assert.match(switchBehavior, /Enter toggles only when the declared enter_toggles decision/);
+  assert.ok(switchPattern.requires.includes('semantics.roles-states-properties'));
+  assert.deepEqual(switchPattern.product_decisions, ['enter_toggles', 'group_labeling', 'host_element']);
+
+  const alertDialog = byId.get('pattern.alert-dialog');
+  const alertDialogBehavior = alertDialog.behavior.join('\n');
+  assert.match(alertDialog.scope, /require a user response/);
+  assert.match(alertDialog.scope, /excludes passive alerts and general-purpose dialogs/);
+  assert.ok(alertDialog.requires.includes('semantics.native-dialog'));
+  assert.ok(!alertDialog.requires.includes('semantics.alert'), 'alert dialog must not inherit passive alert/status behavior');
+  assert.match(alertDialogBehavior, /Expose alertdialog semantics with aria-modal true/);
+  assert.match(alertDialogBehavior, /accessible description that references the alert message/);
+  assert.match(alertDialogBehavior, /content outside the alert dialog inert for every user/);
+  assert.match(alertDialogBehavior, /prefer the least destructive response/);
+  assert.match(alertDialogBehavior, /Keep Tab and Shift\+Tab within the alert dialog/);
+  assert.match(alertDialogBehavior, /Escape invokes the declared cancel or dismissal response/);
+  assert.match(alertDialogBehavior, /return focus to the invoking control or to a documented logical successor/);
+
+  const toolbar = byId.get('pattern.toolbar');
+  const toolbarBehavior = toolbar.behavior.join('\n');
+  assert.match(toolbar.scope, /three or more related controls/);
+  assert.match(toolbarBehavior, /aria-orientation when the toolbar is vertical/);
+  assert.match(toolbarBehavior, /Keep one toolbar control in the page tab sequence/);
+  assert.match(toolbarBehavior, /Tab and Shift\+Tab move into or out of the toolbar rather than among its controls/);
+  assert.match(toolbarBehavior, /horizontal toolbar, Right Arrow moves to the next control and Left Arrow to the previous/);
+  assert.match(toolbarBehavior, /vertical toolbar, Down Arrow moves next and Up Arrow moves previous/);
+  assert.match(toolbarBehavior, /Home moves focus to the first control and End moves focus to the last control/);
+  assert.match(toolbarBehavior, /preserve the orthogonal arrow pair for operating embedded controls/);
+  assert.match(toolbarBehavior, /moves focus without changing a radio selection or activating another control/);
+  assert.match(toolbarBehavior, /disabled_focusability policy/);
+  assert.deepEqual(toolbar.product_decisions, ['disabled_focusability', 'entry_focus', 'home_end', 'orientation', 'reserved_arrow_keys', 'wrap_navigation']);
 });
 
 test('menu and tree contracts state the APG focus and keyboard models explicitly', async () => {
@@ -232,4 +281,81 @@ test('UI Design Brain bindings resolve the APG implementation slice exactly', as
   ]);
   assert.deepEqual(resolved.baseline_only_ui_pattern_ids, []);
   assert.deepEqual(resolved.candidate_evaluations, []);
+});
+
+test('switch, alert-dialog, and toolbar bindings retain base outcomes and require exact discriminators', async () => {
+  const data = await loadStandards();
+  const byUiPatternId = new Map(data.uiDesignBrainBindings.bindings.map((binding) => [binding.ui_pattern_id, binding]));
+
+  assert.deepEqual(byUiPatternId.get('toggle'), {
+    ui_pattern_id: 'toggle',
+    classification: 'candidate',
+    pattern_ids: ['pattern.field'],
+    discriminator_facts: ['component.toggle_model'],
+    candidates: [
+      { pattern_id: 'pattern.switch', when: { equals: { fact: 'component.toggle_model', value: 'switch' } } },
+    ],
+  });
+  assert.deepEqual(byUiPatternId.get('modal'), {
+    ui_pattern_id: 'modal',
+    classification: 'candidate',
+    pattern_ids: ['pattern.dialog'],
+    discriminator_facts: ['component.dialog_purpose'],
+    candidates: [
+      { pattern_id: 'pattern.alert-dialog', when: { equals: { fact: 'component.dialog_purpose', value: 'urgent-response' } } },
+    ],
+  });
+  assert.deepEqual(byUiPatternId.get('button-group'), {
+    ui_pattern_id: 'button-group',
+    classification: 'candidate',
+    baseline_semantic_ids: ['semantics.accessible-name', 'semantics.focus.visible', 'semantics.keyboard', 'semantics.native-elements'],
+    discriminator_facts: ['component.control_group_model'],
+    candidates: [
+      { pattern_id: 'pattern.toolbar', when: { equals: { fact: 'component.control_group_model', value: 'toolbar' } } },
+    ],
+  });
+
+  const unresolved = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+    'component.ui_pattern_ids': ['button-group', 'modal', 'toggle'],
+  });
+  assert.deepEqual(unresolved.pattern_ids, ['pattern.dialog', 'pattern.field']);
+  assert.deepEqual(unresolved.semantic_ids, ['semantics.accessible-name', 'semantics.focus.visible', 'semantics.keyboard', 'semantics.native-elements']);
+  assert.deepEqual(
+    unresolved.candidate_evaluations.map(({ pattern_id, trigger_state, resolution_state, missing_facts }) => ({ pattern_id, trigger_state, resolution_state, missing_facts })),
+    [
+      { pattern_id: 'pattern.toolbar', trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: ['component.control_group_model'] },
+      { pattern_id: 'pattern.alert-dialog', trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: ['component.dialog_purpose'] },
+      { pattern_id: 'pattern.switch', trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: ['component.toggle_model'] },
+    ],
+  );
+
+  const resolved = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+    'component.ui_pattern_ids': ['button-group', 'modal', 'toggle'],
+    'component.control_group_model': 'toolbar',
+    'component.dialog_purpose': 'urgent-response',
+    'component.toggle_model': 'switch',
+  });
+  assert.deepEqual(resolved.pattern_ids, ['pattern.alert-dialog', 'pattern.dialog', 'pattern.field', 'pattern.switch', 'pattern.toolbar']);
+  assert.ok(resolved.candidate_evaluations.every(({ trigger_state, resolution_state }) => trigger_state === 'applicable' && resolution_state === 'resolved'));
+
+  const skipped = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+    'component.ui_pattern_ids': ['button-group', 'modal', 'toggle'],
+    'component.control_group_model': 'plain-group',
+    'component.dialog_purpose': 'general',
+    'component.toggle_model': 'checkbox',
+  });
+  assert.deepEqual(skipped.pattern_ids, ['pattern.dialog', 'pattern.field']);
+  assert.ok(skipped.candidate_evaluations.every(({ trigger_state, resolution_state }) => trigger_state === 'not_applicable' && resolution_state === 'skipped'));
+  assert.throws(
+    () => resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, { 'component.ui_pattern_ids': ['toggle'], 'component.toggle_model': true }),
+    /Observed value for component.toggle_model must be string/,
+  );
+  assert.throws(
+    () => resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, { 'component.ui_pattern_ids': ['modal'], 'component.dialog_purpose': false }),
+    /Observed value for component.dialog_purpose must be string/,
+  );
+  assert.throws(
+    () => resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, { 'component.ui_pattern_ids': ['button-group'], 'component.control_group_model': 1 }),
+    /Observed value for component.control_group_model must be string/,
+  );
 });

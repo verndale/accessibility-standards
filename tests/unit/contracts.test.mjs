@@ -77,18 +77,22 @@ test('form validation is independently applicable and creates no inactive boiler
   assert.deepEqual(withValidation.find(({ id }) => id === 'applicability.validation').outcomes, ['pattern.validation']);
 });
 
-test('all UI Design Brain slugs are explicitly classified and modal maps to dialog', async () => {
+test('all UI Design Brain slugs are explicitly classified and modal retains its dialog base pattern', async () => {
   const data = await loadStandards();
   const expectedIds = 'accordion,alert,avatar,badge,breadcrumbs,button,button-group,card,carousel,checkbox,color-picker,combobox,comparison-table,context-menu,date-input,datepicker,drawer,dropdown-menu,empty-state,error-message,eyebrow,fieldset,file,file-upload,filter,footer,form,header,heading,helper-text,hero,icon,image,in-page-navigation,label,link,list,logo-bar,marquee,masthead,media-object,mega-menu,modal,navigation,number-input,pagination,popover,progress-bar,progress-indicator,quote,radio-button,rating,rich-text,rich-text-editor,search-input,search-overlay,section-header,segmented-control,select,separator,sidebar,skeleton,skip-link,slider,spinner,stack,stat,stepper,table,tabs,text-input,textarea,toast,toggle,tooltip,tree-view,utility-bar,video,visually-hidden,wizard'.split(',');
   assert.deepEqual(data.uiDesignBrainBindings.bindings.map(({ ui_pattern_id }) => ui_pattern_id), expectedIds);
   assert.deepEqual(
     Object.fromEntries(['direct', 'candidate', 'baseline-only'].map((classification) => [classification, data.uiDesignBrainBindings.bindings.filter((binding) => binding.classification === classification).length])),
-    { direct: 32, candidate: 13, 'baseline-only': 35 }
+    { direct: 30, candidate: 16, 'baseline-only': 34 }
   );
   assert.deepEqual(data.uiDesignBrainBindings.bindings.find(({ ui_pattern_id }) => ui_pattern_id === 'modal'), {
     ui_pattern_id: 'modal',
-    classification: 'direct',
-    pattern_ids: ['pattern.dialog']
+    classification: 'candidate',
+    pattern_ids: ['pattern.dialog'],
+    discriminator_facts: ['component.dialog_purpose'],
+    candidates: [
+      { pattern_id: 'pattern.alert-dialog', when: { equals: { fact: 'component.dialog_purpose', value: 'urgent-response' } } }
+    ]
   });
   assert.ok(data.uiDesignBrainBindings.bindings.filter(({ classification }) => classification === 'baseline-only').every(({ baseline_semantic_ids }) => baseline_semantic_ids?.length));
   assert.deepEqual(resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, { 'component.ui_pattern_ids': ['button'] }).semantic_ids, [

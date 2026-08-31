@@ -63,7 +63,7 @@
     "authority": { "const": "wcag-2.2" },
     "deferred_patterns": {
       "type": "array",
-      "minItems": 5,
+      "minItems": 2,
       "uniqueItems": true,
       "items": {
         "type": "object",
@@ -75,10 +75,7 @@
         }
       },
       "allOf": [
-        { "contains": { "properties": { "id": { "const": "alert-dialog" } }, "required": ["id"] } },
         { "contains": { "properties": { "id": { "const": "grid" } }, "required": ["id"] } },
-        { "contains": { "properties": { "id": { "const": "switch" } }, "required": ["id"] } },
-        { "contains": { "properties": { "id": { "const": "toolbar" } }, "required": ["id"] } },
         { "contains": { "properties": { "id": { "const": "treegrid" } }, "required": ["id"] } }
       ]
     },
