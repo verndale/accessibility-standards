@@ -1,3 +1,19 @@
+## [3.0.0](https://github.com/verndale/accessibility-standards/compare/v2.0.0...v3.0.0) (2026-08-31)
+
+### ⚠ BREAKING CHANGES
+
+* **wcag:** package, schema, and profile contracts now require
+version 3.0.0, normalized standards references, WCAG coverage
+manifests, and updated consumer projections.
+
+### Features
+
+* **wcag:** Expand WCAG 2.2 coverage and APG patterns ([a94d3e3](https://github.com/verndale/accessibility-standards/commit/a94d3e3d731f76a4e07c7cd198600413dd4d2bc4)), closes [#6](https://github.com/verndale/accessibility-standards/issues/6)
+
+### Bug Fixes
+
+* **automation:** Enable PR AI and unblock v3 release ([c5056fe](https://github.com/verndale/accessibility-standards/commit/c5056feafb31cb1cc4869fe970486a0015618ebc)), closes [#6](https://github.com/verndale/accessibility-standards/issues/6)
+
 ## [2.0.0](https://github.com/verndale/accessibility-standards/compare/v1.0.1...v2.0.0) (2026-08-30)
 
 ### ⚠ BREAKING CHANGES
