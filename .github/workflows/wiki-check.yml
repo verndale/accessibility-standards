@@ -2,9 +2,9 @@ name: Wiki integrity
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, "2.x"]
   push:
-    branches: [main]
+    branches: [main, "2.x"]
   workflow_dispatch: {}
 
 permissions:
