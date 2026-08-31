@@ -38,7 +38,8 @@
     "graph:build": "node scripts/wiki/build-graph.cjs",
     "graph:check": "node scripts/wiki/build-graph.cjs --check",
     "wiki:check": "node scripts/wiki/check.cjs",
-    "prepare": "node scripts/install-hooks.mjs"
+    "prepare": "node scripts/install-hooks.mjs",
+    "pr:create": "ai-pr"
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
@@ -55,5 +56,8 @@
   "publishConfig": {
     "access": "public",
     "provenance": true
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
   }
 }

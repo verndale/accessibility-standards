@@ -10,10 +10,14 @@ const BREAKING_BODY = /^BREAKING[ -]CHANGE:\s*/m;
 const BREAKING_HEADER = /^[a-z]+(?:\([^)]+\))?!:/;
 const CONVENTIONAL_HEADER = /^([a-z]+)(?:\([^)]+\))?(!)?:/;
 const PATCH_TYPES = new Set(['build', 'chore', 'ci', 'docs', 'fix', 'perf', 'refactor', 'revert', 'style', 'test']);
+// PR #7 was merged before this preflight could reject its duplicated footer.
+// Its feat(wcag)! header already declares the intended v3 major release.
+// Keep this exact, one-time migration exception; all future bodies fail closed.
+const MIGRATED_BREAKING_BODY_COMMIT = 'a94d3e3d731f76a4e07c7cd198600413dd4d2bc4';
 
-function validateReleaseCommit({ subject, body }) {
+function validateReleaseCommit({ hash = '', subject, body }) {
   const failures = [];
-  if (BREAKING_BODY.test(body)) {
+  if (BREAKING_BODY.test(body) && hash !== MIGRATED_BREAKING_BODY_COMMIT) {
     failures.push(
       'release commits must not carry a BREAKING CHANGE body; put ! in the PR title for an intentional breaking release',
     );
@@ -120,4 +124,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { computedNextVersion, readReleaseCommits, validateReleaseCommit, validateReleaseCommits, validateReleaseTarget };
+module.exports = { MIGRATED_BREAKING_BODY_COMMIT, computedNextVersion, readReleaseCommits, validateReleaseCommit, validateReleaseCommits, validateReleaseTarget };
