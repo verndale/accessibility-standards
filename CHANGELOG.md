@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/verndale/accessibility-standards/compare/v3.1.0...v3.1.1) (2026-08-31)
+
+### Bug Fixes
+
+* **bindings:** align schema-3 UI projector provenance ([8b211e2](https://github.com/verndale/accessibility-standards/commit/8b211e260eaa09bc66406c386fe78cc64be88708)), closes [#17](https://github.com/verndale/accessibility-standards/issues/17)
+* **release:** declare 3.1.1 package target ([f6c9b54](https://github.com/verndale/accessibility-standards/commit/f6c9b54e4d26b57a17556e983c46399db2b79072)), closes [#17](https://github.com/verndale/accessibility-standards/issues/17)
+
 ## [3.1.0](https://github.com/verndale/accessibility-standards/compare/v3.0.0...v3.1.0) (2026-08-31)
 
 ### Features
