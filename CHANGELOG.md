@@ -1,3 +1,13 @@
+## [3.1.0](https://github.com/verndale/accessibility-standards/compare/v3.0.0...v3.1.0) (2026-08-31)
+
+### Features
+
+* **wcag:** add WCAG 2.2 semantic-gap coverage ([8cd3221](https://github.com/verndale/accessibility-standards/commit/8cd322165d03f6d227607fbe45dd244451a0f10c)), closes [#15](https://github.com/verndale/accessibility-standards/issues/15)
+
+### Bug Fixes
+
+* **wcag:** harden Phase 2 review invariants ([e3f76ab](https://github.com/verndale/accessibility-standards/commit/e3f76ab81603827f27edc505a245947860a18e31)), closes [#15](https://github.com/verndale/accessibility-standards/issues/15)
+
 ## [3.0.0](https://github.com/verndale/accessibility-standards/compare/v2.0.0...v3.0.0) (2026-08-31)
 
 ### ⚠ BREAKING CHANGES
