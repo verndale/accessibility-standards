@@ -25,18 +25,39 @@ function assertValid(ajv, schema, value, label) {
   assert.equal(validate(value), true, `${label}: ${ajv.errorsText(validate.errors)}`);
 }
 
+function assertInvalid(ajv, schema, value, label) {
+  const validate = ajv.getSchema(schema);
+  assert.ok(validate, `missing compiled schema ${schema}`);
+  assert.equal(validate(value), false, `${label} unexpectedly passed ${schema}`);
+}
+
 test('every source and consumer contract validates against its published JSON schema', async () => {
   const ajv = await schemaValidator();
   const data = await loadStandards();
   assertValid(ajv, 'contract.schema.json', data.contract, 'contract');
   for (const semantic of data.semantics) assertValid(ajv, 'semantic.schema.json', semantic, semantic.id);
   for (const pattern of data.patterns) assertValid(ajv, 'pattern.schema.json', pattern, pattern.id);
+  const emptySemantic = structuredClone(data.semantics[0]);
+  emptySemantic.requirement = '   ';
+  assertInvalid(ajv, 'semantic.schema.json', emptySemantic, 'blank semantic requirement');
+  const extraSemantic = structuredClone(data.semantics[0]);
+  extraSemantic.unexpected = true;
+  assertInvalid(ajv, 'semantic.schema.json', extraSemantic, 'semantic extra field');
+  const malformedPattern = structuredClone(data.patterns[0]);
+  malformedPattern.scope = 42;
+  malformedPattern.activation = {};
+  assertInvalid(ajv, 'pattern.schema.json', malformedPattern, 'malformed pattern fields');
+  const inventedCriterion = structuredClone(data.semantics[0]);
+  inventedCriterion.standards_refs[0] = {
+    authority: 'wcag-2.2', identifier: '9.9.9', url: 'https://www.w3.org/TR/WCAG22/#invented', normative: true, level: 'A'
+  };
+  assertInvalid(ajv, 'semantic.schema.json', inventedCriterion, 'invented WCAG criterion');
   assertValid(ajv, 'applicability-matrix.schema.json', data.matrix, 'applicability matrix');
   assertValid(ajv, 'ui-design-brain-bindings.schema.json', data.uiDesignBrainBindings, 'UI Design Brain bindings');
   for (const profile of Object.values(data.profiles)) assertValid(ajv, 'profile.schema.json', profile, profile.name);
 
   const config = {
-    package: '@verndale/accessibility-standards@2.0.0',
+    package: '@verndale/accessibility-standards@3.0.0',
     profile: 'conductor',
     routes: 'accessibility-standards.routes.json',
     outputRoot: '.',
@@ -62,6 +83,7 @@ test('clean package distribution manifests validate against their published sche
     await cp(join(packageRoot, 'package.json'), join(root, 'package.json'));
     await cp(join(packageRoot, 'src'), join(root, 'src'), { recursive: true });
     await cp(join(packageRoot, 'profiles'), join(root, 'profiles'), { recursive: true });
+    await cp(join(packageRoot, 'schemas'), join(root, 'schemas'), { recursive: true });
     await buildDistribution(root);
     const manifest = JSON.parse(await readFile(join(root, 'dist', 'manifest.json'), 'utf8'));
     const projections = JSON.parse(await readFile(join(root, 'dist', 'projection-manifest.json'), 'utf8'));

@@ -8,4 +8,5 @@ Executed-plan bodies are archived beside this file. Every historical candidate r
 
 | Date | Plan | Status | Evidence | Topics |
 | --- | --- | --- | --- | --- |
+| 2026-08-30 | [WCAG 2.2 Coverage and Pattern Expansion](./2026-08-30-wcag-2-2-coverage-and-pattern-expansion-9afa9d1d04.md) | implemented | GitHub issue https://github.com/verndale/accessibility-standards/issues/6; Local branch codex/gh-6-wcag-2-2-pattern-expansion; src/coverage/wcag-2.2.yml; pnpm verify:ci | standards-authority, semantic-pattern-model, ui-pattern-bindings, consumer-projections <!-- plan:9afa9d1d04b7ee1546d6e67a6ffe1c8b1ecacd129d84dccb0d9e60efa06e6c39 --> |
 <!-- wiki-plan-rows -->

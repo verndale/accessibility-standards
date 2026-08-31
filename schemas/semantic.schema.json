@@ -1,1 +1,26 @@
-{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"semantic.schema.json","allOf":[{"$ref":"record.schema.json"},{"type":"object","required":["kind","requirement","proof"],"properties":{"kind":{"const":"semantic"},"requirement":{"type":"string"},"proof":{"type":"array","items":{"enum":["unit","axe","e2e","human"]},"minItems":1,"uniqueItems":true}}}]}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "semantic.schema.json",
+  "type": "object",
+  "required": ["id", "version", "title", "kind", "requirement", "proof", "standards_refs"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^semantics\\.[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "title": { "type": "string", "pattern": "\\S" },
+    "kind": { "const": "semantic" },
+    "requirement": { "type": "string", "pattern": "\\S" },
+    "proof": {
+      "type": "array",
+      "items": { "enum": ["unit", "axe", "e2e", "human"] },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "standards_refs": {
+      "type": "array",
+      "items": { "$ref": "standards-reference.schema.json" },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

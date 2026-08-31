@@ -1,1 +1,98 @@
-{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"pattern.schema.json","allOf":[{"$ref":"record.schema.json"},{"type":"object","required":["kind","requires","activation","scope","behavior","product_decisions","functional_spec_bindings","implementation_outcomes","evidence_routes"],"properties":{"kind":{"const":"pattern"},"requires":{"type":"array","items":{"type":"string","pattern":"^semantics\\."},"minItems":1,"uniqueItems":true}}}]}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pattern.schema.json",
+  "$defs": {
+    "fact": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+    "operand": {
+      "type": "object",
+      "required": ["fact", "value"],
+      "additionalProperties": false,
+      "properties": { "fact": { "$ref": "#/$defs/fact" }, "value": {} }
+    },
+    "existsOperand": {
+      "type": "object",
+      "required": ["fact"],
+      "additionalProperties": false,
+      "properties": { "fact": { "$ref": "#/$defs/fact" } }
+    },
+    "expression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["all"],
+          "additionalProperties": false,
+          "properties": { "all": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expression" } } }
+        },
+        {
+          "type": "object",
+          "required": ["any"],
+          "additionalProperties": false,
+          "properties": { "any": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expression" } } }
+        },
+        {
+          "type": "object",
+          "required": ["not"],
+          "additionalProperties": false,
+          "properties": { "not": { "$ref": "#/$defs/expression" } }
+        },
+        {
+          "type": "object",
+          "required": ["equals"],
+          "additionalProperties": false,
+          "properties": { "equals": { "$ref": "#/$defs/operand" } }
+        },
+        {
+          "type": "object",
+          "required": ["contains"],
+          "additionalProperties": false,
+          "properties": { "contains": { "$ref": "#/$defs/operand" } }
+        },
+        {
+          "type": "object",
+          "required": ["exists"],
+          "additionalProperties": false,
+          "properties": { "exists": { "$ref": "#/$defs/existsOperand" } }
+        }
+      ]
+    },
+    "nonBlankStrings": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "\\S" },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "type": "object",
+  "required": ["id", "version", "title", "kind", "standards_refs", "requires", "activation", "scope", "behavior", "product_decisions", "functional_spec_bindings", "implementation_outcomes", "evidence_routes"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^pattern\\.[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "title": { "type": "string", "pattern": "\\S" },
+    "kind": { "const": "pattern" },
+    "standards_refs": {
+      "type": "array",
+      "items": { "$ref": "standards-reference.schema.json" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "requires": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^semantics\\.[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "activation": { "$ref": "#/$defs/expression" },
+    "scope": { "type": "string", "pattern": "\\S" },
+    "behavior": { "$ref": "#/$defs/nonBlankStrings" },
+    "product_decisions": { "$ref": "#/$defs/nonBlankStrings" },
+    "functional_spec_bindings": { "$ref": "#/$defs/nonBlankStrings" },
+    "implementation_outcomes": { "$ref": "#/$defs/nonBlankStrings" },
+    "evidence_routes": {
+      "type": "array",
+      "items": { "enum": ["unit", "axe", "e2e", "human"] },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

@@ -1,3 +1,3 @@
 # Conductor semantics template
 
-Render requirements in stable semantic ID order for Functional Specification authors.
+Render requirements and normalized standards references in stable semantic ID order for Functional Specification authors.

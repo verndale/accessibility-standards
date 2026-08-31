@@ -16,14 +16,12 @@
     "component.selection_model": { "type": "string" },
     "interaction.has_motion_or_timing": { "type": "boolean" },
     "interaction.has_complex_pointer": { "type": "boolean" },
-    "interaction.has_character_shortcuts": { "type": "boolean" },
-    "content.uses_orientation_or_sensory_cues": { "type": "boolean" },
+    "interaction.has_dragging": { "type": "boolean" },
     "interaction.has_pointer_targets": { "type": "boolean" },
     "interaction.can_obscure_focus": { "type": "boolean" },
     "flow.has_authentication": { "type": "boolean" },
     "flow.repeats_entry": { "type": "boolean" },
-    "artifact.has_help": { "type": "boolean" },
-    "content.has_locale_or_bidi": { "type": "boolean" },
-    "component.has_data_table_or_grid": { "type": "boolean" }
+    "artifact.has_repeated_help_across_page_set": { "type": "boolean" },
+    "component.has_data_table": { "type": "boolean" }
   }
 }
