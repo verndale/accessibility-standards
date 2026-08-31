@@ -3,8 +3,8 @@ date: 2026-08-31
 topics: [ui-pattern-bindings, consumer-projections, sync-and-enforcement]
 plans: [2026-08-30-shared-accessibility-standards-delivery.md]
 issue: https://github.com/verndale/accessibility-standards/issues/9
-issues: [https://github.com/verndale/accessibility-standards/issues/9, https://github.com/verndale/ai-orchestration/issues/609]
-pr: pending
+issues: ["https://github.com/verndale/accessibility-standards/issues/9", "https://github.com/verndale/ai-orchestration/issues/609"]
+pr: https://github.com/verndale/accessibility-standards/pull/11
 ---
 # Schema-2 UI projector maintenance
 
