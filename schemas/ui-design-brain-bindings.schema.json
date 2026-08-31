@@ -12,7 +12,7 @@
       "additionalProperties": false,
       "properties": {
         "package": { "const": "@verndale/ui-design-brain" },
-        "package_version": { "const": "1.16.0" },
+        "package_version": { "const": "1.16.1" },
         "catalog_authority_version": { "const": "1.15.1" },
         "repository": { "const": "https://github.com/verndale/ui-design-brain" },
         "manifest_path": { "const": "skills/ui-design-brain/catalog-manifest.json" },

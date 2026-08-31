@@ -37,6 +37,7 @@ test('source validation fails closed for malformed authority and applicability c
     candidate.semantics[0].proof.push('foo');
   }, /Evidence routes must be exactly unit, axe, e2e, and human/);
   expectInvalid((candidate) => { candidate.uiDesignBrainBindings.bindings.find(({ ui_pattern_id }) => ui_pattern_id === 'button').baseline_semantic_ids = []; }, /baseline-only mapping must declare at least one baseline semantic/);
+  expectInvalid((candidate) => { candidate.uiDesignBrainBindings.source.package_version = '1.16.0'; }, /projector package version is invalid/);
   expectInvalid((candidate) => { candidate.semantics[0].unexpected = true; }, /has unsupported fields: unexpected/);
   expectInvalid((candidate) => { candidate.patterns[0].unexpected = true; }, /has unsupported fields: unexpected/);
   expectInvalid((candidate) => { candidate.semantics[0] = null; }, /Malformed semantic record/);
@@ -146,7 +147,7 @@ test('profile projections are byte stable and semantics precede patterns', async
     const bindings = JSON.parse(artifacts.get('uiDesignBrainBindings'));
     assert.equal(bindings.schema_version, 3);
     assert.equal(bindings.binding_schema_version, 1);
-    assert.equal(bindings.source.package_version, '1.16.0');
+    assert.equal(bindings.source.package_version, '1.16.1');
     assert.equal(bindings.source.catalog_authority_version, '1.15.1');
     assert.equal(bindings.source.source_digest, 'sha256:1eda596fe341786b5ada25742b6487bc06685fff17cbd582bc1b58302097e3ff');
     assert.equal(bindings.source.manifest_digest, 'sha256:63a0bc8d9537d6d4c0aef8fd8a539bf4a9181a50d0761bd63eae6fe59b4eddc9');
