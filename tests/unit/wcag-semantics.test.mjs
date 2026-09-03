@@ -485,22 +485,34 @@ test('Phase 3 applicability fails closed and keeps media modes independent', asy
       audioVideoRow({ 'content.has_prerecorded_audio_only': true }).resolution_state],
     ['unobserved', 'needs_input'],
   );
-  assert.throws(
-    () => audioVideoRow({ 'content.has_prerecorded_audio_only': 'true', 'content.has_prerecorded_video_only': false }),
-    /Observed value for content\.has_prerecorded_audio_only must be boolean/,
-  );
+  for (const factId of ['content.has_prerecorded_audio_only', 'content.has_prerecorded_video_only']) {
+    assert.throws(
+      () => audioVideoRow({
+        'content.has_prerecorded_audio_only': false,
+        'content.has_prerecorded_video_only': false,
+        [factId]: 'true',
+      }),
+      new RegExp(`Observed value for ${factId.replaceAll('.', '\\.') } must be boolean`),
+    );
+  }
 
-  const mediaFacts = {
-    'content.has_prerecorded_audio_only': false,
-    'content.has_prerecorded_video_only': false,
-    'content.has_prerecorded_synchronized_audio': true,
-    'content.has_prerecorded_synchronized_video': false,
-    'content.has_live_synchronized_audio': false,
-    'content.has_autoplay_audio_over_three_seconds': false,
-  };
-  const mediaResults = compileApplicability(data.matrix, data.facts, mediaFacts);
-  assert.equal(mediaResults.find(({ id }) => id === 'applicability.prerecorded-synchronized-audio').resolution_state, 'resolved');
-  for (const id of ['applicability.prerecorded-synchronized-video', 'applicability.live-synchronized-audio', 'applicability.autoplay-audio-control']) {
-    assert.equal(mediaResults.find((row) => row.id === id).resolution_state, 'skipped', `${id} must remain independent`);
+  const mediaRoutes = new Map([
+    ['content.has_prerecorded_audio_only', 'applicability.prerecorded-audio-video-only'],
+    ['content.has_prerecorded_video_only', 'applicability.prerecorded-audio-video-only'],
+    ['content.has_prerecorded_synchronized_audio', 'applicability.prerecorded-synchronized-audio'],
+    ['content.has_prerecorded_synchronized_video', 'applicability.prerecorded-synchronized-video'],
+    ['content.has_live_synchronized_audio', 'applicability.live-synchronized-audio'],
+    ['content.has_autoplay_audio_over_three_seconds', 'applicability.autoplay-audio-control'],
+  ]);
+  const mediaFactIds = [...mediaRoutes.keys()];
+  const mediaRowIds = new Set(mediaRoutes.values());
+  for (const activeFactId of mediaFactIds) {
+    const values = Object.fromEntries(mediaFactIds.map((factId) => [factId, factId === activeFactId]));
+    const results = compileApplicability(data.matrix, data.facts, values);
+    const activeRowId = mediaRoutes.get(activeFactId);
+    assert.equal(results.find(({ id }) => id === activeRowId).resolution_state, 'resolved', `${activeFactId} must activate ${activeRowId}`);
+    for (const rowId of mediaRowIds) {
+      if (rowId !== activeRowId) assert.equal(results.find(({ id }) => id === rowId).resolution_state, 'skipped', `${activeFactId} must not activate ${rowId}`);
+    }
   }
 });
