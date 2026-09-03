@@ -1,3 +1,13 @@
+## [3.2.0](https://github.com/verndale/accessibility-standards/compare/v3.1.1...v3.2.0) (2026-09-03)
+
+### Features
+
+* complete WCAG 2.2 A/AA semantic coverage ([b165fe4](https://github.com/verndale/accessibility-standards/commit/b165fe4543ce5cc623daa759b6b4fd1c37d33a70)), closes [#20](https://github.com/verndale/accessibility-standards/issues/20)
+
+### Bug Fixes
+
+* harden Phase 3 release verification ([995d11d](https://github.com/verndale/accessibility-standards/commit/995d11d9d3e48cd59112274c0705869be2be0222)), closes [#20](https://github.com/verndale/accessibility-standards/issues/20)
+
 ## [3.1.1](https://github.com/verndale/accessibility-standards/compare/v3.1.0...v3.1.1) (2026-08-31)
 
 ### Bug Fixes
