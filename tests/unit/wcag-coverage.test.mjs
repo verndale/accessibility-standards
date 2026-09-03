@@ -30,19 +30,39 @@ test('WCAG 2.2 inventory contains exactly the canonical Level A and AA criteria'
   );
   assert.deepEqual(
     Object.fromEntries(['covered', 'partial', 'gap'].map((status) => [status, data.wcagCoverage.criteria.filter((criterion) => criterion.status === status).length])),
-    { covered: 37, partial: 8, gap: 10 },
+    { covered: 55, partial: 0, gap: 0 },
   );
   assert.equal(data.wcagCoverage.criteria.some(({ id }) => id === '4.1.1'), false);
 });
 
-test('new WCAG 2.2 requirements and deferred APG backlog remain explicit', async () => {
+test('complete WCAG 2.2 semantic coverage and deferred APG backlog remain explicit', async () => {
   const data = await loadStandards();
-  const nonText = data.wcagCoverage.criteria.find(({ id }) => id === '1.1.1');
-  assert.equal(nonText.status, 'partial');
-  for (const shortfall of ['controls and input', 'time-based media', 'tests', 'sensory experiences', 'CAPTCHA alternatives']) {
-    assert.ok(nonText.note.includes(shortfall), `1.1.1 partial note omits ${shortfall}`);
-  }
+  assert.ok(data.wcagCoverage.criteria.every(({ status, note }) => status === 'covered' && note === undefined));
   const mapped = Object.fromEntries(data.wcagCoverage.criteria.map((criterion) => [criterion.id, criterion.semantic_ids]));
+  const phaseThreeMappings = {
+    '1.1.1': ['semantics.non-text-alternative', 'semantics.non-text-content'],
+    '1.2.1': ['semantics.media-alternatives', 'semantics.media.prerecorded-audio-video-only-alternatives'],
+    '1.2.2': ['semantics.media-alternatives', 'semantics.media.captions-prerecorded'],
+    '1.2.3': ['semantics.media-alternatives', 'semantics.media.audio-description-or-alternative-prerecorded'],
+    '1.2.4': ['semantics.media.captions-live'],
+    '1.2.5': ['semantics.media-alternatives', 'semantics.media.audio-description-prerecorded'],
+    '1.3.1': ['semantics.data-table', 'semantics.form-label', 'semantics.form-required', 'semantics.headings', 'semantics.info-relationships', 'semantics.landmarks'],
+    '1.3.2': ['semantics.meaningful-sequence'],
+    '1.3.3': ['semantics.sensory-characteristics'],
+    '1.3.4': ['semantics.orientation'],
+    '1.3.5': ['semantics.input-purpose'],
+    '1.4.1': ['semantics.use-of-color'],
+    '1.4.2': ['semantics.audio-control'],
+    '1.4.4': ['semantics.resize-text'],
+    '1.4.5': ['semantics.images-of-text'],
+    '2.3.1': ['semantics.flash-threshold'],
+    '2.4.6': ['semantics.headings', 'semantics.headings-labels-purpose'],
+    '3.3.2': ['semantics.form-label', 'semantics.form-required', 'semantics.input-labels-instructions'],
+  };
+  for (const [criterion, semanticIds] of Object.entries(phaseThreeMappings)) {
+    assert.equal(data.wcagCoverage.criteria.find(({ id }) => id === criterion).status, 'covered');
+    assert.deepEqual(mapped[criterion], semanticIds);
+  }
   const phaseTwoMappings = {
     '1.4.3': ['semantics.contrast-minimum'],
     '1.4.10': ['semantics.reflow'],
@@ -74,7 +94,6 @@ test('new WCAG 2.2 requirements and deferred APG backlog remain explicit', async
   assert.deepEqual(mapped['3.2.6'], ['semantics.consistent-help']);
   assert.deepEqual(mapped['3.3.7'], ['semantics.redundant-entry']);
   assert.deepEqual(mapped['3.3.8'], ['semantics.accessible-authentication']);
-  assert.equal(data.wcagCoverage.criteria.find(({ id }) => id === '3.3.2').status, 'partial');
   assert.deepEqual(data.wcagCoverage.deferred_patterns.map(({ id }) => id), ['grid', 'treegrid']);
   assert.ok(data.wcagCoverage.deferred_patterns.every(({ reason }) => typeof reason === 'string' && reason.trim().length > 0));
   assert.ok(data.wcagCoverage.deferred_patterns.every(({ id }) => !data.patterns.some(({ id: patternId }) => patternId === `pattern.${id}`)));
@@ -133,7 +152,7 @@ test('coverage and standards traceability validation fail closed', async () => {
   assert.throws(() => validateStandards(duplicateReference), /duplicate standards reference/);
 
   const unexplainedGap = structuredClone(data);
-  delete unexplainedGap.wcagCoverage.criteria.find(({ status }) => status === 'gap').note;
+  Object.assign(unexplainedGap.wcagCoverage.criteria[0], { status: 'gap', semantic_ids: [] });
   assert.throws(() => validateStandards(unexplainedGap), /gap coverage must explain the shortfall/);
 
   const duplicateDeferred = structuredClone(data);
@@ -223,6 +242,8 @@ test('Markdown projections render standards references and pattern activation', 
   for (const [profile, artifact] of [['conductor', 'semanticsMarkdown'], ['ai-orchestration', 'implementation']]) {
     const markdown = buildArtifacts(data, profile).get(artifact);
     assert.match(markdown, /## WCAG 2\.2 Level A\/AA coverage/);
+    assert.doesNotMatch(markdown, /\| (?:partial|gap) \|/);
+    assert.match(markdown, /\| 1\.2\.4 \| Captions \(Live\) \| AA \| covered \| semantics\.media\.captions-live \|/);
     assert.match(markdown, /\| 2\.5\.7 \| Dragging Movements \| AA \| covered \| semantics\.dragging-alternative \|/);
     assert.match(markdown, /### Deferred APG patterns/);
     assert.match(markdown, /- grid: Deferred until/);
@@ -231,8 +252,7 @@ test('Markdown projections render standards references and pattern activation', 
 
 test('Markdown projections escape hostile schema-valid reference and coverage text', async () => {
   const data = await loadStandards();
-  const gap = data.wcagCoverage.criteria.find(({ status }) => status === 'gap');
-  gap.note = 'line \\| injected\nnext <script>';
+  data.wcagCoverage.criteria[0].note = 'line \\| injected\nnext <script>';
   const pattern = data.patterns.find(({ id }) => id === 'pattern.accordion');
   pattern.standards_refs[0].identifier = 'bad] label\nnext';
   pattern.standards_refs[0].url = 'https://www.w3.org/WAI/ARIA/apg/patterns/bad path)>';

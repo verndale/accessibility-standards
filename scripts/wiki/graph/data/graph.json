@@ -2,12 +2,12 @@
   "version": 1,
   "wikiRoot": "wiki",
   "counts": {
-    "nodes": 20,
-    "edges": 87,
+    "nodes": 22,
+    "edges": 94,
     "byType": {
       "index": 3,
-      "journal": 6,
-      "plan": 6,
+      "journal": 7,
+      "plan": 7,
       "topic": 5
     }
   },
@@ -45,8 +45,8 @@
       ],
       "bytes": 1439,
       "degree": 2,
-      "x": 0.809017,
-      "y": 0.587785,
+      "x": 0.841254,
+      "y": 0.540641,
       "size": 8
     },
     {
@@ -82,8 +82,8 @@
       ],
       "bytes": 3765,
       "degree": 7,
-      "x": 0.587785,
-      "y": 0.809017,
+      "x": 0.654861,
+      "y": 0.75575,
       "size": 8
     },
     {
@@ -101,8 +101,8 @@
       ],
       "bytes": 3986,
       "degree": 6,
-      "x": 0.309017,
-      "y": 0.951057,
+      "x": 0.415415,
+      "y": 0.909632,
       "size": 8
     },
     {
@@ -120,8 +120,8 @@
       ],
       "bytes": 1958,
       "degree": 3,
-      "x": 0,
-      "y": 1,
+      "x": 0.142315,
+      "y": 0.989821,
       "size": 8
     },
     {
@@ -139,8 +139,8 @@
       ],
       "bytes": 3516,
       "degree": 3,
-      "x": -0.309017,
-      "y": 0.951057,
+      "x": -0.142315,
+      "y": 0.989821,
       "size": 8
     },
     {
@@ -158,8 +158,27 @@
       ],
       "bytes": 2479,
       "degree": 5,
-      "x": -0.587785,
-      "y": 0.809017,
+      "x": -0.415415,
+      "y": 0.909632,
+      "size": 8
+    },
+    {
+      "id": "wiki/journal/2026-09-02-wcag-2-2-complete-semantic-coverage.md",
+      "label": "Complete WCAG 2.2 A/AA semantic coverage",
+      "type": "journal",
+      "aliases": [],
+      "githubRefs": [
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 20,
+          "url": "https://github.com/verndale/accessibility-standards/issues/20"
+        }
+      ],
+      "bytes": 2368,
+      "degree": 4,
+      "x": -0.654861,
+      "y": 0.75575,
       "size": 8
     },
     {
@@ -170,8 +189,8 @@
       "githubRefs": [],
       "bytes": 2907,
       "degree": 2,
-      "x": 0.951057,
-      "y": 0.309017,
+      "x": 0.959493,
+      "y": 0.281733,
       "size": 12
     },
     {
@@ -189,8 +208,8 @@
       ],
       "bytes": 1210,
       "degree": 3,
-      "x": -0.809017,
-      "y": 0.587785,
+      "x": -0.841254,
+      "y": 0.540641,
       "size": 8
     },
     {
@@ -220,8 +239,8 @@
       ],
       "bytes": 17860,
       "degree": 11,
-      "x": -0.951057,
-      "y": 0.309017,
+      "x": -0.959493,
+      "y": 0.281733,
       "size": 8
     },
     {
@@ -251,8 +270,8 @@
       "githubRefs": [],
       "bytes": 1586,
       "degree": 6,
-      "x": -0.951057,
-      "y": -0.309017,
+      "x": -0.959493,
+      "y": -0.281733,
       "size": 8
     },
     {
@@ -270,8 +289,8 @@
       ],
       "bytes": 2819,
       "degree": 10,
-      "x": -0.809017,
-      "y": -0.587785,
+      "x": -0.841254,
+      "y": -0.540641,
       "size": 8
     },
     {
@@ -289,8 +308,27 @@
       ],
       "bytes": 1554,
       "degree": 5,
-      "x": -0.587785,
-      "y": -0.809017,
+      "x": -0.654861,
+      "y": -0.75575,
+      "size": 8
+    },
+    {
+      "id": "wiki/plans/2026-09-02-phase-3-complete-wcag-2-2-a-aa-semantic-coverage-3-2-0-29791704c5.md",
+      "label": "Phase 3: Complete WCAG 2.2 A/AA Semantic Coverage (`3.2.0`)",
+      "type": "plan",
+      "aliases": [],
+      "githubRefs": [
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 20,
+          "url": "https://github.com/verndale/accessibility-standards/issues/20"
+        }
+      ],
+      "bytes": 4652,
+      "degree": 4,
+      "x": -0.415415,
+      "y": -0.909632,
       "size": 8
     },
     {
@@ -325,6 +363,12 @@
         },
         {
           "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 20,
+          "url": "https://github.com/verndale/accessibility-standards/issues/20"
+        },
+        {
+          "repository": "verndale/accessibility-standards",
           "kind": "pull-request",
           "number": 7,
           "url": "https://github.com/verndale/accessibility-standards/pull/7"
@@ -342,10 +386,10 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 3129,
-      "degree": 8,
-      "x": -0.309017,
-      "y": -0.951057,
+      "bytes": 3589,
+      "degree": 9,
+      "x": -0.142315,
+      "y": -0.989821,
       "size": 12
     },
     {
@@ -384,9 +428,9 @@
         }
       ],
       "bytes": 2742,
-      "degree": 14,
-      "x": 0,
-      "y": -1,
+      "degree": 15,
+      "x": 0.142315,
+      "y": -0.989821,
       "size": 8
     },
     {
@@ -399,10 +443,10 @@
         "applicability matrix"
       ],
       "githubRefs": [],
-      "bytes": 3545,
-      "degree": 18,
-      "x": 0.309017,
-      "y": -0.951057,
+      "bytes": 3890,
+      "degree": 21,
+      "x": 0.415415,
+      "y": -0.909632,
       "size": 8
     },
     {
@@ -429,9 +473,9 @@
         }
       ],
       "bytes": 2665,
-      "degree": 14,
-      "x": 0.587785,
-      "y": -0.809017,
+      "degree": 15,
+      "x": 0.654861,
+      "y": -0.75575,
       "size": 8
     },
     {
@@ -453,8 +497,8 @@
       ],
       "bytes": 3856,
       "degree": 13,
-      "x": 0.809017,
-      "y": -0.587785,
+      "x": 0.841254,
+      "y": -0.540641,
       "size": 8
     },
     {
@@ -494,8 +538,8 @@
       ],
       "bytes": 4512,
       "degree": 20,
-      "x": 0.951057,
-      "y": -0.309017,
+      "x": 0.959493,
+      "y": -0.281733,
       "size": 8
     }
   ],
@@ -613,6 +657,13 @@
       "relation": "plan"
     },
     {
+      "id": "31399e0b370308e1",
+      "source": "wiki/journal/2026-09-02-wcag-2-2-complete-semantic-coverage.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "355b085344694472",
       "source": "wiki/INDEX.md",
       "target": "wiki/MECHANICS.md",
@@ -639,6 +690,13 @@
       "target": "wiki/topics/ui-pattern-bindings.md",
       "type": "topic",
       "relation": "topic"
+    },
+    {
+      "id": "39872d4f00f9f98c",
+      "source": "wiki/topics/semantic-pattern-model.md",
+      "target": "wiki/plans/2026-09-02-phase-3-complete-wcag-2-2-a-aa-semantic-coverage-3-2-0-29791704c5.md",
+      "type": "link",
+      "relation": "link"
     },
     {
       "id": "3abe1f8b028676b6",
@@ -702,6 +760,13 @@
       "target": "wiki/topics/ui-pattern-bindings.md",
       "type": "link",
       "relation": "link"
+    },
+    {
+      "id": "5c8848aa24b2f803",
+      "source": "wiki/journal/2026-09-02-wcag-2-2-complete-semantic-coverage.md",
+      "target": "wiki/topics/standards-authority.md",
+      "type": "topic",
+      "relation": "topic"
     },
     {
       "id": "5d7ed9511c8a376d",
@@ -935,6 +1000,13 @@
       "relation": "link"
     },
     {
+      "id": "bfc8a7a6eb68a682",
+      "source": "wiki/plans/2026-09-02-phase-3-complete-wcag-2-2-a-aa-semantic-coverage-3-2-0-29791704c5.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "ca804f7fe80db766",
       "source": "wiki/journal/2026-08-30-pr-ai-release-preflight-repair.md",
       "target": "wiki/plans/2026-08-30-repair-pr-ai-automation-and-release-preflight-704110024e.md",
@@ -991,6 +1063,13 @@
       "relation": "link"
     },
     {
+      "id": "d62458800e08fda0",
+      "source": "wiki/journal/2026-09-02-wcag-2-2-complete-semantic-coverage.md",
+      "target": "wiki/plans/2026-09-02-phase-3-complete-wcag-2-2-a-aa-semantic-coverage-3-2-0-29791704c5.md",
+      "type": "plan",
+      "relation": "plan"
+    },
+    {
       "id": "d89e4b86f88a971c",
       "source": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
       "target": "wiki/topics/ui-pattern-bindings.md",
@@ -1040,6 +1119,13 @@
       "relation": "topic"
     },
     {
+      "id": "e46addce8a047c4c",
+      "source": "wiki/plans/INDEX.md",
+      "target": "wiki/plans/2026-09-02-phase-3-complete-wcag-2-2-a-aa-semantic-coverage-3-2-0-29791704c5.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
       "id": "e56d58329e2a8982",
       "source": "wiki/MECHANICS.md",
       "target": "wiki/plans/INDEX.md",
@@ -1066,6 +1152,13 @@
       "target": "wiki/topics/standards-authority.md",
       "type": "link",
       "relation": "link"
+    },
+    {
+      "id": "f2074b2d71c315ae",
+      "source": "wiki/journal/2026-09-02-wcag-2-2-complete-semantic-coverage.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "topic",
+      "relation": "topic"
     },
     {
       "id": "f7d5fab128fd2771",
