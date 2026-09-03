@@ -1,9 +1,11 @@
 import { execFileSync } from 'node:child_process';
-import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
 const root = process.cwd();
+const packageManifest = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
+const packageId = `${packageManifest.name}@${packageManifest.version}`;
 const packed = execFileSync('pnpm', ['pack', '--pack-destination', root], { cwd: root, encoding: 'utf8' }).trim().split('\n').at(-1);
 const sandbox = await mkdtemp(join(tmpdir(), 'a11y-packed-'));
 try {
@@ -16,7 +18,7 @@ try {
     const config = join(consumer, 'accessibility-standards.config.json');
     await mkdir(consumer, { recursive: true });
     await writeFile(config, `${JSON.stringify({
-      package: '@verndale/accessibility-standards@3.1.1',
+      package: packageId,
       profile,
       routes: 'accessibility-standards.routes.json',
       outputRoot: 'generated',

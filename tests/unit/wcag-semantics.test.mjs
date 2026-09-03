@@ -34,6 +34,27 @@ const phaseTwoSemantics = [
   ['semantics.consistent-identification', '3.2.4', 'AA', 'consistent-identification', ['e2e', 'human']],
 ];
 
+const phaseThreeSemantics = [
+  ['semantics.audio-control', '1.4.2', 'A', 'audio-control', ['e2e', 'human']],
+  ['semantics.flash-threshold', '2.3.1', 'A', 'three-flashes-or-below-threshold', ['e2e', 'human']],
+  ['semantics.headings-labels-purpose', '2.4.6', 'AA', 'headings-and-labels', ['human']],
+  ['semantics.images-of-text', '1.4.5', 'AA', 'images-of-text', ['human']],
+  ['semantics.info-relationships', '1.3.1', 'A', 'info-and-relationships', ['axe', 'human']],
+  ['semantics.input-labels-instructions', '3.3.2', 'A', 'labels-or-instructions', ['axe', 'human']],
+  ['semantics.input-purpose', '1.3.5', 'AA', 'identify-input-purpose', ['axe', 'human']],
+  ['semantics.meaningful-sequence', '1.3.2', 'A', 'meaningful-sequence', ['e2e', 'human']],
+  ['semantics.media.audio-description-or-alternative-prerecorded', '1.2.3', 'A', 'audio-description-or-media-alternative-prerecorded', ['e2e', 'human']],
+  ['semantics.media.audio-description-prerecorded', '1.2.5', 'AA', 'audio-description-prerecorded', ['e2e', 'human']],
+  ['semantics.media.captions-live', '1.2.4', 'AA', 'captions-live', ['e2e', 'human']],
+  ['semantics.media.captions-prerecorded', '1.2.2', 'A', 'captions-prerecorded', ['e2e', 'human']],
+  ['semantics.media.prerecorded-audio-video-only-alternatives', '1.2.1', 'A', 'audio-only-and-video-only-prerecorded', ['e2e', 'human']],
+  ['semantics.non-text-content', '1.1.1', 'A', 'non-text-content', ['axe', 'human']],
+  ['semantics.orientation', '1.3.4', 'AA', 'orientation', ['e2e', 'human']],
+  ['semantics.resize-text', '1.4.4', 'AA', 'resize-text', ['e2e', 'human']],
+  ['semantics.sensory-characteristics', '1.3.3', 'A', 'sensory-characteristics', ['human']],
+  ['semantics.use-of-color', '1.4.1', 'A', 'use-of-color', ['human']],
+];
+
 function semanticById(data, id) {
   const semantic = data.semantics.find((candidate) => candidate.id === id);
   assert.ok(semantic, `missing semantic ${id}`);
@@ -115,19 +136,6 @@ test('WCAG 2.2 additions have dedicated semantics and normative plus explanatory
 test('Phase 2 semantic-gap rules use stable IDs, complete proof lanes, and paired WCAG references', async () => {
   const data = await loadStandards();
   assert.equal(phaseTwoSemantics.length, 21);
-  assert.deepEqual({
-    semantics: data.semantics.length,
-    patterns: data.patterns.length,
-    applicabilityRows: data.matrix.rows.length,
-    facts: Object.keys(data.facts.facts).length,
-    uiBindings: data.uiDesignBrainBindings.bindings.length,
-  }, {
-    semantics: 50,
-    patterns: 28,
-    applicabilityRows: 28,
-    facts: 36,
-    uiBindings: 80,
-  });
 
   for (const [id, criterion, level, slug, proof] of phaseTwoSemantics) {
     const semantic = semanticById(data, id);
@@ -172,6 +180,71 @@ test('Phase 2 semantic-gap rules use stable IDs, complete proof lanes, and paire
     'semantics.context-change.input': ['advised of that behavior before using the component'],
     'semantics.consistent-navigation': ['same relative order', 'unless the user initiates'],
     'semantics.consistent-identification': ['same functionality', 'consistently throughout a set of web pages'],
+  };
+  for (const [id, details] of Object.entries(requiredDetails)) {
+    const requirement = semanticById(data, id).requirement;
+    for (const detail of details) assert.ok(requirement.includes(detail), `${id} requirement omits ${detail}`);
+  }
+});
+
+test('Phase 3 semantics complete every remaining WCAG 2.2 A/AA obligation', async () => {
+  const data = await loadStandards();
+  assert.equal(phaseThreeSemantics.length, 18);
+  assert.deepEqual({
+    semantics: data.semantics.length,
+    patterns: data.patterns.length,
+    applicabilityRows: data.matrix.rows.length,
+    facts: Object.keys(data.facts.facts).length,
+    uiBindings: data.uiDesignBrainBindings.bindings.length,
+  }, {
+    semantics: 68,
+    patterns: 28,
+    applicabilityRows: 38,
+    facts: 43,
+    uiBindings: 80,
+  });
+
+  for (const [id, criterion, level, slug, proof] of phaseThreeSemantics) {
+    const semantic = semanticById(data, id);
+    assert.equal(semantic.version, '1.0.0');
+    assert.deepEqual(semantic.proof, proof, `${id} has incorrect proof routing`);
+    assert.deepEqual(semantic.standards_refs, [
+      {
+        authority: 'wcag-2.2',
+        identifier: criterion,
+        url: `https://www.w3.org/TR/WCAG22/#${slug}`,
+        normative: true,
+        level,
+      },
+      {
+        authority: 'wcag-2.2-understanding',
+        identifier: criterion,
+        url: `https://www.w3.org/WAI/WCAG22/Understanding/${slug}.html`,
+        normative: false,
+        level,
+      },
+    ]);
+  }
+
+  const requiredDetails = {
+    'semantics.non-text-content': ['controls and inputs', 'time-based media', 'tests or exercises', 'specific sensory experience', 'CAPTCHA', 'alternative forms', 'pure decoration'],
+    'semantics.media.prerecorded-audio-video-only-alternatives': ['prerecorded audio-only', 'equivalent information', 'prerecorded video-only', 'audio track', 'media alternative for text', 'clearly labeled'],
+    'semantics.media.captions-prerecorded': ['all prerecorded audio content', 'synchronized media', 'media alternative for text', 'clearly labeled'],
+    'semantics.media.audio-description-or-alternative-prerecorded': ['either an alternative for time-based media or audio description', 'prerecorded video content', 'media alternative for text', 'clearly labeled'],
+    'semantics.media.captions-live': ['all live audio content', 'synchronized media'],
+    'semantics.media.audio-description-prerecorded': ['audio description', 'all prerecorded video content', 'synchronized media'],
+    'semantics.info-relationships': ['Information, structure, and relationships', 'programmatically determined', 'available in text'],
+    'semantics.meaningful-sequence': ['sequence', 'affects its meaning', 'correct reading sequence', 'programmatically determined'],
+    'semantics.sensory-characteristics': ['shape', 'color', 'size', 'visual location', 'orientation', 'sound'],
+    'semantics.orientation': ['portrait', 'landscape', 'essential'],
+    'semantics.input-purpose': ['collects information about the user', 'WCAG Input Purposes', 'technology supports'],
+    'semantics.use-of-color': ['only visual means', 'convey information', 'indicate an action', 'prompt a response', 'distinguish a visual element'],
+    'semantics.audio-control': ['automatically', 'more than three seconds', 'pause or stop', 'independently from the overall system volume'],
+    'semantics.resize-text': ['captions', 'images of text', 'without assistive technology', '200 percent', 'without loss of content or functionality'],
+    'semantics.images-of-text': ['use text rather than images of text', 'visually customized', 'essential', 'Logotypes'],
+    'semantics.flash-threshold': ['more than three times', 'one-second period', 'general flash threshold', 'red flash threshold', 'entire page'],
+    'semantics.headings-labels-purpose': ['Headings and labels', 'topic or purpose'],
+    'semantics.input-labels-instructions': ['labels or instructions', 'requires user input', 'data format', 'expected value', 'task-specific direction'],
   };
   for (const [id, details] of Object.entries(requiredDetails)) {
     const requirement = semanticById(data, id).requirement;
@@ -323,12 +396,123 @@ test('corrected WCAG applicability rules fail closed for every trigger state and
   }
 });
 
-test('known WCAG gaps do not resolve to unrelated semantics', async () => {
+test('Phase 3 applicability uses broad safeguards plus precise media and input discriminators', async () => {
   const data = await loadStandards();
-  for (const factId of ['content.uses_orientation_or_sensory_cues', 'content.has_locale_or_bidi']) {
-    assert.equal(Object.hasOwn(data.facts.facts, factId), false, `${factId} should not imply unrelated coverage`);
+  const phaseThreeFacts = [
+    'component.has_user_information_fields',
+    'content.has_autoplay_audio_over_three_seconds',
+    'content.has_live_synchronized_audio',
+    'content.has_prerecorded_audio_only',
+    'content.has_prerecorded_synchronized_audio',
+    'content.has_prerecorded_synchronized_video',
+    'content.has_prerecorded_video_only',
+  ];
+  for (const factId of phaseThreeFacts) {
+    assert.deepEqual(data.facts.facts[factId], { type: 'boolean' });
   }
-  for (const rowId of ['applicability.orientation-sensory', 'applicability.locale-bidi']) {
-    assert.equal(data.matrix.rows.some(({ id }) => id === rowId), false, `${rowId} should remain a declared WCAG gap`);
+
+  const broadRows = [
+    ['applicability.non-text-content-completeness', 'content.has_non_text', ['semantics.non-text-content', 'semantics.images-of-text'], ['axe', 'human']],
+    ['applicability.page-content-structure', 'artifact.page_context', ['semantics.info-relationships', 'semantics.meaningful-sequence', 'semantics.sensory-characteristics', 'semantics.headings-labels-purpose'], ['axe', 'e2e', 'human']],
+    ['applicability.rendered-content-safeguards', 'artifact.has_rendered_interface', ['semantics.orientation', 'semantics.use-of-color', 'semantics.resize-text', 'semantics.flash-threshold'], ['e2e', 'human']],
+    ['applicability.input-labels-instructions', 'component.has_form_fields', ['semantics.input-labels-instructions'], ['axe', 'human']],
+    ['applicability.prerecorded-synchronized-audio', 'content.has_prerecorded_synchronized_audio', ['semantics.media.captions-prerecorded'], ['e2e', 'human']],
+    ['applicability.prerecorded-synchronized-video', 'content.has_prerecorded_synchronized_video', ['semantics.media.audio-description-or-alternative-prerecorded', 'semantics.media.audio-description-prerecorded'], ['e2e', 'human']],
+    ['applicability.live-synchronized-audio', 'content.has_live_synchronized_audio', ['semantics.media.captions-live'], ['e2e', 'human']],
+    ['applicability.autoplay-audio-control', 'content.has_autoplay_audio_over_three_seconds', ['semantics.audio-control'], ['e2e', 'human']],
+    ['applicability.user-information-input-purpose', 'component.has_user_information_fields', ['semantics.input-purpose'], ['axe', 'human']],
+  ];
+  for (const [id, fact, outcomes, evidence] of broadRows) {
+    assert.deepEqual(rowById(data, id), { id, when: { equals: { fact, value: true } }, outcomes, evidence });
+  }
+
+  assert.deepEqual(rowById(data, 'applicability.prerecorded-audio-video-only'), {
+    id: 'applicability.prerecorded-audio-video-only',
+    when: {
+      any: [
+        { equals: { fact: 'content.has_prerecorded_audio_only', value: true } },
+        { equals: { fact: 'content.has_prerecorded_video_only', value: true } },
+      ],
+    },
+    outcomes: ['semantics.media.prerecorded-audio-video-only-alternatives'],
+    evidence: ['e2e', 'human'],
+  });
+});
+
+test('Phase 3 applicability fails closed and keeps media modes independent', async () => {
+  const data = await loadStandards();
+  const singleFactRows = [
+    ['applicability.non-text-content-completeness', 'content.has_non_text'],
+    ['applicability.page-content-structure', 'artifact.page_context'],
+    ['applicability.rendered-content-safeguards', 'artifact.has_rendered_interface'],
+    ['applicability.input-labels-instructions', 'component.has_form_fields'],
+    ['applicability.prerecorded-synchronized-audio', 'content.has_prerecorded_synchronized_audio'],
+    ['applicability.prerecorded-synchronized-video', 'content.has_prerecorded_synchronized_video'],
+    ['applicability.live-synchronized-audio', 'content.has_live_synchronized_audio'],
+    ['applicability.autoplay-audio-control', 'content.has_autoplay_audio_over_three_seconds'],
+    ['applicability.user-information-input-purpose', 'component.has_user_information_fields'],
+  ];
+
+  for (const [rowId, factId] of singleFactRows) {
+    const applicable = compileApplicability(data.matrix, data.facts, { [factId]: true }).find(({ id }) => id === rowId);
+    assert.deepEqual([applicable.trigger_state, applicable.resolution_state], ['applicable', 'resolved']);
+    const inapplicable = compileApplicability(data.matrix, data.facts, { [factId]: false }).find(({ id }) => id === rowId);
+    assert.deepEqual([inapplicable.trigger_state, inapplicable.resolution_state], ['not_applicable', 'skipped']);
+    const missing = compileApplicability(data.matrix, data.facts).find(({ id }) => id === rowId);
+    assert.deepEqual([missing.trigger_state, missing.resolution_state], ['unobserved', 'needs_input']);
+    assert.throws(
+      () => compileApplicability(data.matrix, data.facts, { [factId]: 'true' }),
+      new RegExp(`Observed value for ${factId.replaceAll('.', '\\.') } must be boolean`),
+    );
+  }
+
+  const audioVideoRow = (values) => compileApplicability(data.matrix, data.facts, values)
+    .find(({ id }) => id === 'applicability.prerecorded-audio-video-only');
+  for (const values of [
+    { 'content.has_prerecorded_audio_only': true, 'content.has_prerecorded_video_only': false },
+    { 'content.has_prerecorded_audio_only': false, 'content.has_prerecorded_video_only': true },
+    { 'content.has_prerecorded_audio_only': true, 'content.has_prerecorded_video_only': true },
+  ]) {
+    assert.deepEqual([audioVideoRow(values).trigger_state, audioVideoRow(values).resolution_state], ['applicable', 'resolved']);
+  }
+  assert.deepEqual(
+    [audioVideoRow({ 'content.has_prerecorded_audio_only': false, 'content.has_prerecorded_video_only': false }).trigger_state,
+      audioVideoRow({ 'content.has_prerecorded_audio_only': false, 'content.has_prerecorded_video_only': false }).resolution_state],
+    ['not_applicable', 'skipped'],
+  );
+  assert.deepEqual(
+    [audioVideoRow({ 'content.has_prerecorded_audio_only': true }).trigger_state,
+      audioVideoRow({ 'content.has_prerecorded_audio_only': true }).resolution_state],
+    ['unobserved', 'needs_input'],
+  );
+  for (const factId of ['content.has_prerecorded_audio_only', 'content.has_prerecorded_video_only']) {
+    assert.throws(
+      () => audioVideoRow({
+        'content.has_prerecorded_audio_only': false,
+        'content.has_prerecorded_video_only': false,
+        [factId]: 'true',
+      }),
+      new RegExp(`Observed value for ${factId.replaceAll('.', '\\.') } must be boolean`),
+    );
+  }
+
+  const mediaRoutes = new Map([
+    ['content.has_prerecorded_audio_only', 'applicability.prerecorded-audio-video-only'],
+    ['content.has_prerecorded_video_only', 'applicability.prerecorded-audio-video-only'],
+    ['content.has_prerecorded_synchronized_audio', 'applicability.prerecorded-synchronized-audio'],
+    ['content.has_prerecorded_synchronized_video', 'applicability.prerecorded-synchronized-video'],
+    ['content.has_live_synchronized_audio', 'applicability.live-synchronized-audio'],
+    ['content.has_autoplay_audio_over_three_seconds', 'applicability.autoplay-audio-control'],
+  ]);
+  const mediaFactIds = [...mediaRoutes.keys()];
+  const mediaRowIds = new Set(mediaRoutes.values());
+  for (const activeFactId of mediaFactIds) {
+    const values = Object.fromEntries(mediaFactIds.map((factId) => [factId, factId === activeFactId]));
+    const results = compileApplicability(data.matrix, data.facts, values);
+    const activeRowId = mediaRoutes.get(activeFactId);
+    assert.equal(results.find(({ id }) => id === activeRowId).resolution_state, 'resolved', `${activeFactId} must activate ${activeRowId}`);
+    for (const rowId of mediaRowIds) {
+      if (rowId !== activeRowId) assert.equal(results.find(({ id }) => id === rowId).resolution_state, 'skipped', `${activeFactId} must not activate ${rowId}`);
+    }
   }
 });
