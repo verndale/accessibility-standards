@@ -1,1 +1,30 @@
-[{"id":"semantics.headings","version":"1.0.0","title":"Heading structure","kind":"semantic","requirement":"Headings describe document structure without choosing levels for visual appearance.","proof":["axe","human"],"standards_refs":[{"authority":"wcag-2.2","identifier":"1.3.1","url":"https://www.w3.org/TR/WCAG22/#info-and-relationships","normative":true,"level":"A"},{"authority":"wcag-2.2","identifier":"2.4.6","url":"https://www.w3.org/TR/WCAG22/#headings-and-labels","normative":true,"level":"AA"},{"authority":"wcag-2.2-understanding","identifier":"1.3.1","url":"https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html","normative":false,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"2.4.6","url":"https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html","normative":false,"level":"AA"}]},{"id":"semantics.landmarks","version":"1.0.0","title":"Landmarks","kind":"semantic","requirement":"Use native landmarks and name repeated landmarks only when a name is required to distinguish them.","proof":["axe","human"],"standards_refs":[{"authority":"aria-apg","identifier":"landmark-regions","url":"https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/","normative":false},{"authority":"wcag-2.2","identifier":"1.3.1","url":"https://www.w3.org/TR/WCAG22/#info-and-relationships","normative":true,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"1.3.1","url":"https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html","normative":false,"level":"A"}]}]
+[
+  {
+    "id": "semantics.headings",
+    "version": "1.0.0",
+    "title": "Heading structure",
+    "kind": "semantic",
+    "requirement": "Headings describe document structure without choosing levels for visual appearance.",
+    "proof": ["axe", "human"],
+    "standards_refs": [
+      {"authority":"wcag-2.2","identifier":"1.3.1","url":"https://www.w3.org/TR/WCAG22/#info-and-relationships","normative":true,"level":"A"},
+      {"authority":"wcag-2.2","identifier":"2.4.6","url":"https://www.w3.org/TR/WCAG22/#headings-and-labels","normative":true,"level":"AA"},
+      {"authority":"wcag-2.2-understanding","identifier":"1.3.1","url":"https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html","normative":false,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"2.4.6","url":"https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html","normative":false,"level":"AA"}
+    ]
+  },
+  {
+    "id": "semantics.landmarks",
+    "version": "1.0.0",
+    "title": "Landmarks",
+    "kind": "semantic",
+    "requirement": "Use native sectioning elements to expose the page's primary landmark regions and place perceivable page content within an appropriate landmark. Provide one visible main landmark, keep page-level banner, main, complementary, and contentinfo landmarks at the top level, and use complementary, form, navigation, search, or region only when their content and purpose warrant the landmark. Every region landmark has a concise accessible name, and every form landmark should have a name that preferably references a visible heading. When more than one landmark has the same role, use distinct names when their content or purpose differs, but use the same name when repeated navigation landmarks have identical content and purpose; never repeat the role name in the label. Avoid unnecessary landmarks that make navigation noisy.",
+    "proof": ["axe", "human"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"landmark-regions","url":"https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/","normative":false},
+      {"authority":"aria-apg","identifier":"landmarks","url":"https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/","normative":false},
+      {"authority":"wcag-2.2","identifier":"1.3.1","url":"https://www.w3.org/TR/WCAG22/#info-and-relationships","normative":true,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"1.3.1","url":"https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html","normative":false,"level":"A"}
+    ]
+  }
+]

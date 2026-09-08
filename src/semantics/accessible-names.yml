@@ -1,1 +1,30 @@
-[{"id":"semantics.accessible-name","version":"1.0.0","title":"Accessible name","kind":"semantic","requirement":"Every interactive or meaning-bearing control has a concise programmatic name. For user interface components whose visible labels include text or images of text, the accessible name contains the text presented visually; preserve that text's order where practical.","proof":["unit","axe","human"],"standards_refs":[{"authority":"wcag-2.2","identifier":"2.5.3","url":"https://www.w3.org/TR/WCAG22/#label-in-name","normative":true,"level":"A"},{"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"2.5.3","url":"https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html","normative":false,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}]},{"id":"semantics.name-role-value","version":"1.0.0","title":"Name role value","kind":"semantic","requirement":"For every user interface component, the name and role can be programmatically determined; states, properties, and values that users can set can be programmatically set; and notification of changes to these items is available to user agents, including assistive technologies.","proof":["unit","axe","human"],"standards_refs":[{"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}]}]
+[
+  {
+    "id": "semantics.accessible-name",
+    "version": "1.0.0",
+    "title": "Accessible name",
+    "kind": "semantic",
+    "requirement": "Give every element whose role requires or benefits from a name a concise name that identifies its purpose. Prefer native labeling and visible text; use aria-labelledby to reference suitable visible text, or aria-label only when no suitable visible label exists. Do not name roles for which naming is prohibited, do not override useful descendant content without accounting for the replacement, and do not duplicate the role or state in the name. For user interface components whose visible labels include text or images of text, the accessible name contains the text presented visually in the same order where practical and follows legitimate visible-label changes that communicate a changed action or purpose.",
+    "proof": ["unit", "axe", "human"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"names-and-descriptions","url":"https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/","normative":false},
+      {"authority":"wai-aria-1.2","identifier":"namecalculation","url":"https://www.w3.org/TR/wai-aria-1.2/#namecalculation","normative":true},
+      {"authority":"wcag-2.2","identifier":"2.5.3","url":"https://www.w3.org/TR/WCAG22/#label-in-name","normative":true,"level":"A"},
+      {"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"2.5.3","url":"https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html","normative":false,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}
+    ]
+  },
+  {
+    "id": "semantics.name-role-value",
+    "version": "1.0.0",
+    "title": "Name role value",
+    "kind": "semantic",
+    "requirement": "For every user interface component, the name and role can be programmatically determined; states, properties, and values that users can set can be programmatically set; and notification of changes to these items is available to user agents, including assistive technologies.",
+    "proof": ["unit", "axe", "human"],
+    "standards_refs": [
+      {"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}
+    ]
+  }
+]

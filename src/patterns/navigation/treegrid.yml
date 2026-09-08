@@ -1,0 +1,84 @@
+{
+  "id": "pattern.treegrid",
+  "version": "1.0.0",
+  "title": "Treegrid",
+  "kind": "pattern",
+  "standards_refs": [
+    {
+      "authority": "aria-apg",
+      "identifier": "treegrid",
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/treegrid/",
+      "normative": false
+    }
+  ],
+  "requires": [
+    "semantics.accessible-description",
+    "semantics.accessible-name",
+    "semantics.busy-state",
+    "semantics.collection-metadata",
+    "semantics.composite-focus",
+    "semantics.disabled-readonly",
+    "semantics.expanded-state",
+    "semantics.focus.visible",
+    "semantics.hidden-inert",
+    "semantics.keyboard",
+    "semantics.native-elements",
+    "semantics.roles-states-properties",
+    "semantics.selected-state",
+    "semantics.sort-state"
+  ],
+  "activation": {
+    "contains": {
+      "fact": "component.accessibility_pattern_ids",
+      "value": "pattern.treegrid"
+    }
+  },
+  "scope": "Hierarchical tabular data that is editable or interactive and contains expandable child rows; excludes flat grids, static tables, and non-tabular trees",
+  "behavior": [
+    "Expose a named and, when useful, described treegrid with row or rowgroup structure and columnheader, rowheader, or gridcell children; when an HTML table hosts the treegrid, preserve its implicit row and cell roles and use native rowspan and colspan instead of redundant ARIA span properties",
+    "Apply aria-expanded only to a parent row or its declared hierarchy cell and fully hide collapsed child rows from interaction and the accessibility tree; rows without children do not expose aria-expanded",
+    "Declare rows-first, cells-first, or cells-only focus before implementation, keep one composite entry target in the page tab sequence, restore the declared active row or cell on re-entry, and ensure every data cell can receive focus or contains a focusable element while allowing non-interactive column headers to remain unfocusable",
+    "When row focus is active, Right Arrow expands a collapsed parent or moves into its first cell, Left Arrow collapses an expanded parent, and Up and Down move through visible rows; when cell focus is active, Right and Left move within the row and Up and Down move within the same column, with movement stopping at boundaries",
+    "Home and End move to the first and last row when a row has focus or to the first and last cell in the current row when a cell has focus; Control plus Home and End move to the first and last visible row while preserving the current column for cell focus, and Page Up and Page Down move by the declared visible-row increment",
+    "Enter toggles the parent when cell-only focus is on the first hierarchy cell that exposes aria-expanded and otherwise invokes the cell's default action; for editable cells, multiple widgets, or widgets that consume treegrid navigation keys, use the declared Enter or F2 interaction mode and Escape restoration without intercepting native text-editing commands",
+    "For a single-select treegrid, keep the focused item selected and omit aria-selected from all other rows and cells; for a multi-select treegrid, expose aria-multiselectable true, keep focus visually and programmatically distinct from selection, and synchronize aria-selected true or false on every selectable row or cell",
+    "Expose hierarchy level, position, and set size for rows when the DOM cannot convey them; synchronize total row and column counts, one-based indices, spans, and aria-sort when data is hidden, virtualized, or sorted, and bracket multi-operation updates with aria-busy",
+    "Apply aria-readonly only when editing exists and is unavailable for the whole treegrid or particular cells, prevent disabled controls from activating, move focus to the parent row or hierarchy cell before collapsing a branch that contains focus, otherwise preserve the focused row or cell during expansion and virtualization, and make Tab behavior through contained controls and out of the treegrid explicit"
+  ],
+  "product_decisions": [
+    "cell_focus_target",
+    "disabled_focusability",
+    "edit_mode",
+    "focus_mode",
+    "focus_strategy",
+    "hierarchy_cell",
+    "page_navigation_step",
+    "selection_model",
+    "sort_model",
+    "tab_behavior",
+    "virtualization"
+  ],
+  "functional_spec_bindings": [
+    "behavior",
+    "content",
+    "controls",
+    "focus",
+    "keyboard",
+    "states"
+  ],
+  "implementation_outcomes": [
+    "treegrid-composite-focus",
+    "treegrid-edit-navigation-modes",
+    "treegrid-hierarchy-semantics",
+    "treegrid-keyboard-model",
+    "treegrid-selection-model",
+    "treegrid-sort-readonly-state",
+    "treegrid-virtualization-metadata"
+  ],
+  "evidence_routes": [
+    "unit",
+    "axe",
+    "e2e",
+    "human"
+  ]
+}

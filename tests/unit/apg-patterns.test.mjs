@@ -12,18 +12,67 @@ const apgPatternRefs = {
   'pattern.combobox': ['combobox'],
   'pattern.dialog': ['dialog-modal'],
   'pattern.disclosure': ['disclosure'],
+  'pattern.feed': ['feed'],
+  'pattern.grid': ['grid'],
   'pattern.listbox': ['listbox'],
   'pattern.menu': ['menubar'],
   'pattern.menu-button': ['menu-button'],
+  'pattern.meter': ['meter'],
   'pattern.radio-group': ['radio'],
   'pattern.slider': ['slider', 'slider-multithumb'],
   'pattern.spinbutton': ['spinbutton'],
   'pattern.switch': ['switch'],
   'pattern.tabs': ['tabs'],
+  'pattern.toggle-button': ['button'],
   'pattern.toolbar': ['toolbar'],
   'pattern.tooltip': ['tooltip'],
   'pattern.tree-view': ['treeview'],
+  'pattern.treegrid': ['treegrid'],
+  'pattern.window-splitter': ['windowsplitter'],
 };
+
+const expectedApgPatterns = [
+  ['accordion', 'dedicated-pattern', ['pattern.accordion']],
+  ['alert', 'dedicated-pattern', ['pattern.alert']],
+  ['alertdialog', 'dedicated-pattern', ['pattern.alert-dialog']],
+  ['breadcrumb', 'baseline-semantics', ['semantics.accessible-name', 'semantics.current-state', 'semantics.landmarks', 'semantics.link-purpose', 'semantics.native-elements']],
+  ['button', 'composed', ['pattern.toggle-button', 'semantics.accessible-name', 'semantics.disabled-readonly', 'semantics.focus.visible', 'semantics.keyboard', 'semantics.name-role-value', 'semantics.native-elements', 'semantics.presentational-role', 'semantics.pressed-state', 'semantics.roles-states-properties', 'semantics.target-size']],
+  ['carousel', 'dedicated-pattern', ['pattern.carousel']],
+  ['checkbox', 'dedicated-pattern', ['pattern.checkbox']],
+  ['combobox', 'dedicated-pattern', ['pattern.combobox']],
+  ['dialog-modal', 'dedicated-pattern', ['pattern.dialog']],
+  ['disclosure', 'dedicated-pattern', ['pattern.disclosure']],
+  ['feed', 'dedicated-pattern', ['pattern.feed']],
+  ['grid', 'dedicated-pattern', ['pattern.grid']],
+  ['landmarks', 'baseline-semantics', ['semantics.landmarks', 'semantics.native-elements']],
+  ['link', 'baseline-semantics', ['semantics.accessible-name', 'semantics.focus.visible', 'semantics.keyboard', 'semantics.link-purpose', 'semantics.name-role-value', 'semantics.native-elements', 'semantics.target-size']],
+  ['listbox', 'dedicated-pattern', ['pattern.listbox']],
+  ['menubar', 'dedicated-pattern', ['pattern.menu']],
+  ['menu-button', 'dedicated-pattern', ['pattern.menu-button']],
+  ['meter', 'dedicated-pattern', ['pattern.meter']],
+  ['radio', 'dedicated-pattern', ['pattern.radio-group']],
+  ['slider', 'dedicated-pattern', ['pattern.slider']],
+  ['slider-multithumb', 'dedicated-pattern', ['pattern.slider']],
+  ['spinbutton', 'dedicated-pattern', ['pattern.spinbutton']],
+  ['switch', 'dedicated-pattern', ['pattern.switch']],
+  ['table', 'baseline-semantics', ['semantics.collection-metadata', 'semantics.data-table', 'semantics.native-elements', 'semantics.sort-state']],
+  ['tabs', 'dedicated-pattern', ['pattern.tabs']],
+  ['toolbar', 'dedicated-pattern', ['pattern.toolbar']],
+  ['tooltip', 'dedicated-pattern', ['pattern.tooltip']],
+  ['treeview', 'dedicated-pattern', ['pattern.tree-view']],
+  ['treegrid', 'dedicated-pattern', ['pattern.treegrid']],
+  ['windowsplitter', 'dedicated-pattern', ['pattern.window-splitter']],
+].map(([id, coverage, record_ids]) => ({ id, coverage, record_ids }));
+
+const expectedApgPractices = [
+  ['landmark-regions', ['semantics.landmarks', 'semantics.native-elements']],
+  ['names-and-descriptions', ['semantics.accessible-description', 'semantics.accessible-name']],
+  ['keyboard-interface', ['semantics.composite-focus', 'semantics.disabled-readonly', 'semantics.focus.visible', 'semantics.keyboard', 'semantics.selected-state']],
+  ['grid-and-table-properties', ['semantics.collection-metadata', 'semantics.data-table', 'semantics.sort-state']],
+  ['range-related-properties', ['semantics.range-value']],
+  ['structural-roles', ['semantics.native-elements', 'semantics.presentational-role']],
+  ['hiding-semantics', ['semantics.presentational-role']],
+].map(([id, record_ids]) => ({ id, record_ids }));
 
 const normativePatternRefs = {
   'pattern.consequential-submission': ['wcag-2.2:3.3.4'],
@@ -74,6 +123,44 @@ test('every pattern has sorted, authority-consistent standards references', asyn
   }
 });
 
+test('APG coverage manifest maps all 30 patterns and all seven practices exactly', async () => {
+  const data = await loadStandards();
+  assert.deepEqual({
+    version: data.apgCoverage.version,
+    authority: data.apgCoverage.authority,
+    patterns_url: data.apgCoverage.patterns_url,
+    practices_url: data.apgCoverage.practices_url,
+  }, {
+    version: 1,
+    authority: 'aria-apg',
+    patterns_url: 'https://www.w3.org/WAI/ARIA/apg/patterns/',
+    practices_url: 'https://www.w3.org/WAI/ARIA/apg/practices/',
+  });
+  assert.deepEqual(
+    data.apgCoverage.patterns.map(({ id, coverage }) => ({ id, coverage })),
+    expectedApgPatterns.map(({ id, coverage }) => ({ id, coverage })),
+  );
+  assert.deepEqual(data.apgCoverage.practices.map(({ id }) => id), expectedApgPractices.map(({ id }) => id));
+  const patternsById = new Map(data.apgCoverage.patterns.map((entry) => [entry.id, entry]));
+  const practicesById = new Map(data.apgCoverage.practices.map((entry) => [entry.id, entry]));
+  for (const { id, record_ids } of expectedApgPatterns) {
+    for (const recordId of record_ids) assert.ok(patternsById.get(id).record_ids.includes(recordId), `${id} must map ${recordId}`);
+  }
+  for (const { id, record_ids } of expectedApgPractices) {
+    for (const recordId of record_ids) assert.ok(practicesById.get(id).record_ids.includes(recordId), `${id} must map ${recordId}`);
+  }
+  assert.deepEqual(
+    Object.fromEntries(['baseline-semantics', 'composed', 'dedicated-pattern'].map((coverage) => [
+      coverage,
+      data.apgCoverage.patterns.filter((entry) => entry.coverage === coverage).length,
+    ])),
+    { 'baseline-semantics': 4, composed: 1, 'dedicated-pattern': 25 },
+  );
+  for (const entry of [...data.apgCoverage.patterns, ...data.apgCoverage.practices]) {
+    assert.deepEqual(entry.record_ids, [...new Set(entry.record_ids)].sort(), `${entry.id} record_ids must be sorted and unique`);
+  }
+});
+
 test('dedicated APG patterns use exact official pattern slugs and activation IDs', async () => {
   const data = await loadStandards();
   const byId = new Map(data.patterns.map((pattern) => [pattern.id, pattern]));
@@ -89,7 +176,7 @@ test('dedicated APG patterns use exact official pattern slugs and activation IDs
     );
   }
 
-  for (const id of ['pattern.alert-dialog', 'pattern.checkbox', 'pattern.menu', 'pattern.radio-group', 'pattern.slider', 'pattern.spinbutton', 'pattern.switch', 'pattern.toolbar', 'pattern.tree-view']) {
+  for (const id of Object.keys(apgPatternRefs)) {
     const pattern = byId.get(id);
     assert.deepEqual(pattern.activation, { contains: { fact: 'component.accessibility_pattern_ids', value: id } });
     assert.ok(pattern.requires.length > 0);
@@ -125,6 +212,54 @@ test('dedicated APG patterns use exact official pattern slugs and activation IDs
     byId.get('pattern.slider').behavior.some((behavior) => behavior.includes('Right and Up increase') && behavior.includes('Left and Down decrease')),
     'pattern.slider must define value direction',
   );
+});
+
+test('new APG patterns encode native-first semantics and complete focus, keyboard, and state behavior', async () => {
+  const data = await loadStandards();
+  const byId = new Map(data.patterns.map((pattern) => [pattern.id, pattern]));
+  const expectations = {
+    'pattern.feed': {
+      requires: ['semantics.accessible-description', 'semantics.busy-state', 'semantics.collection-metadata'],
+      decisions: ['article_description', 'focus_target', 'keyboard_interface', 'loading_boundary', 'nested_feed_navigation', 'set_size_source', 'virtualization'],
+      details: [/excludes static lists/, /Page Down moves to the next article/, /Control plus End/, /aria-posinset/, /aria-setsize/, /aria-busy true/, /virtualization never strands/],
+    },
+    'pattern.grid': {
+      requires: ['semantics.busy-state', 'semantics.collection-metadata', 'semantics.composite-focus', 'semantics.disabled-readonly', 'semantics.sort-state'],
+      decisions: ['cell_focus_target', 'disabled_focusability', 'edit_mode', 'focus_strategy', 'grid_kind', 'home_end_scope', 'page_navigation_step', 'selection_model', 'sort_model', 'tab_behavior', 'virtualization', 'wrap_navigation'],
+      details: [/native table for static tabular information/, /one composite tab stop/, /Right and Left move one cell/, /Control plus Home and End/, /Page Up and Page Down/, /Enter or F2 enters/, /Escape restores grid navigation/, /aria-sort only on the currently sorted/, /retain the active cell while virtualizing/],
+    },
+    'pattern.meter': {
+      requires: ['semantics.native-elements', 'semantics.presentational-role', 'semantics.range-value'],
+      decisions: ['host_element', 'range_bounds', 'thresholds', 'value_source', 'value_text'],
+      details: [/native meter element/, /role meter/, /current, minimum, and maximum/, /read-only and out of the page tab sequence/, /progressbar for task completion/, /descendants of role meter are presentational/],
+    },
+    'pattern.treegrid': {
+      requires: ['semantics.busy-state', 'semantics.collection-metadata', 'semantics.composite-focus', 'semantics.disabled-readonly', 'semantics.expanded-state', 'semantics.hidden-inert', 'semantics.sort-state'],
+      decisions: ['cell_focus_target', 'disabled_focusability', 'edit_mode', 'focus_mode', 'focus_strategy', 'hierarchy_cell', 'page_navigation_step', 'selection_model', 'sort_model', 'tab_behavior', 'virtualization'],
+      details: [/excludes flat grids, static tables, and non-tabular trees/, /aria-expanded only to a parent row/, /rows-first, cells-first, or cells-only focus/, /Right Arrow expands a collapsed parent/, /Left Arrow collapses/, /Enter or F2 interaction mode/, /single-select treegrid/, /multi-select treegrid/, /move focus to the parent row or hierarchy cell before collapsing/],
+    },
+    'pattern.window-splitter': {
+      requires: ['semantics.dragging-alternative', 'semantics.hidden-inert', 'semantics.presentational-role', 'semantics.range-value'],
+      decisions: ['collapse_behavior', 'disabled_focusability', 'f6_pane_cycle', 'fixed_or_variable', 'home_end', 'orientation', 'pane_navigation_order', 'primary_pane', 'range_bounds', 'step', 'value_text'],
+      details: [/static native separator when no resizing behavior exists/, /focusable separator named for the primary pane/, /aria-controls/, /vertical splitter, Left and Right Arrow/, /horizontal splitter, Up and Down Arrow/, /Home and End/, /Enter collapses/, /F6 cycles/, /fixed two-position splitter, omit continuous arrow-key adjustment/],
+    },
+    'pattern.toggle-button': {
+      requires: ['semantics.disabled-readonly', 'semantics.presentational-role', 'semantics.pressed-state'],
+      decisions: ['disabled_focusability', 'host_element', 'mixed_state_meaning', 'post_activation_focus', 'pressed_state_cycle', 'state_source'],
+      details: [/native button element/, /aria-pressed false or true/, /allow mixed only when/, /accessible label stable/, /Space and Enter activate/, /exactly once per user action/, /switch whose binary setting/, /checkbox that contributes a form value/],
+    },
+  };
+
+  for (const [id, expectation] of Object.entries(expectations)) {
+    const pattern = byId.get(id);
+    assert.ok(pattern, `missing ${id}`);
+    assert.deepEqual(pattern.activation, { contains: { fact: 'component.accessibility_pattern_ids', value: id } });
+    assert.deepEqual(pattern.product_decisions, expectation.decisions);
+    assert.deepEqual(pattern.evidence_routes, ['unit', 'axe', 'e2e', 'human']);
+    for (const semanticId of expectation.requires) assert.ok(pattern.requires.includes(semanticId), `${id} must require ${semanticId}`);
+    const contractText = `${pattern.scope}\n${pattern.behavior.join('\n')}`;
+    for (const detail of expectation.details) assert.match(contractText, detail, `${id} omits ${detail}`);
+  }
 });
 
 test('switch, alert-dialog, and toolbar contracts preserve their APG distinctions', async () => {
@@ -287,19 +422,131 @@ test('UI Design Brain bindings resolve the APG implementation slice exactly', as
   assert.deepEqual(resolved.candidate_evaluations, []);
 });
 
-test('switch, alert-dialog, and toolbar bindings retain base outcomes and require exact discriminators', async () => {
+test('new APG UI mappings are enum-gated, retain native baselines, and resolve all six patterns', async () => {
+  const data = await loadStandards();
+  const byUiPatternId = new Map(data.uiDesignBrainBindings.bindings.map((binding) => [binding.ui_pattern_id, binding]));
+  assert.deepEqual(
+    Object.fromEntries(['component.collection_model', 'component.separator_model', 'component.table_model', 'component.toggle_model', 'component.value_display_model'].map((id) => [id, data.facts.facts[id]])),
+    {
+      'component.collection_model': { type: 'string', values: ['feed', 'static-list'] },
+      'component.separator_model': { type: 'string', values: ['static', 'window-splitter'] },
+      'component.table_model': { type: 'string', values: ['data-table', 'grid', 'treegrid'] },
+      'component.toggle_model': { type: 'string', values: ['button', 'checkbox', 'switch'] },
+      'component.value_display_model': { type: 'string', values: ['meter', 'static'] },
+    },
+  );
+  assert.deepEqual(byUiPatternId.get('list'), {
+    ui_pattern_id: 'list',
+    classification: 'candidate',
+    baseline_semantic_ids: ['semantics.native-elements'],
+    discriminator_facts: ['component.collection_model'],
+    candidates: [{ pattern_id: 'pattern.feed', when: { equals: { fact: 'component.collection_model', value: 'feed' } } }],
+  });
+  assert.deepEqual(byUiPatternId.get('separator'), {
+    ui_pattern_id: 'separator',
+    classification: 'candidate',
+    baseline_semantic_ids: ['semantics.native-elements'],
+    discriminator_facts: ['component.separator_model'],
+    candidates: [{ pattern_id: 'pattern.window-splitter', when: { equals: { fact: 'component.separator_model', value: 'window-splitter' } } }],
+  });
+  assert.deepEqual(byUiPatternId.get('stat'), {
+    ui_pattern_id: 'stat',
+    classification: 'candidate',
+    baseline_semantic_ids: ['semantics.native-elements'],
+    discriminator_facts: ['component.value_display_model'],
+    candidates: [{ pattern_id: 'pattern.meter', when: { equals: { fact: 'component.value_display_model', value: 'meter' } } }],
+  });
+  assert.deepEqual(byUiPatternId.get('table'), {
+    ui_pattern_id: 'table',
+    classification: 'candidate',
+    baseline_semantic_ids: ['semantics.collection-metadata', 'semantics.data-table', 'semantics.native-elements', 'semantics.sort-state'],
+    discriminator_facts: ['component.table_model'],
+    candidates: [
+      { pattern_id: 'pattern.grid', when: { equals: { fact: 'component.table_model', value: 'grid' } } },
+      { pattern_id: 'pattern.treegrid', when: { equals: { fact: 'component.table_model', value: 'treegrid' } } },
+    ],
+  });
+
+  const uiPatternIds = ['list', 'separator', 'stat', 'table', 'toggle'];
+  const unresolved = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, { 'component.ui_pattern_ids': uiPatternIds });
+  assert.deepEqual(unresolved.pattern_ids, []);
+  assert.deepEqual(unresolved.semantic_ids, ['semantics.collection-metadata', 'semantics.data-table', 'semantics.native-elements', 'semantics.sort-state']);
+  assert.deepEqual(
+    unresolved.candidate_evaluations.map(({ pattern_id, trigger_state, resolution_state, missing_facts }) => ({ pattern_id, trigger_state, resolution_state, missing_facts })),
+    [
+      ['pattern.feed', 'component.collection_model'],
+      ['pattern.window-splitter', 'component.separator_model'],
+      ['pattern.meter', 'component.value_display_model'],
+      ['pattern.grid', 'component.table_model'],
+      ['pattern.treegrid', 'component.table_model'],
+      ['pattern.checkbox', 'component.toggle_model'],
+      ['pattern.field', 'component.toggle_model'],
+      ['pattern.switch', 'component.toggle_model'],
+      ['pattern.toggle-button', 'component.toggle_model'],
+    ].map(([pattern_id, fact]) => ({ pattern_id, trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: [fact] })),
+  );
+
+  const resolved = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+    'component.ui_pattern_ids': uiPatternIds,
+    'component.collection_model': 'feed',
+    'component.separator_model': 'window-splitter',
+    'component.table_model': 'grid',
+    'component.toggle_model': 'button',
+    'component.value_display_model': 'meter',
+  });
+  assert.deepEqual(resolved.pattern_ids, ['pattern.feed', 'pattern.grid', 'pattern.meter', 'pattern.toggle-button', 'pattern.window-splitter']);
+  for (const patternId of ['pattern.feed', 'pattern.grid', 'pattern.meter', 'pattern.toggle-button', 'pattern.window-splitter']) {
+    assert.equal(resolved.candidate_evaluations.find(({ pattern_id }) => pattern_id === patternId).resolution_state, 'resolved');
+  }
+
+  const treegrid = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+    'component.ui_pattern_ids': ['table', 'toggle'],
+    'component.table_model': 'treegrid',
+    'component.toggle_model': 'switch',
+  });
+  assert.deepEqual(treegrid.pattern_ids, ['pattern.field', 'pattern.switch', 'pattern.treegrid']);
+
+  const checkbox = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+    'component.ui_pattern_ids': uiPatternIds,
+    'component.collection_model': 'static-list',
+    'component.separator_model': 'static',
+    'component.table_model': 'data-table',
+    'component.toggle_model': 'checkbox',
+    'component.value_display_model': 'static',
+  });
+  assert.deepEqual(checkbox.pattern_ids, ['pattern.checkbox', 'pattern.field']);
+  assert.deepEqual(
+    checkbox.candidate_evaluations.filter(({ ui_pattern_id }) => ui_pattern_id === 'toggle').map(({ pattern_id, resolution_state }) => [pattern_id, resolution_state]),
+    [['pattern.checkbox', 'resolved'], ['pattern.field', 'resolved'], ['pattern.switch', 'skipped'], ['pattern.toggle-button', 'skipped']],
+  );
+});
+
+test('checkbox, switch, toggle-button, alert-dialog, and toolbar bindings require exact discriminators', async () => {
   const data = await loadStandards();
   const byUiPatternId = new Map(data.uiDesignBrainBindings.bindings.map((binding) => [binding.ui_pattern_id, binding]));
 
   assert.deepEqual(byUiPatternId.get('toggle'), {
     ui_pattern_id: 'toggle',
     classification: 'candidate',
-    pattern_ids: ['pattern.field'],
     discriminator_facts: ['component.toggle_model'],
     candidates: [
+      { pattern_id: 'pattern.checkbox', when: { equals: { fact: 'component.toggle_model', value: 'checkbox' } } },
+      { pattern_id: 'pattern.field', when: { any: [{ equals: { fact: 'component.toggle_model', value: 'checkbox' } }, { equals: { fact: 'component.toggle_model', value: 'switch' } }] } },
       { pattern_id: 'pattern.switch', when: { equals: { fact: 'component.toggle_model', value: 'switch' } } },
+      { pattern_id: 'pattern.toggle-button', when: { equals: { fact: 'component.toggle_model', value: 'button' } } },
     ],
   });
+  for (const [model, patternIds] of [
+    ['button', ['pattern.toggle-button']],
+    ['checkbox', ['pattern.checkbox', 'pattern.field']],
+    ['switch', ['pattern.field', 'pattern.switch']],
+  ]) {
+    const variant = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+      'component.ui_pattern_ids': ['toggle'],
+      'component.toggle_model': model,
+    });
+    assert.deepEqual(variant.pattern_ids, patternIds, `toggle ${model} must resolve exactly its declared contracts`);
+  }
   assert.deepEqual(byUiPatternId.get('modal'), {
     ui_pattern_id: 'modal',
     classification: 'candidate',
@@ -322,14 +569,17 @@ test('switch, alert-dialog, and toolbar bindings retain base outcomes and requir
   const unresolved = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
     'component.ui_pattern_ids': ['button-group', 'modal', 'toggle'],
   });
-  assert.deepEqual(unresolved.pattern_ids, ['pattern.dialog', 'pattern.field']);
+  assert.deepEqual(unresolved.pattern_ids, ['pattern.dialog']);
   assert.deepEqual(unresolved.semantic_ids, ['semantics.accessible-name', 'semantics.focus.visible', 'semantics.keyboard', 'semantics.native-elements']);
   assert.deepEqual(
     unresolved.candidate_evaluations.map(({ pattern_id, trigger_state, resolution_state, missing_facts }) => ({ pattern_id, trigger_state, resolution_state, missing_facts })),
     [
       { pattern_id: 'pattern.toolbar', trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: ['component.control_group_model'] },
       { pattern_id: 'pattern.alert-dialog', trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: ['component.dialog_purpose'] },
+      { pattern_id: 'pattern.checkbox', trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: ['component.toggle_model'] },
+      { pattern_id: 'pattern.field', trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: ['component.toggle_model'] },
       { pattern_id: 'pattern.switch', trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: ['component.toggle_model'] },
+      { pattern_id: 'pattern.toggle-button', trigger_state: 'candidate', resolution_state: 'needs_input', missing_facts: ['component.toggle_model'] },
     ],
   );
 
@@ -340,16 +590,28 @@ test('switch, alert-dialog, and toolbar bindings retain base outcomes and requir
     'component.toggle_model': 'switch',
   });
   assert.deepEqual(resolved.pattern_ids, ['pattern.alert-dialog', 'pattern.dialog', 'pattern.field', 'pattern.switch', 'pattern.toolbar']);
-  assert.ok(resolved.candidate_evaluations.every(({ trigger_state, resolution_state }) => trigger_state === 'applicable' && resolution_state === 'resolved'));
+  assert.deepEqual(
+    resolved.candidate_evaluations.map(({ pattern_id, resolution_state }) => [pattern_id, resolution_state]),
+    [['pattern.toolbar', 'resolved'], ['pattern.alert-dialog', 'resolved'], ['pattern.checkbox', 'skipped'], ['pattern.field', 'resolved'], ['pattern.switch', 'resolved'], ['pattern.toggle-button', 'skipped']],
+  );
 
-  const skipped = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+  const toggleButton = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
+    'component.ui_pattern_ids': ['toggle'],
+    'component.toggle_model': 'button',
+  });
+  assert.deepEqual(toggleButton.pattern_ids, ['pattern.toggle-button']);
+
+  const checkbox = resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, {
     'component.ui_pattern_ids': ['button-group', 'modal', 'toggle'],
     'component.control_group_model': 'plain-group',
     'component.dialog_purpose': 'general',
     'component.toggle_model': 'checkbox',
   });
-  assert.deepEqual(skipped.pattern_ids, ['pattern.dialog', 'pattern.field']);
-  assert.ok(skipped.candidate_evaluations.every(({ trigger_state, resolution_state }) => trigger_state === 'not_applicable' && resolution_state === 'skipped'));
+  assert.deepEqual(checkbox.pattern_ids, ['pattern.checkbox', 'pattern.dialog', 'pattern.field']);
+  assert.deepEqual(
+    checkbox.candidate_evaluations.map(({ pattern_id, resolution_state }) => [pattern_id, resolution_state]),
+    [['pattern.toolbar', 'skipped'], ['pattern.alert-dialog', 'skipped'], ['pattern.checkbox', 'resolved'], ['pattern.field', 'resolved'], ['pattern.switch', 'skipped'], ['pattern.toggle-button', 'skipped']],
+  );
   assert.throws(
     () => resolveUiPatternBindings(data.uiDesignBrainBindings, data.facts, { 'component.ui_pattern_ids': ['toggle'], 'component.toggle_model': true }),
     /Observed value for component.toggle_model must be string/,

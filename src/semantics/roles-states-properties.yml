@@ -1,1 +1,44 @@
-[{"id":"semantics.roles-states-properties","version":"1.0.0","title":"Roles states and properties","kind":"semantic","requirement":"Apply only valid ARIA roles, states, and properties and keep exposed state synchronized with rendered behavior.","proof":["unit","axe","e2e"],"standards_refs":[{"authority":"wai-aria-1.2","identifier":"roles","url":"https://www.w3.org/TR/wai-aria-1.2/#roles","normative":true},{"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}]},{"id":"semantics.expanded-state","version":"1.0.0","title":"Expanded state","kind":"semantic","requirement":"Expandable controls expose aria-expanded and identify the controlled region when needed.","proof":["unit","axe","e2e"],"standards_refs":[{"authority":"wai-aria-1.2","identifier":"aria-expanded","url":"https://www.w3.org/TR/wai-aria-1.2/#aria-expanded","normative":true},{"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}]},{"id":"semantics.selected-state","version":"1.0.0","title":"Selected state","kind":"semantic","requirement":"Selection widgets expose current selection with the state required by their role.","proof":["unit","e2e"],"standards_refs":[{"authority":"wai-aria-1.2","identifier":"aria-selected","url":"https://www.w3.org/TR/wai-aria-1.2/#aria-selected","normative":true},{"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}]}]
+[
+  {
+    "id": "semantics.roles-states-properties",
+    "version": "1.0.0",
+    "title": "Roles states and properties",
+    "kind": "semantic",
+    "requirement": "Apply only valid, nonabstract, nondeprecated ARIA roles and only nondeprecated states and properties supported by the role and permitted on the host element. Encode role tokens and token-valued ARIA states and properties in ASCII lowercase. Preserve required context and owned-role relationships, do not add redundant ARIA or override accurate native semantics, and never rely on ARIA to supply missing keyboard or pointer behavior. Keep every exposed role, relationship, state, and value synchronized with rendered behavior before notifying user agents; remove states and properties that no longer apply.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"structural-roles","url":"https://www.w3.org/WAI/ARIA/apg/practices/structural-roles/","normative":false},
+      {"authority":"aria-in-html","identifier":"author-conformance","url":"https://www.w3.org/TR/html-aria/","normative":true},
+      {"authority":"wai-aria-1.2","identifier":"roles","url":"https://www.w3.org/TR/wai-aria-1.2/#roles","normative":true},
+      {"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}
+    ]
+  },
+  {
+    "id": "semantics.expanded-state",
+    "version": "1.0.0",
+    "title": "Expanded state",
+    "kind": "semantic",
+    "requirement": "Expandable controls expose aria-expanded and identify the controlled region when needed.",
+    "proof": ["unit", "axe", "e2e"],
+    "standards_refs": [
+      {"authority":"wai-aria-1.2","identifier":"aria-expanded","url":"https://www.w3.org/TR/wai-aria-1.2/#aria-expanded","normative":true},
+      {"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}
+    ]
+  },
+  {
+    "id": "semantics.selected-state",
+    "version": "1.0.0",
+    "title": "Selected state",
+    "kind": "semantic",
+    "requirement": "Selection widgets expose the selected items with the state required by their roles, keep focus and selection distinct unless selection-follows-focus is explicitly safe, and update the programmatic state before announcing a change. Single-select widgets expose no more than one selected item; multi-select widgets declare their mode and preserve the documented modifier model. Do not substitute selected state for current, checked, pressed, expanded, or active-descendant state.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"keyboard-interface","url":"https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/","normative":false},
+      {"authority":"wai-aria-1.2","identifier":"aria-selected","url":"https://www.w3.org/TR/wai-aria-1.2/#aria-selected","normative":true},
+      {"authority":"wcag-2.2","identifier":"4.1.2","url":"https://www.w3.org/TR/WCAG22/#name-role-value","normative":true,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"4.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html","normative":false,"level":"A"}
+    ]
+  }
+]

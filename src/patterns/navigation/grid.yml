@@ -1,0 +1,82 @@
+{
+  "id": "pattern.grid",
+  "version": "1.0.0",
+  "title": "Grid",
+  "kind": "pattern",
+  "standards_refs": [
+    {
+      "authority": "aria-apg",
+      "identifier": "grid",
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/grid/",
+      "normative": false
+    }
+  ],
+  "requires": [
+    "semantics.accessible-description",
+    "semantics.accessible-name",
+    "semantics.busy-state",
+    "semantics.collection-metadata",
+    "semantics.composite-focus",
+    "semantics.disabled-readonly",
+    "semantics.focus.visible",
+    "semantics.keyboard",
+    "semantics.native-elements",
+    "semantics.roles-states-properties",
+    "semantics.selected-state",
+    "semantics.sort-state"
+  ],
+  "activation": {
+    "contains": {
+      "fact": "component.accessibility_pattern_ids",
+      "value": "pattern.grid"
+    }
+  },
+  "scope": "Interactive data grids and layout grids with managed two-dimensional navigation; excludes static data tables",
+  "behavior": [
+    "Use a native table for static tabular information; expose a grid only when the interface intentionally provides one composite tab stop and complete directional focus management, and declare whether it is a data grid or a layout grid before choosing wrapping and navigation behavior",
+    "Expose a named and, when useful, described grid with row or rowgroup structure and columnheader, rowheader, or gridcell children; when an HTML table hosts the grid, preserve its implicit row and cell roles and use native rowspan and colspan instead of redundant ARIA span properties",
+    "Keep one cell or one element inside a cell in the page tab sequence, restore the declared active cell on re-entry, and ensure every data cell can receive focus or contains a focusable element; non-interactive headers are the only cells that may remain unfocusable",
+    "In a data grid, Right and Left move one cell within a row without wrapping, Up and Down move within a column without wrapping, Home and End move to the first and last cell in the row, Control plus Home and End move to the first and last cell in the grid, and Page Up and Page Down move by the declared row increment; a layout grid may use the separately declared wrapping policy",
+    "Choose cell focus when a cell contains text or one graphic and choose the single contained widget when it does not require arrow keys; for editable cells, multiple widgets, or widgets that consume grid navigation keys, Enter or F2 enters the declared cell-interaction mode and Escape restores grid navigation without intercepting native text-editing commands",
+    "Keep focus distinct from selection, expose aria-multiselectable only for a multi-select grid, synchronize aria-selected on every selectable row or cell, and implement only the declared row, column, cell, range, and select-all keyboard operations",
+    "Expose aria-sort only on the currently sorted row or column header, apply aria-readonly only when editability exists and is conditionally unavailable, and prevent disabled cells or contained controls from activating while preserving the declared focusability policy",
+    "When rows, columns, or spans are not fully represented in the DOM, synchronize total counts, one-based indices, and spans; bracket multi-operation updates with aria-busy, retain the active cell while virtualizing, scroll the active target into view, and make beginning or end commands match the documented DOM or data-set boundary"
+  ],
+  "product_decisions": [
+    "cell_focus_target",
+    "disabled_focusability",
+    "edit_mode",
+    "focus_strategy",
+    "grid_kind",
+    "home_end_scope",
+    "page_navigation_step",
+    "selection_model",
+    "sort_model",
+    "tab_behavior",
+    "virtualization",
+    "wrap_navigation"
+  ],
+  "functional_spec_bindings": [
+    "behavior",
+    "content",
+    "controls",
+    "focus",
+    "keyboard",
+    "states"
+  ],
+  "implementation_outcomes": [
+    "grid-composite-focus",
+    "grid-edit-navigation-modes",
+    "grid-keyboard-model",
+    "grid-role-structure",
+    "grid-selection-model",
+    "grid-sort-readonly-state",
+    "grid-virtualization-metadata"
+  ],
+  "evidence_routes": [
+    "unit",
+    "axe",
+    "e2e",
+    "human"
+  ]
+}

@@ -1,0 +1,322 @@
+[
+  {
+    "id": "semantics.accessible-description",
+    "version": "1.0.0",
+    "title": "Accessible description",
+    "kind": "semantic",
+    "requirement": "When supplementary information is necessary to understand or operate an element, provide it separately from the accessible name. For a concise text description, prefer visible text and reference it with aria-describedby in a meaningful order. Use aria-details instead when the detail is structured or too extensive to flatten, and point it to content available to all users. Every referenced ID resolves to the intended content, descriptions do not duplicate the name or include unrelated prose, and dynamic changes preserve the correct relationship.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {
+        "authority": "aria-apg",
+        "identifier": "names-and-descriptions",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/",
+        "normative": false
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-describedby",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-describedby",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-details",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-details",
+        "normative": true
+      }
+    ]
+  },
+  {
+    "id": "semantics.busy-state",
+    "version": "1.0.0",
+    "title": "Busy state",
+    "kind": "semantic",
+    "requirement": "Before a rendered region or widget enters a multi-step update that would otherwise expose an inconsistent subtree, set aria-busy to true on the smallest owning container. Keep it true until all required owned elements and user-relevant changes are complete, then remove it or set it to false. Do not use busy state as a substitute for a progress or status message or for disabled state, and never leave a failed or cancelled update permanently busy.",
+    "proof": ["unit", "e2e", "human"],
+    "standards_refs": [
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-busy",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-busy",
+        "normative": true
+      }
+    ]
+  },
+  {
+    "id": "semantics.collection-metadata",
+    "version": "1.0.0",
+    "title": "Collection metadata",
+    "kind": "semantic",
+    "requirement": "When the DOM cannot convey the complete metadata of a logical collection, table, grid, or treegrid, expose each applicable total size and each rendered item's one-based logical position or hierarchical level using only properties supported by its role; table row totals include header rows. Represent cell spans with native rowspan and colspan in an HTML table and with valid, non-overlapping aria-rowspan and aria-colspan values only for non-native cells. Counts, positions, levels, and spans remain internally consistent; -1 represents only a genuinely unknown total, and metadata is updated after filtering, insertion, removal, reordering, pagination, or virtualization. Omit authored metadata the user agent can calculate from the complete DOM.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {
+        "authority": "aria-apg",
+        "identifier": "grid-and-table-properties",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/grid-and-table-properties/",
+        "normative": false
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-colcount",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-colcount",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-colindex",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-colindex",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-colspan",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-colspan",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-level",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-level",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-posinset",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-posinset",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-rowcount",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-rowcount",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-rowindex",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-rowindex",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-rowspan",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-rowspan",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-setsize",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-setsize",
+        "normative": true
+      },
+      {
+        "authority": "wcag-2.2",
+        "identifier": "1.3.1",
+        "url": "https://www.w3.org/TR/WCAG22/#info-and-relationships",
+        "normative": true,
+        "level": "A"
+      },
+      {
+        "authority": "wcag-2.2-understanding",
+        "identifier": "1.3.1",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html",
+        "normative": false,
+        "level": "A"
+      }
+    ]
+  },
+  {
+    "id": "semantics.composite-focus",
+    "version": "1.0.0",
+    "title": "Composite focus",
+    "kind": "semantic",
+    "requirement": "A composite widget contributes one predictable stop to the page tab sequence and manages focus inside with roving tabindex or aria-activedescendant using the conventional key model for its role. Roving tabindex leaves exactly one managed descendant at tabindex 0. Aria-activedescendant remains on the DOM-focused supporting owner and references an active element through a relationship permitted by that property. Pointer and touch interaction update the same active target, the active target is scrolled into view, and visual focus remains discernible and distinct from selection.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {
+        "authority": "aria-apg",
+        "identifier": "keyboard-interface",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+        "normative": false
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-activedescendant",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-activedescendant",
+        "normative": true
+      }
+    ]
+  },
+  {
+    "id": "semantics.current-state",
+    "version": "1.0.0",
+    "title": "Current state",
+    "kind": "semantic",
+    "requirement": "In a related set with a visually indicated current item, expose exactly one current item with aria-current and the token that matches its meaning: page, step, location, date, time, or true. Omit aria-current or set it to false on every other item, update it with the rendered current item, and do not substitute current state for selected, checked, or pressed state.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {
+        "authority": "aria-apg",
+        "identifier": "breadcrumb",
+        "url": "https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/",
+        "normative": false
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-current",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-current",
+        "normative": true
+      }
+    ]
+  },
+  {
+    "id": "semantics.disabled-readonly",
+    "version": "1.0.0",
+    "title": "Disabled and read-only states",
+    "kind": "semantic",
+    "requirement": "Use host-language disabled and read-only features when they match the control. A disabled control is perceivable but inoperable: aria-disabled alone does not suppress behavior, so prevent activation through keyboard, pointer, touch, and script, apply it only to the intended scope, and follow the declared discoverability and focus policy. A read-only control remains operable for navigation, focus, selection, and copying as its role permits but does not allow user-initiated value changes; expose aria-readonly only on supporting roles and never interchange the two states.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {
+        "authority": "aria-apg",
+        "identifier": "keyboard-interface",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+        "normative": false
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-disabled",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-disabled",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-readonly",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-readonly",
+        "normative": true
+      },
+      {
+        "authority": "wcag-2.2",
+        "identifier": "4.1.2",
+        "url": "https://www.w3.org/TR/WCAG22/#name-role-value",
+        "normative": true,
+        "level": "A"
+      },
+      {
+        "authority": "wcag-2.2-understanding",
+        "identifier": "4.1.2",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
+        "normative": false,
+        "level": "A"
+      }
+    ]
+  },
+  {
+    "id": "semantics.hidden-inert",
+    "version": "1.0.0",
+    "title": "Hidden and inert content",
+    "kind": "semantic",
+    "requirement": "Use aria-hidden only when removing rendered content from the accessibility tree is deliberate and equivalent meaning and functionality remain exposed; otherwise let rendering determine exposure. Never set aria-hidden to true on body, a focusable element, an ancestor that still contains focusable descendants or current focus, or content marked hidden=until-found. Do not redundantly add aria-hidden to ordinary hidden content, and do not use aria-hidden alone to make content inoperable. A descendant's aria-hidden=false cannot override aria-hidden=true on an ancestor, so restore exposure through the complete hidden ancestor chain. Before hiding or making an interactive subtree inert, move focus to a logical visible target if that subtree contains current focus; keep critical content outside the inert subtree, visually obscure inactive content, suppress keyboard, pointer, touch, selection, editing, find-in-page, and accessibility-tree interaction together, then restore exposure, operability, and focus order together.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {
+        "authority": "aria-apg",
+        "identifier": "keyboard-interface",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+        "normative": false
+      },
+      {
+        "authority": "aria-in-html",
+        "identifier": "author-conformance",
+        "url": "https://www.w3.org/TR/html-aria/",
+        "normative": true
+      },
+      {
+        "authority": "html",
+        "identifier": "inert",
+        "url": "https://html.spec.whatwg.org/multipage/interaction.html#the-inert-attribute",
+        "normative": true
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-hidden",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-hidden",
+        "normative": true
+      }
+    ]
+  },
+  {
+    "id": "semantics.pressed-state",
+    "version": "1.0.0",
+    "title": "Pressed state",
+    "kind": "semantic",
+    "requirement": "Use aria-pressed only on a toggle button; omit it from ordinary command buttons and use checked, selected, or current state when those semantics match instead. Expose false or true, and mixed only when a genuine tri-state aggregate exists. Keep the accessible name stable when only pressed state changes, complete a full press-and-release activation cycle exactly once per user action, and synchronize the programmatic state with the visible state before notification.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {
+        "authority": "aria-apg",
+        "identifier": "button",
+        "url": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
+        "normative": false
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-pressed",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-pressed",
+        "normative": true
+      },
+      {
+        "authority": "wcag-2.2",
+        "identifier": "4.1.2",
+        "url": "https://www.w3.org/TR/WCAG22/#name-role-value",
+        "normative": true,
+        "level": "A"
+      },
+      {
+        "authority": "wcag-2.2-understanding",
+        "identifier": "4.1.2",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
+        "normative": false,
+        "level": "A"
+      }
+    ]
+  },
+  {
+    "id": "semantics.sort-state",
+    "version": "1.0.0",
+    "title": "Sort state",
+    "kind": "semantic",
+    "requirement": "When a table or grid is sorted, expose aria-sort on only the row or column header that represents the active sort key, use the value that matches the rendered order, and remove it from every other header and from all headers when no sort is applied. Make the sorting interaction discoverable through concise control names and, when useful, one shared table instruction without repeating the current state in every control name. For multi-key sorting, communicate the complete sort precedence separately instead of implying unsupported precedence with aria-sort on multiple headers.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {
+        "authority": "aria-apg",
+        "identifier": "grid-and-table-properties",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/grid-and-table-properties/",
+        "normative": false
+      },
+      {
+        "authority": "wai-aria-1.2",
+        "identifier": "aria-sort",
+        "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-sort",
+        "normative": true
+      },
+      {
+        "authority": "wcag-2.2",
+        "identifier": "1.3.1",
+        "url": "https://www.w3.org/TR/WCAG22/#info-and-relationships",
+        "normative": true,
+        "level": "A"
+      },
+      {
+        "authority": "wcag-2.2-understanding",
+        "identifier": "1.3.1",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html",
+        "normative": false,
+        "level": "A"
+      }
+    ]
+  }
+]

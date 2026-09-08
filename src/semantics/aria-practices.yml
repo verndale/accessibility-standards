@@ -1,0 +1,31 @@
+[
+  {
+    "id": "semantics.presentational-role",
+    "version": "1.0.0",
+    "title": "Presentational roles",
+    "kind": "semantic",
+    "requirement": "Use role=\"none\" or role=\"presentation\" only to discard redundant host-language semantics while preserving the element's rendered content and the semantics of descendants that are not required owned elements. Never use a presentational role to hide content or functionality. Do not rely on it on a focusable element or an element with a global ARIA state or property, where user agents ignore the presentational role. Account for roles whose descendant semantics are automatically presentational, and preserve every name, state, relationship, focus target, and operable descendant that users need.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"hiding-semantics","url":"https://www.w3.org/WAI/ARIA/apg/practices/hiding-semantics/","normative":false},
+      {"authority":"aria-apg","identifier":"structural-roles","url":"https://www.w3.org/WAI/ARIA/apg/practices/structural-roles/","normative":false},
+      {"authority":"wai-aria-1.2","identifier":"none","url":"https://www.w3.org/TR/wai-aria-1.2/#none","normative":true},
+      {"authority":"wai-aria-1.2","identifier":"presentation","url":"https://www.w3.org/TR/wai-aria-1.2/#presentation","normative":true}
+    ]
+  },
+  {
+    "id": "semantics.range-value",
+    "version": "1.0.0",
+    "title": "Range values",
+    "kind": "semantic",
+    "requirement": "Use the native range, meter, progress, or numeric input element when it matches the control. For a custom role, always expose aria-valuenow on meter, scrollbar, focusable separator, and slider; expose it on progressbar only when progress is determinate and on spinbutton only when a current value exists, omitting it for unknown or indeterminate values. Meter, progressbar, scrollbar, separator, and slider may rely on their zero and one-hundred minimum and maximum defaults only when those defaults express the intended range; spinbutton has no minimum or maximum defaults, so expose each limit only when that limit exists. Ensure minimum is not greater than maximum, keep every current value within the range, and synchronize values before users are notified. Add aria-valuetext only when the number alone does not communicate the value, keep it equivalent to the rendered value, and never use text as a substitute when aria-valuenow is required.",
+    "proof": ["unit", "axe", "e2e", "human"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"range-related-properties","url":"https://www.w3.org/WAI/ARIA/apg/practices/range-related-properties/","normative":false},
+      {"authority":"wai-aria-1.2","identifier":"aria-valuemax","url":"https://www.w3.org/TR/wai-aria-1.2/#aria-valuemax","normative":true},
+      {"authority":"wai-aria-1.2","identifier":"aria-valuemin","url":"https://www.w3.org/TR/wai-aria-1.2/#aria-valuemin","normative":true},
+      {"authority":"wai-aria-1.2","identifier":"aria-valuenow","url":"https://www.w3.org/TR/wai-aria-1.2/#aria-valuenow","normative":true},
+      {"authority":"wai-aria-1.2","identifier":"aria-valuetext","url":"https://www.w3.org/TR/wai-aria-1.2/#aria-valuetext","normative":true}
+    ]
+  }
+]

@@ -19,6 +19,17 @@ async function schemaValidator() {
   return ajv;
 }
 
+function captureError(callback) {
+  let caught;
+  try {
+    callback();
+  } catch (error) {
+    caught = error;
+  }
+  assert.ok(caught, 'expected callback to throw');
+  return caught;
+}
+
 test('WCAG 2.2 inventory contains exactly the canonical Level A and AA criteria', async () => {
   const data = await loadStandards();
   assert.equal(data.wcagCoverage.version, 1);
@@ -35,7 +46,7 @@ test('WCAG 2.2 inventory contains exactly the canonical Level A and AA criteria'
   assert.equal(data.wcagCoverage.criteria.some(({ id }) => id === '4.1.1'), false);
 });
 
-test('complete WCAG 2.2 semantic coverage and deferred APG backlog remain explicit', async () => {
+test('complete WCAG 2.2 semantic coverage and the completed APG backlog remain explicit', async () => {
   const data = await loadStandards();
   assert.ok(data.wcagCoverage.criteria.every(({ status, note }) => status === 'covered' && note === undefined));
   const mapped = Object.fromEntries(data.wcagCoverage.criteria.map((criterion) => [criterion.id, criterion.semantic_ids]));
@@ -46,7 +57,7 @@ test('complete WCAG 2.2 semantic coverage and deferred APG backlog remain explic
     '1.2.3': ['semantics.media-alternatives', 'semantics.media.audio-description-or-alternative-prerecorded'],
     '1.2.4': ['semantics.media.captions-live'],
     '1.2.5': ['semantics.media-alternatives', 'semantics.media.audio-description-prerecorded'],
-    '1.3.1': ['semantics.data-table', 'semantics.form-label', 'semantics.form-required', 'semantics.headings', 'semantics.info-relationships', 'semantics.landmarks'],
+    '1.3.1': ['semantics.collection-metadata', 'semantics.data-table', 'semantics.form-label', 'semantics.form-required', 'semantics.headings', 'semantics.info-relationships', 'semantics.landmarks', 'semantics.sort-state'],
     '1.3.2': ['semantics.meaningful-sequence'],
     '1.3.3': ['semantics.sensory-characteristics'],
     '1.3.4': ['semantics.orientation'],
@@ -94,25 +105,31 @@ test('complete WCAG 2.2 semantic coverage and deferred APG backlog remain explic
   assert.deepEqual(mapped['3.2.6'], ['semantics.consistent-help']);
   assert.deepEqual(mapped['3.3.7'], ['semantics.redundant-entry']);
   assert.deepEqual(mapped['3.3.8'], ['semantics.accessible-authentication']);
-  assert.deepEqual(data.wcagCoverage.deferred_patterns.map(({ id }) => id), ['grid', 'treegrid']);
-  assert.ok(data.wcagCoverage.deferred_patterns.every(({ reason }) => typeof reason === 'string' && reason.trim().length > 0));
-  assert.ok(data.wcagCoverage.deferred_patterns.every(({ id }) => !data.patterns.some(({ id: patternId }) => patternId === `pattern.${id}`)));
+  assert.deepEqual(mapped['4.1.2'], ['semantics.accessible-name', 'semantics.disabled-readonly', 'semantics.expanded-state', 'semantics.name-role-value', 'semantics.native-dialog', 'semantics.pressed-state', 'semantics.roles-states-properties', 'semantics.selected-state']);
+  assert.deepEqual(data.wcagCoverage.deferred_patterns, []);
+  assert.ok(data.patterns.some(({ id }) => id === 'pattern.grid'));
+  assert.ok(data.patterns.some(({ id }) => id === 'pattern.treegrid'));
   assert.ok(!Object.hasOwn(data.facts.facts, 'component.has_data_table_or_grid'));
   assert.deepEqual(data.facts.facts['component.has_data_table'], { type: 'boolean' });
+  assert.deepEqual(data.facts.facts['component.table_model'], { type: 'string', values: ['data-table', 'grid', 'treegrid'] });
   assert.doesNotMatch(data.semantics.find(({ id }) => id === 'semantics.data-table').requirement, /interactive grid/i);
 });
 
 test('coverage source validates and is projected unchanged in both profiles', async () => {
   const data = await loadStandards();
   const ajv = await schemaValidator();
-  const validate = ajv.getSchema('wcag-coverage.schema.json');
-  assert.ok(validate);
-  assert.equal(validate(data.wcagCoverage), true, ajv.errorsText(validate.errors));
+  const validateWcag = ajv.getSchema('wcag-coverage.schema.json');
+  const validateApg = ajv.getSchema('apg-coverage.schema.json');
+  assert.ok(validateWcag);
+  assert.ok(validateApg);
+  assert.equal(validateWcag(data.wcagCoverage), true, ajv.errorsText(validateWcag.errors));
+  assert.equal(validateApg(data.apgCoverage), true, ajv.errorsText(validateApg.errors));
   for (const profile of ['conductor', 'ai-orchestration']) {
     const profileArtifacts = buildArtifacts(data, profile);
     const manifest = JSON.parse(profileArtifacts.get('coverageManifest'));
-    assert.equal(manifest.schema_version, 3);
+    assert.equal(manifest.schema_version, 4);
     assert.deepEqual(manifest.wcag_2_2, data.wcagCoverage);
+    assert.deepEqual(manifest.aria_apg, data.apgCoverage);
 
     const semantics = JSON.parse(profileArtifacts.get('semanticsJson')).semantics;
     assert.ok(semantics.every((semantic) => semantic.standards_refs?.length));
@@ -156,15 +173,27 @@ test('coverage and standards traceability validation fail closed', async () => {
   assert.throws(() => validateStandards(unexplainedGap), /gap coverage must explain the shortfall/);
 
   const duplicateDeferred = structuredClone(data);
-  duplicateDeferred.wcagCoverage.deferred_patterns[1] = structuredClone(duplicateDeferred.wcagCoverage.deferred_patterns[0]);
-  assert.throws(() => validateStandards(duplicateDeferred), /Duplicate deferred APG pattern|must retain deferred APG pattern grid/);
+  duplicateDeferred.wcagCoverage.deferred_patterns.push(
+    { id: 'future-pattern', reason: 'Not yet represented by the current APG inventory.' },
+    { id: 'future-pattern', reason: 'Duplicated future entry.' },
+  );
+  assert.throws(() => validateStandards(duplicateDeferred), /Duplicate deferred APG pattern future-pattern/);
 
   const implementedDeferred = structuredClone(data);
-  implementedDeferred.wcagCoverage.deferred_patterns.splice(1, 0, { id: 'switch', reason: 'Incorrectly left deferred after implementation.' });
-  assert.throws(() => validateStandards(implementedDeferred), /Deferred APG pattern switch conflicts with implemented pattern pattern\.switch/);
+  implementedDeferred.wcagCoverage.deferred_patterns.push({ id: 'grid', reason: 'Incorrectly left deferred after implementation.' });
+  assert.throws(() => validateStandards(implementedDeferred), /Deferred APG pattern grid conflicts with the current complete APG coverage inventory/);
+
+  for (const id of ['breadcrumb', 'button', 'table']) {
+    const coveredWithoutDedicatedPattern = structuredClone(data);
+    coveredWithoutDedicatedPattern.wcagCoverage.deferred_patterns.push({ id, reason: 'Incorrectly deferred despite current APG coverage.' });
+    assert.throws(
+      () => validateStandards(coveredWithoutDedicatedPattern),
+      new RegExp(`Deferred APG pattern ${id} conflicts with the current complete APG coverage inventory`),
+    );
+  }
 
   const wrongUrl = structuredClone(data);
-  wrongUrl.semantics[0].standards_refs[0].url = 'https://www.w3.org/TR/WCAG22/#wrong';
+  wrongUrl.semantics.find(({ id }) => id === 'semantics.accessible-name').standards_refs.find(({ authority }) => authority === 'wcag-2.2').url = 'https://www.w3.org/TR/WCAG22/#wrong';
   assert.throws(() => validateStandards(wrongUrl), /URL must be https:\/\/www\.w3\.org\/TR\/WCAG22\/#/);
 
   const wrongUnderstandingUrl = structuredClone(data);
@@ -189,11 +218,60 @@ test('coverage and standards traceability validation fail closed', async () => {
   const rebasedAuthority = structuredClone(data);
   rebasedAuthority.sources.authorities.find(({ id }) => id === 'wcag-2.2').url = 'https://evil.example/';
   assert.throws(() => validateStandards(rebasedAuthority), /Standards authority wcag-2\.2 must use https:\/\/www\.w3\.org\/TR\/WCAG22\//);
+
+  const incompleteApg = structuredClone(data);
+  incompleteApg.apgCoverage.patterns.pop();
+  assert.throws(() => validateStandards(incompleteApg), /WAI-ARIA APG pattern coverage must contain exactly 30 entries|coverage omits windowsplitter/);
+
+  const unknownApgRecord = structuredClone(data);
+  unknownApgRecord.apgCoverage.patterns.find(({ id }) => id === 'feed').record_ids = ['pattern.unknown'];
+  assert.throws(() => validateStandards(unknownApgRecord), /WAI-ARIA APG pattern feed references unknown record pattern\.unknown/);
+
+  const invalidApgModel = structuredClone(data);
+  invalidApgModel.apgCoverage.patterns.find(({ id }) => id === 'grid').coverage = 'deferred';
+  assert.throws(() => validateStandards(invalidApgModel), /WAI-ARIA APG pattern grid has invalid coverage deferred/);
+
+  const missingApgTrace = structuredClone(data);
+  missingApgTrace.patterns.find(({ id }) => id === 'pattern.grid').standards_refs[0] = {
+    authority: 'aria-apg', identifier: 'feed', url: 'https://www.w3.org/WAI/ARIA/apg/patterns/feed/', normative: false,
+  };
+  assert.throws(() => validateStandards(missingApgTrace), /WAI-ARIA APG pattern grid coverage has no mapped record with its canonical source reference/);
+
+  const omittedDirectSource = structuredClone(data);
+  const alertCoverage = omittedDirectSource.apgCoverage.patterns.find(({ id }) => id === 'alert');
+  alertCoverage.record_ids = alertCoverage.record_ids.filter((id) => id !== 'semantics.alert');
+  assert.throws(() => validateStandards(omittedDirectSource), /WAI-ARIA APG pattern alert coverage omits directly sourced record semantics\.alert/);
+
+  const malformedApgRecords = structuredClone(data);
+  malformedApgRecords.apgCoverage.patterns.find(({ id }) => id === 'feed').record_ids = 42;
+  malformedApgRecords.patterns.find(({ id }) => id === 'pattern.feed').standards_refs = null;
+  const aggregateError = captureError(() => validateStandards(malformedApgRecords));
+  assert.ok(aggregateError instanceof Error);
+  assert.equal(aggregateError instanceof TypeError, false);
+  assert.match(aggregateError.message, /pattern\.feed standards_refs must be a non-empty array/);
+  assert.match(aggregateError.message, /WAI-ARIA APG pattern feed record_ids must be an array of non-empty strings/);
+
+  const nullApgReference = structuredClone(data);
+  nullApgReference.patterns.find(({ id }) => id === 'pattern.feed').standards_refs = [null];
+  const nullReferenceError = captureError(() => validateStandards(nullApgReference));
+  assert.ok(nullReferenceError instanceof Error);
+  assert.equal(nullReferenceError instanceof TypeError, false);
+  assert.match(nullReferenceError.message, /pattern\.feed has a malformed standards reference/);
+  assert.match(nullReferenceError.message, /WAI-ARIA APG pattern feed coverage has no mapped record with its canonical source reference/);
+
+  const malformedSemanticReferences = structuredClone(data);
+  malformedSemanticReferences.semantics.find(({ id }) => id === 'semantics.collection-metadata').standards_refs = null;
+  const semanticError = captureError(() => validateStandards(malformedSemanticReferences));
+  assert.ok(semanticError instanceof Error);
+  assert.equal(semanticError instanceof TypeError, false);
+  assert.match(semanticError.message, /semantics\.collection-metadata standards_refs must be a non-empty array/);
+  assert.match(semanticError.message, /1\.3\.1 coverage maps semantics\.collection-metadata without a matching normative WCAG standards reference/);
 });
 
-test('deferred APG inventory is extensible while retaining the required backlog', async () => {
+test('completed APG coverage has no required deferrals while retaining an extensible future inventory', async () => {
   const data = await loadStandards();
-  data.wcagCoverage.deferred_patterns.splice(0, 0, { id: 'feed', reason: 'Deferred pending a product-backed use case.' });
+  assert.deepEqual(data.wcagCoverage.deferred_patterns, []);
+  data.wcagCoverage.deferred_patterns.push({ id: 'future-pattern', reason: 'Reserved for an APG pattern added after this contract release.' });
   assert.equal(validateStandards(data).wcagCriteria, 55);
   const ajv = await schemaValidator();
   const validate = ajv.getSchema('wcag-coverage.schema.json');
@@ -245,18 +323,23 @@ test('Markdown projections render standards references and pattern activation', 
     assert.doesNotMatch(markdown, /\| (?:partial|gap) \|/);
     assert.match(markdown, /\| 1\.2\.4 \| Captions \(Live\) \| AA \| covered \| semantics\.media\.captions-live \|/);
     assert.match(markdown, /\| 2\.5\.7 \| Dragging Movements \| AA \| covered \| semantics\.dragging-alternative \|/);
-    assert.match(markdown, /### Deferred APG patterns/);
-    assert.match(markdown, /- grid: Deferred until/);
+    assert.match(markdown, /### Deferred APG patterns\n\nNone\./);
+    assert.match(markdown, /## WAI-ARIA APG coverage/);
+    assert.match(markdown, /\| grid \| dedicated-pattern \| pattern\.grid \|/);
+    assert.match(markdown, /\| names-and-descriptions \| semantics\.accessible-description, semantics\.accessible-name \|/);
   }
 });
 
-test('Markdown projections escape hostile schema-valid reference and coverage text', async () => {
+test('Markdown projections escape hostile schema-valid text while runtime APG traceability fails closed', async () => {
   const data = await loadStandards();
   data.wcagCoverage.criteria[0].note = 'line \\| injected\nnext <script>';
   const pattern = data.patterns.find(({ id }) => id === 'pattern.accordion');
   pattern.standards_refs[0].identifier = 'bad] label\nnext';
   pattern.standards_refs[0].url = 'https://www.w3.org/WAI/ARIA/apg/patterns/bad path)>';
-  validateStandards(data);
+  const ajv = await schemaValidator();
+  const validatePattern = ajv.getSchema('pattern.schema.json');
+  assert.equal(validatePattern(pattern), true, ajv.errorsText(validatePattern.errors));
+  assert.throws(() => validateStandards(data), /references unknown WAI-ARIA APG entry bad\] label/);
 
   const artifacts = buildArtifacts(data, 'ai-orchestration');
   const implementation = artifacts.get('implementation');

@@ -11,7 +11,7 @@ The package projects the same source records into two purpose-specific profiles:
 
 Consumers pin an exact package version and commit a config, route map, and generated provenance. Generated outputs are deterministic and carry a do-not-edit marker plus source/config/route digests.
 
-The current schema-3 projection targets `@verndale/accessibility-standards@3.2.0`. Schema 3 adds criterion-level standards references and a complete WCAG 2.2 Level A/AA coverage inventory to the existing deterministic UI-binding, evidence, and provenance outputs; version 3.2 completes all 55 Level A/AA semantic mappings with precise fail-closed routing while preserving the existing pattern catalog and UI bindings.
+The current schema-4 projection targets `@verndale/accessibility-standards@4.0.0`. Schema 4 retains complete semantic traceability for all 55 WCAG 2.2 Level A/AA criteria and adds the HTML `inert` contract, ARIA in HTML author-conformance authority, plus an explicit inventory for all 30 entries in the WAI-ARIA APG pattern index and all seven entries in its Practices index. Missing composite widgets, cross-cutting semantic rules, and fail-closed UI discriminators are now part of the versioned contract; no current APG pattern remains deferred.
 
 ## Commands
 

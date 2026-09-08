@@ -1,10 +1,7 @@
 {
   "version": 1,
   "authority": "wcag-2.2",
-  "deferred_patterns": [
-    {"id":"grid","reason":"Deferred until a static-versus-interactive grid discriminator and keyboard interaction model are defined."},
-    {"id":"treegrid","reason":"Deferred until static-versus-interactive grid selection and the hierarchical tree interaction model are defined."}
-  ],
+  "deferred_patterns": [],
   "criteria": [
     {"id":"1.1.1","title":"Non-text Content","level":"A","status":"covered","semantic_ids":["semantics.non-text-alternative","semantics.non-text-content"]},
     {"id":"1.2.1","title":"Audio-only and Video-only (Prerecorded)","level":"A","status":"covered","semantic_ids":["semantics.media-alternatives","semantics.media.prerecorded-audio-video-only-alternatives"]},
@@ -12,7 +9,7 @@
     {"id":"1.2.3","title":"Audio Description or Media Alternative (Prerecorded)","level":"A","status":"covered","semantic_ids":["semantics.media-alternatives","semantics.media.audio-description-or-alternative-prerecorded"]},
     {"id":"1.2.4","title":"Captions (Live)","level":"AA","status":"covered","semantic_ids":["semantics.media.captions-live"]},
     {"id":"1.2.5","title":"Audio Description (Prerecorded)","level":"AA","status":"covered","semantic_ids":["semantics.media-alternatives","semantics.media.audio-description-prerecorded"]},
-    {"id":"1.3.1","title":"Info and Relationships","level":"A","status":"covered","semantic_ids":["semantics.data-table","semantics.form-label","semantics.form-required","semantics.headings","semantics.info-relationships","semantics.landmarks"]},
+    {"id":"1.3.1","title":"Info and Relationships","level":"A","status":"covered","semantic_ids":["semantics.collection-metadata","semantics.data-table","semantics.form-label","semantics.form-required","semantics.headings","semantics.info-relationships","semantics.landmarks","semantics.sort-state"]},
     {"id":"1.3.2","title":"Meaningful Sequence","level":"A","status":"covered","semantic_ids":["semantics.meaningful-sequence"]},
     {"id":"1.3.3","title":"Sensory Characteristics","level":"A","status":"covered","semantic_ids":["semantics.sensory-characteristics"]},
     {"id":"1.3.4","title":"Orientation","level":"AA","status":"covered","semantic_ids":["semantics.orientation"]},
@@ -59,7 +56,7 @@
     {"id":"3.3.4","title":"Error Prevention (Legal, Financial, Data)","level":"AA","status":"covered","semantic_ids":["semantics.consequential-action"]},
     {"id":"3.3.7","title":"Redundant Entry","level":"A","status":"covered","semantic_ids":["semantics.redundant-entry"]},
     {"id":"3.3.8","title":"Accessible Authentication (Minimum)","level":"AA","status":"covered","semantic_ids":["semantics.accessible-authentication"]},
-    {"id":"4.1.2","title":"Name, Role, Value","level":"A","status":"covered","semantic_ids":["semantics.accessible-name","semantics.expanded-state","semantics.name-role-value","semantics.native-dialog","semantics.roles-states-properties","semantics.selected-state"]},
+    {"id":"4.1.2","title":"Name, Role, Value","level":"A","status":"covered","semantic_ids":["semantics.accessible-name","semantics.disabled-readonly","semantics.expanded-state","semantics.name-role-value","semantics.native-dialog","semantics.pressed-state","semantics.roles-states-properties","semantics.selected-state"]},
     {"id":"4.1.3","title":"Status Messages","level":"AA","status":"covered","semantic_ids":["semantics.alert","semantics.live-status"]}
   ]
 }

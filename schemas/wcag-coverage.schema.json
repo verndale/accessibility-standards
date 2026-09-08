@@ -63,21 +63,20 @@
     "authority": { "const": "wcag-2.2" },
     "deferred_patterns": {
       "type": "array",
-      "minItems": 2,
       "uniqueItems": true,
       "items": {
         "type": "object",
         "required": ["id", "reason"],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "not": { "enum": ["accordion", "alert", "alertdialog", "breadcrumb", "button", "carousel", "checkbox", "combobox", "dialog-modal", "disclosure", "feed", "grid", "landmarks", "link", "listbox", "menubar", "menu-button", "meter", "radio", "slider", "slider-multithumb", "spinbutton", "switch", "table", "tabs", "toolbar", "tooltip", "treeview", "treegrid", "windowsplitter"] }
+          },
           "reason": { "type": "string", "pattern": "\\S" }
         }
-      },
-      "allOf": [
-        { "contains": { "properties": { "id": { "const": "grid" } }, "required": ["id"] } },
-        { "contains": { "properties": { "id": { "const": "treegrid" } }, "required": ["id"] } }
-      ]
+      }
     },
     "criteria": {
       "type": "array",

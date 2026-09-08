@@ -1,1 +1,87 @@
-[{"id":"semantics.keyboard","version":"1.0.0","title":"Keyboard operation","kind":"semantic","requirement":"All functionality is operable with a keyboard without traps.","proof":["e2e","human"],"standards_refs":[{"authority":"wcag-2.2","identifier":"2.1.1","url":"https://www.w3.org/TR/WCAG22/#keyboard","normative":true,"level":"A"},{"authority":"wcag-2.2","identifier":"2.1.2","url":"https://www.w3.org/TR/WCAG22/#no-keyboard-trap","normative":true,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"2.1.1","url":"https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html","normative":false,"level":"A"},{"authority":"wcag-2.2-understanding","identifier":"2.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html","normative":false,"level":"A"}]},{"id":"semantics.keyboard.escape","version":"1.0.0","title":"Escape dismissal","kind":"semantic","requirement":"Escape closes the topmost dismissible overlay without activating its trigger.","proof":["unit","e2e"],"standards_refs":[{"authority":"aria-apg","identifier":"dialog-modal","url":"https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/#keyboard_interaction","normative":false}]},{"id":"semantics.focus.visible","version":"1.0.0","title":"Visible focus","kind":"semantic","requirement":"A visible keyboard focus indicator is available, and focused components are not entirely hidden by author-created content.","proof":["e2e","human"],"standards_refs":[{"authority":"wcag-2.2","identifier":"2.4.11","url":"https://www.w3.org/TR/WCAG22/#focus-not-obscured-minimum","normative":true,"level":"AA"},{"authority":"wcag-2.2","identifier":"2.4.7","url":"https://www.w3.org/TR/WCAG22/#focus-visible","normative":true,"level":"AA"},{"authority":"wcag-2.2-understanding","identifier":"2.4.11","url":"https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html","normative":false,"level":"AA"},{"authority":"wcag-2.2-understanding","identifier":"2.4.7","url":"https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html","normative":false,"level":"AA"}]},{"id":"semantics.focus.initial","version":"1.0.0","title":"Initial focus","kind":"semantic","requirement":"On activation, focus moves to the deterministic target appropriate to the pattern.","proof":["unit","e2e"],"standards_refs":[{"authority":"aria-apg","identifier":"dialog-modal","url":"https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/#keyboard_interaction","normative":false}]},{"id":"semantics.focus.return","version":"1.0.0","title":"Focus return","kind":"semantic","requirement":"On dismissal, focus returns to the invoking control or a documented logical successor.","proof":["unit","e2e"],"standards_refs":[{"authority":"aria-apg","identifier":"dialog-modal","url":"https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/#keyboard_interaction","normative":false}]},{"id":"semantics.target-size","version":"1.0.0","title":"Target size","kind":"semantic","requirement":"Each pointer target contains an axis-aligned 24 by 24 CSS pixel square unless one of these exceptions applies: an undersized target is positioned so that a 24 CSS pixel diameter circle centered on its bounding box does not intersect another target or the corresponding circle for another undersized target; an equivalent control on the same page meets this criterion; the target is in a sentence or its size is otherwise constrained by the line-height of non-target text; the target size is determined by an unmodified user agent; or the target's particular presentation is essential or legally required for the information being conveyed.","proof":["e2e","human"],"standards_refs":[{"authority":"wcag-2.2","identifier":"2.5.8","url":"https://www.w3.org/TR/WCAG22/#target-size-minimum","normative":true,"level":"AA"},{"authority":"wcag-2.2-understanding","identifier":"2.5.8","url":"https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html","normative":false,"level":"AA"}]}]
+[
+  {
+    "id": "semantics.keyboard",
+    "version": "1.0.0",
+    "title": "Keyboard operation",
+    "kind": "semantic",
+    "requirement": "Make all functionality operable from a keyboard without a trap. Use Tab and Shift+Tab to move among page-level controls and the conventional role-specific keys inside composite widgets; do not create extra tab stops for every composite descendant. Keep DOM, reading, and sequential focus order aligned and logical, and never use a positive tabindex value to repair visual order. Keyboard shortcuts supplement rather than replace ordinary navigable access: keep every shortcut target keyboard-focusable, expose its assignment at that target, preserve browser and assistive-technology shortcuts, and prevent default behavior only for keys the active widget owns. Provide a documented keyboard method to leave every focus context.",
+    "proof": ["unit", "e2e", "human"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"keyboard-interface","url":"https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/","normative":false},
+      {"authority":"wcag-2.2","identifier":"2.1.1","url":"https://www.w3.org/TR/WCAG22/#keyboard","normative":true,"level":"A"},
+      {"authority":"wcag-2.2","identifier":"2.1.2","url":"https://www.w3.org/TR/WCAG22/#no-keyboard-trap","normative":true,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"2.1.1","url":"https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html","normative":false,"level":"A"},
+      {"authority":"wcag-2.2-understanding","identifier":"2.1.2","url":"https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html","normative":false,"level":"A"}
+    ]
+  },
+  {
+    "id": "semantics.keyboard.escape",
+    "version": "1.0.0",
+    "title": "Escape dismissal",
+    "kind": "semantic",
+    "requirement": "Escape closes the topmost dismissible overlay without activating its trigger.",
+    "proof": ["unit", "e2e"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"alertdialog","url":"https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/","normative":false},
+      {"authority":"aria-apg","identifier":"dialog-modal","url":"https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/","normative":false},
+      {"authority":"aria-apg","identifier":"menu-button","url":"https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/","normative":false},
+      {"authority":"aria-apg","identifier":"menubar","url":"https://www.w3.org/WAI/ARIA/apg/patterns/menubar/","normative":false},
+      {"authority":"aria-apg","identifier":"tooltip","url":"https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/","normative":false}
+    ]
+  },
+  {
+    "id": "semantics.focus.visible",
+    "version": "1.0.0",
+    "title": "Visible focus",
+    "kind": "semantic",
+    "requirement": "Provide a persistent, discernible indicator for the element or active descendant that has keyboard focus, visually distinguish focus from selection, and ensure the focused component is not entirely hidden by author-created content. Prefer the user agent focus indicator; if it is replaced, verify the authored indicator remains visible in forced-colors and other high-contrast modes instead of relying only on colors or gradients that can disappear. When script moves focus or managed focus changes, update the indicator and scroll the active target into view without causing an unexpected context change.",
+    "proof": ["e2e", "human"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"keyboard-interface","url":"https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/","normative":false},
+      {"authority":"wcag-2.2","identifier":"2.4.11","url":"https://www.w3.org/TR/WCAG22/#focus-not-obscured-minimum","normative":true,"level":"AA"},
+      {"authority":"wcag-2.2","identifier":"2.4.7","url":"https://www.w3.org/TR/WCAG22/#focus-visible","normative":true,"level":"AA"},
+      {"authority":"wcag-2.2-understanding","identifier":"2.4.11","url":"https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html","normative":false,"level":"AA"},
+      {"authority":"wcag-2.2-understanding","identifier":"2.4.7","url":"https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html","normative":false,"level":"AA"}
+    ]
+  },
+  {
+    "id": "semantics.focus.initial",
+    "version": "1.0.0",
+    "title": "Initial focus",
+    "kind": "semantic",
+    "requirement": "On activation, focus moves to the deterministic target appropriate to the pattern.",
+    "proof": ["unit", "e2e"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"alertdialog","url":"https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/","normative":false},
+      {"authority":"aria-apg","identifier":"dialog-modal","url":"https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/","normative":false},
+      {"authority":"aria-apg","identifier":"menu-button","url":"https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/","normative":false},
+      {"authority":"aria-apg","identifier":"menubar","url":"https://www.w3.org/WAI/ARIA/apg/patterns/menubar/","normative":false}
+    ]
+  },
+  {
+    "id": "semantics.focus.return",
+    "version": "1.0.0",
+    "title": "Focus return",
+    "kind": "semantic",
+    "requirement": "On dismissal, focus returns to the invoking control or a documented logical successor.",
+    "proof": ["unit", "e2e"],
+    "standards_refs": [
+      {"authority":"aria-apg","identifier":"alertdialog","url":"https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/","normative":false},
+      {"authority":"aria-apg","identifier":"dialog-modal","url":"https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/","normative":false},
+      {"authority":"aria-apg","identifier":"menu-button","url":"https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/","normative":false},
+      {"authority":"aria-apg","identifier":"menubar","url":"https://www.w3.org/WAI/ARIA/apg/patterns/menubar/","normative":false}
+    ]
+  },
+  {
+    "id": "semantics.target-size",
+    "version": "1.0.0",
+    "title": "Target size",
+    "kind": "semantic",
+    "requirement": "Each pointer target contains an axis-aligned 24 by 24 CSS pixel square unless one of these exceptions applies: an undersized target is positioned so that a 24 CSS pixel diameter circle centered on its bounding box does not intersect another target or the corresponding circle for another undersized target; an equivalent control on the same page meets this criterion; the target is in a sentence or its size is otherwise constrained by the line-height of non-target text; the target size is determined by an unmodified user agent; or the target's particular presentation is essential or legally required for the information being conveyed.",
+    "proof": ["e2e", "human"],
+    "standards_refs": [
+      {"authority":"wcag-2.2","identifier":"2.5.8","url":"https://www.w3.org/TR/WCAG22/#target-size-minimum","normative":true,"level":"AA"},
+      {"authority":"wcag-2.2-understanding","identifier":"2.5.8","url":"https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html","normative":false,"level":"AA"}
+    ]
+  }
+]
