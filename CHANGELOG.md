@@ -1,3 +1,13 @@
+## [4.0.0](https://github.com/verndale/accessibility-standards/compare/v3.2.0...v4.0.0) (2026-09-08)
+
+### ⚠ BREAKING CHANGES
+
+* complete WAI-ARIA APG coverage
+
+### Features
+
+* complete WAI-ARIA APG coverage ([2eeb318](https://github.com/verndale/accessibility-standards/commit/2eeb318e8a38b2fc98f39f827ff12677bc3de318))
+
 ## [3.2.0](https://github.com/verndale/accessibility-standards/compare/v3.1.1...v3.2.0) (2026-09-03)
 
 ### Features
