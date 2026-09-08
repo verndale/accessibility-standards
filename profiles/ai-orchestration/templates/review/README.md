@@ -1,3 +1,3 @@
 # Review template
 
-Review source authority, WCAG coverage status, semantics, patterns, implementation, tests, and evidence in that order.
+Review source authority, normative WCAG coverage, informative APG pattern/practice traceability, semantics, pattern behavior, implementation, tests, and evidence in that order.

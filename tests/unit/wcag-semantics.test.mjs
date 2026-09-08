@@ -55,6 +55,64 @@ const phaseThreeSemantics = [
   ['semantics.use-of-color', '1.4.1', 'A', 'use-of-color', ['human']],
 ];
 
+const ariaSemanticContracts = {
+  'semantics.accessible-description': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:names-and-descriptions', 'wai-aria-1.2:aria-describedby', 'wai-aria-1.2:aria-details'],
+    details: [/separately from the accessible name/, /aria-describedby/, /aria-details/],
+  },
+  'semantics.busy-state': {
+    proof: ['unit', 'e2e', 'human'],
+    refs: ['wai-aria-1.2:aria-busy'],
+    details: [/aria-busy to true/, /until all required owned elements/, /not use busy state as a substitute/],
+  },
+  'semantics.collection-metadata': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:grid-and-table-properties', 'wai-aria-1.2:aria-colcount', 'wai-aria-1.2:aria-colindex', 'wai-aria-1.2:aria-colspan', 'wai-aria-1.2:aria-level', 'wai-aria-1.2:aria-posinset', 'wai-aria-1.2:aria-rowcount', 'wai-aria-1.2:aria-rowindex', 'wai-aria-1.2:aria-rowspan', 'wai-aria-1.2:aria-setsize', 'wcag-2.2:1.3.1', 'wcag-2.2-understanding:1.3.1'],
+    details: [/one-based logical position/, /aria-rowspan/, /-1 represents only a genuinely unknown total/, /user agent can calculate from the complete DOM/],
+  },
+  'semantics.composite-focus': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:keyboard-interface', 'wai-aria-1.2:aria-activedescendant'],
+    details: [/one predictable stop/, /roving tabindex/, /aria-activedescendant/, /distinct from selection/],
+  },
+  'semantics.current-state': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:breadcrumb', 'wai-aria-1.2:aria-current'],
+    details: [/exactly one current item/, /page, step, location, date, time, or true/, /do not substitute current state for selected, checked, or pressed state/],
+  },
+  'semantics.disabled-readonly': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:keyboard-interface', 'wai-aria-1.2:aria-disabled', 'wai-aria-1.2:aria-readonly', 'wcag-2.2:4.1.2', 'wcag-2.2-understanding:4.1.2'],
+    details: [/host-language disabled and read-only features/, /aria-disabled alone does not suppress behavior/, /read-only control remains operable/, /never interchange the two states/],
+  },
+  'semantics.hidden-inert': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:keyboard-interface', 'aria-in-html:author-conformance', 'html:inert', 'wai-aria-1.2:aria-hidden'],
+    details: [/Never set aria-hidden to true on body, a focusable element/, /hidden=until-found/, /do not use aria-hidden alone to make content inoperable/, /move focus to a logical visible target/, /find-in-page, and accessibility-tree interaction together/],
+  },
+  'semantics.presentational-role': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:hiding-semantics', 'aria-apg:structural-roles', 'wai-aria-1.2:none', 'wai-aria-1.2:presentation'],
+    details: [/discard redundant host-language semantics/, /Never use a presentational role to hide content or functionality/, /focusable element or an element with a global ARIA state or property/],
+  },
+  'semantics.pressed-state': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:button', 'wai-aria-1.2:aria-pressed', 'wcag-2.2:4.1.2', 'wcag-2.2-understanding:4.1.2'],
+    details: [/only on a toggle button/, /mixed only when a genuine tri-state aggregate exists/, /accessible name stable/, /exactly once per user action/],
+  },
+  'semantics.range-value': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:range-related-properties', 'wai-aria-1.2:aria-valuemax', 'wai-aria-1.2:aria-valuemin', 'wai-aria-1.2:aria-valuenow', 'wai-aria-1.2:aria-valuetext'],
+    details: [/native range, meter, progress, or numeric input element/, /always expose aria-valuenow on meter, scrollbar, focusable separator, and slider/, /progressbar only when progress is determinate/, /spinbutton has no minimum or maximum defaults/, /minimum is not greater than maximum/, /every current value within the range/, /never use text as a substitute when aria-valuenow is required/],
+  },
+  'semantics.sort-state': {
+    proof: ['unit', 'axe', 'e2e', 'human'],
+    refs: ['aria-apg:grid-and-table-properties', 'wai-aria-1.2:aria-sort', 'wcag-2.2:1.3.1', 'wcag-2.2-understanding:1.3.1'],
+    details: [/only the row or column header that represents the active sort key/, /remove it from every other header/, /multi-key sorting/, /complete sort precedence separately/],
+  },
+};
+
 function semanticById(data, id) {
   const semantic = data.semantics.find((candidate) => candidate.id === id);
   assert.ok(semantic, `missing semantic ${id}`);
@@ -102,6 +160,92 @@ test('every semantic has normalized, authoritative, deterministically sorted sta
   }
 });
 
+test('schema 4 exposes all 11 cross-cutting ARIA semantics with implementation-grade evidence and caveats', async () => {
+  const data = await loadStandards();
+  const expectedIds = Object.keys(ariaSemanticContracts).sort();
+  assert.deepEqual(
+    data.semantics.map(({ id }) => id).filter((id) => expectedIds.includes(id)).sort(),
+    expectedIds,
+  );
+
+  for (const [id, expectation] of Object.entries(ariaSemanticContracts)) {
+    const semantic = semanticById(data, id);
+    assert.equal(semantic.version, '1.0.0');
+    assert.equal(semantic.kind, 'semantic');
+    assert.deepEqual(semantic.proof, expectation.proof, `${id} has incorrect proof routing`);
+    assert.deepEqual(
+      semantic.standards_refs.map(({ authority, identifier }) => `${authority}:${identifier}`),
+      expectation.refs,
+      `${id} has incomplete or incorrect ARIA/APG provenance`,
+    );
+    for (const detail of expectation.details) assert.match(semantic.requirement, detail, `${id} omits ${detail}`);
+  }
+});
+
+test('audited semantic contracts retain the corrected APG, HTML, and ARIA distinctions', async () => {
+  const data = await loadStandards();
+  const description = semanticById(data, 'semantics.accessible-description');
+  assert.equal(
+    data.semantics.flatMap(({ standards_refs = [] }) => standards_refs)
+      .some(({ authority, identifier }) => authority === 'wai-aria-1.2' && identifier === 'aria-description'),
+    false,
+    'WAI-ARIA 1.2 must not be cited for the later aria-description property',
+  );
+  for (const detail of ['prefer visible text', 'aria-describedby in a meaningful order', 'structured or too extensive to flatten', 'content available to all users', 'do not duplicate the name or include unrelated prose']) {
+    assert.ok(description.requirement.includes(detail), `accessible-description requirement omits ${detail}`);
+  }
+
+  const landmarks = semanticById(data, 'semantics.landmarks').requirement;
+  for (const detail of ['one visible main landmark', 'banner, main, complementary, and contentinfo landmarks at the top level', 'only when their content and purpose warrant the landmark', 'Every region landmark has a concise accessible name', 'form landmark should have a name that preferably references a visible heading', 'use distinct names when their content or purpose differs', 'use the same name when repeated navigation landmarks have identical content and purpose', 'never repeat the role name in the label', 'Avoid unnecessary landmarks']) {
+    assert.ok(landmarks.includes(detail), `landmarks requirement omits ${detail}`);
+  }
+
+  const table = semanticById(data, 'semantics.data-table').requirement;
+  for (const detail of ['native table', 'descriptive caption when the table needs identification', 'row or column scope', 'headers and id only for relationships that scope cannot express', 'ARIA table only when native table markup is unavailable', 'aria-labelledby or using aria-label when no visible label exists', 'caption or description with aria-describedby', 'complete row, cell, and header ownership', 'only when the DOM or native markup cannot communicate them', 'grid or treegrid—not table']) {
+    assert.ok(table.includes(detail), `data-table requirement omits ${detail}`);
+  }
+
+  const range = semanticById(data, 'semantics.range-value').requirement;
+  for (const detail of ['always expose aria-valuenow on meter, scrollbar, focusable separator, and slider', 'progressbar only when progress is determinate', 'spinbutton only when a current value exists', 'omitting it for unknown or indeterminate values', 'zero and one-hundred minimum and maximum defaults', 'spinbutton has no minimum or maximum defaults', 'never use text as a substitute when aria-valuenow is required']) {
+    assert.ok(range.includes(detail), `range-value requirement omits ${detail}`);
+  }
+
+  const hidden = semanticById(data, 'semantics.hidden-inert');
+  assert.deepEqual(
+    hidden.standards_refs.find(({ authority }) => authority === 'html'),
+    {
+      authority: 'html',
+      identifier: 'inert',
+      url: 'https://html.spec.whatwg.org/multipage/interaction.html#the-inert-attribute',
+      normative: true,
+    },
+  );
+  for (const detail of ['equivalent meaning and functionality remain exposed', 'hidden=until-found', "aria-hidden=false cannot override aria-hidden=true on an ancestor", 'move focus to a logical visible target', 'keep critical content outside the inert subtree', 'suppress keyboard, pointer, touch, selection, editing, find-in-page, and accessibility-tree interaction together', 'restore exposure, operability, and focus order together']) {
+    assert.ok(hidden.requirement.includes(detail), `hidden-inert requirement omits ${detail}`);
+  }
+
+  const keyboard = semanticById(data, 'semantics.keyboard').requirement;
+  for (const detail of ['conventional role-specific keys inside composite widgets', 'never use a positive tabindex value to repair visual order', 'Keyboard shortcuts supplement rather than replace ordinary navigable access', 'keep every shortcut target keyboard-focusable', 'preserve browser and assistive-technology shortcuts', 'prevent default behavior only for keys the active widget owns', 'documented keyboard method to leave every focus context']) {
+    assert.ok(keyboard.includes(detail), `keyboard requirement omits ${detail}`);
+  }
+
+  const focus = semanticById(data, 'semantics.focus.visible').requirement;
+  for (const detail of ['persistent, discernible indicator', 'visually distinguish focus from selection', 'forced-colors and other high-contrast modes', 'colors or gradients that can disappear', 'scroll the active target into view']) {
+    assert.ok(focus.includes(detail), `focus.visible requirement omits ${detail}`);
+  }
+
+  const accessibleName = semanticById(data, 'semantics.accessible-name').requirement;
+  for (const detail of ['Do not name roles for which naming is prohibited', 'do not override useful descendant content without accounting for the replacement', 'do not duplicate the role or state in the name', 'same order where practical', 'follows legitimate visible-label changes that communicate a changed action or purpose']) {
+    assert.ok(accessibleName.includes(detail), `accessible-name requirement omits ${detail}`);
+  }
+  assert.doesNotMatch(accessibleName, /remains stable when only state changes/);
+
+  const roles = semanticById(data, 'semantics.roles-states-properties').requirement;
+  for (const detail of ['valid, nonabstract, nondeprecated ARIA roles', 'only nondeprecated states and properties supported by the role and permitted on the host element', 'ASCII lowercase', 'required context and owned-role relationships', 'never rely on ARIA to supply missing keyboard or pointer behavior', 'remove states and properties that no longer apply']) {
+    assert.ok(roles.includes(detail), `roles-states-properties requirement omits ${detail}`);
+  }
+});
+
 test('WCAG 2.2 additions have dedicated semantics and normative plus explanatory citations', async () => {
   const data = await loadStandards();
   assert.deepEqual(newSemantics.map(([id]) => id), [...newSemantics.map(([id]) => id)].sort());
@@ -140,7 +284,7 @@ test('Phase 2 semantic-gap rules use stable IDs, complete proof lanes, and paire
   for (const [id, criterion, level, slug, proof] of phaseTwoSemantics) {
     const semantic = semanticById(data, id);
     assert.deepEqual(semantic.proof, proof, `${id} has incorrect proof routing`);
-    assert.deepEqual(semantic.standards_refs, [
+    assert.deepEqual(semantic.standards_refs.filter(({ authority }) => authority.startsWith('wcag-2.2')), [
       {
         authority: 'wcag-2.2',
         identifier: criterion,
@@ -187,7 +331,7 @@ test('Phase 2 semantic-gap rules use stable IDs, complete proof lanes, and paire
   }
 });
 
-test('Phase 3 semantics complete every remaining WCAG 2.2 A/AA obligation', async () => {
+test('Phase 3 semantics remain complete within the expanded schema-4 catalog', async () => {
   const data = await loadStandards();
   assert.equal(phaseThreeSemantics.length, 18);
   assert.deepEqual({
@@ -197,10 +341,10 @@ test('Phase 3 semantics complete every remaining WCAG 2.2 A/AA obligation', asyn
     facts: Object.keys(data.facts.facts).length,
     uiBindings: data.uiDesignBrainBindings.bindings.length,
   }, {
-    semantics: 68,
-    patterns: 28,
+    semantics: 79,
+    patterns: 34,
     applicabilityRows: 38,
-    facts: 43,
+    facts: 47,
     uiBindings: 80,
   });
 
@@ -354,9 +498,10 @@ test('WCAG 2.2 applicability routes use dedicated facts and semantics', async ()
     });
   }
 
-  for (const fact of ['component.control_group_model', 'component.dialog_purpose', 'component.toggle_model']) {
+  for (const fact of ['component.control_group_model', 'component.dialog_purpose']) {
     assert.deepEqual(data.facts.facts[fact], { type: 'string' });
   }
+  assert.deepEqual(data.facts.facts['component.toggle_model'], { type: 'string', values: ['button', 'checkbox', 'switch'] });
 });
 
 test('corrected WCAG applicability rules fail closed for every trigger state and invalid facts', async () => {

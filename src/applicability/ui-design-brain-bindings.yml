@@ -31,7 +31,7 @@
         { "pattern_id": "pattern.dynamic-status", "when": { "equals": { "fact": "component.has_dynamic_status", "value": true } } }
       ]
     },
-    { "ui_pattern_id": "breadcrumbs", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.landmarks", "semantics.native-elements"] },
+    { "ui_pattern_id": "breadcrumbs", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.current-state", "semantics.landmarks", "semantics.link-purpose", "semantics.native-elements"] },
     { "ui_pattern_id": "button", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.name-role-value", "semantics.native-elements", "semantics.target-size"] },
     {
       "ui_pattern_id": "button-group",
@@ -103,7 +103,15 @@
     { "ui_pattern_id": "in-page-navigation", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.landmarks", "semantics.native-elements"] },
     { "ui_pattern_id": "label", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.form-label"] },
     { "ui_pattern_id": "link", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.accessible-name", "semantics.focus.visible", "semantics.keyboard", "semantics.link-purpose", "semantics.native-elements", "semantics.target-size"] },
-    { "ui_pattern_id": "list", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    {
+      "ui_pattern_id": "list",
+      "classification": "candidate",
+      "baseline_semantic_ids": ["semantics.native-elements"],
+      "discriminator_facts": ["component.collection_model"],
+      "candidates": [
+        { "pattern_id": "pattern.feed", "when": { "equals": { "fact": "component.collection_model", "value": "feed" } } }
+      ]
+    },
     { "ui_pattern_id": "logo-bar", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.non-text-alternative"] },
     { "ui_pattern_id": "marquee", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.motion-control"] },
     { "ui_pattern_id": "masthead", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.headings", "semantics.landmarks"] },
@@ -165,7 +173,15 @@
         { "pattern_id": "pattern.listbox", "when": { "equals": { "fact": "component.selection_model", "value": "listbox" } } }
       ]
     },
-    { "ui_pattern_id": "separator", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    {
+      "ui_pattern_id": "separator",
+      "classification": "candidate",
+      "baseline_semantic_ids": ["semantics.native-elements"],
+      "discriminator_facts": ["component.separator_model"],
+      "candidates": [
+        { "pattern_id": "pattern.window-splitter", "when": { "equals": { "fact": "component.separator_model", "value": "window-splitter" } } }
+      ]
+    },
     {
       "ui_pattern_id": "sidebar",
       "classification": "candidate",
@@ -186,9 +202,26 @@
     { "ui_pattern_id": "slider", "classification": "direct", "pattern_ids": ["pattern.field", "pattern.slider"] },
     { "ui_pattern_id": "spinner", "classification": "direct", "pattern_ids": ["pattern.progress"] },
     { "ui_pattern_id": "stack", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
-    { "ui_pattern_id": "stat", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.native-elements"] },
+    {
+      "ui_pattern_id": "stat",
+      "classification": "candidate",
+      "baseline_semantic_ids": ["semantics.native-elements"],
+      "discriminator_facts": ["component.value_display_model"],
+      "candidates": [
+        { "pattern_id": "pattern.meter", "when": { "equals": { "fact": "component.value_display_model", "value": "meter" } } }
+      ]
+    },
     { "ui_pattern_id": "stepper", "classification": "direct", "pattern_ids": ["pattern.field", "pattern.spinbutton"] },
-    { "ui_pattern_id": "table", "classification": "baseline-only", "baseline_semantic_ids": ["semantics.data-table"] },
+    {
+      "ui_pattern_id": "table",
+      "classification": "candidate",
+      "baseline_semantic_ids": ["semantics.collection-metadata", "semantics.data-table", "semantics.native-elements", "semantics.sort-state"],
+      "discriminator_facts": ["component.table_model"],
+      "candidates": [
+        { "pattern_id": "pattern.grid", "when": { "equals": { "fact": "component.table_model", "value": "grid" } } },
+        { "pattern_id": "pattern.treegrid", "when": { "equals": { "fact": "component.table_model", "value": "treegrid" } } }
+      ]
+    },
     { "ui_pattern_id": "tabs", "classification": "direct", "pattern_ids": ["pattern.tabs"] },
     { "ui_pattern_id": "text-input", "classification": "direct", "pattern_ids": ["pattern.field"] },
     { "ui_pattern_id": "textarea", "classification": "direct", "pattern_ids": ["pattern.field"] },
@@ -204,10 +237,12 @@
     {
       "ui_pattern_id": "toggle",
       "classification": "candidate",
-      "pattern_ids": ["pattern.field"],
       "discriminator_facts": ["component.toggle_model"],
       "candidates": [
-        { "pattern_id": "pattern.switch", "when": { "equals": { "fact": "component.toggle_model", "value": "switch" } } }
+        { "pattern_id": "pattern.checkbox", "when": { "equals": { "fact": "component.toggle_model", "value": "checkbox" } } },
+        { "pattern_id": "pattern.field", "when": { "any": [{ "equals": { "fact": "component.toggle_model", "value": "checkbox" } }, { "equals": { "fact": "component.toggle_model", "value": "switch" } }] } },
+        { "pattern_id": "pattern.switch", "when": { "equals": { "fact": "component.toggle_model", "value": "switch" } } },
+        { "pattern_id": "pattern.toggle-button", "when": { "equals": { "fact": "component.toggle_model", "value": "button" } } }
       ]
     },
     { "ui_pattern_id": "tooltip", "classification": "direct", "pattern_ids": ["pattern.tooltip"] },

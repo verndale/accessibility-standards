@@ -2,12 +2,12 @@
   "version": 1,
   "wikiRoot": "wiki",
   "counts": {
-    "nodes": 22,
-    "edges": 94,
+    "nodes": 24,
+    "edges": 114,
     "byType": {
       "index": 3,
-      "journal": 7,
-      "plan": 7,
+      "journal": 8,
+      "plan": 8,
       "topic": 5
     }
   },
@@ -17,9 +17,16 @@
       "label": "Context wiki",
       "type": "index",
       "aliases": [],
-      "githubRefs": [],
-      "bytes": 2392,
-      "degree": 13,
+      "githubRefs": [
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 22,
+          "url": "https://github.com/verndale/accessibility-standards/issues/22"
+        }
+      ],
+      "bytes": 2756,
+      "degree": 15,
       "x": 1,
       "y": 0,
       "size": 12
@@ -45,8 +52,8 @@
       ],
       "bytes": 1439,
       "degree": 2,
-      "x": 0.841254,
-      "y": 0.540641,
+      "x": 0.866025,
+      "y": 0.5,
       "size": 8
     },
     {
@@ -82,8 +89,8 @@
       ],
       "bytes": 3765,
       "degree": 7,
-      "x": 0.654861,
-      "y": 0.75575,
+      "x": 0.707107,
+      "y": 0.707107,
       "size": 8
     },
     {
@@ -101,8 +108,8 @@
       ],
       "bytes": 3986,
       "degree": 6,
-      "x": 0.415415,
-      "y": 0.909632,
+      "x": 0.5,
+      "y": 0.866025,
       "size": 8
     },
     {
@@ -120,8 +127,8 @@
       ],
       "bytes": 1958,
       "degree": 3,
-      "x": 0.142315,
-      "y": 0.989821,
+      "x": 0.258819,
+      "y": 0.965926,
       "size": 8
     },
     {
@@ -139,8 +146,8 @@
       ],
       "bytes": 3516,
       "degree": 3,
-      "x": -0.142315,
-      "y": 0.989821,
+      "x": 0,
+      "y": 1,
       "size": 8
     },
     {
@@ -158,8 +165,8 @@
       ],
       "bytes": 2479,
       "degree": 5,
-      "x": -0.415415,
-      "y": 0.909632,
+      "x": -0.258819,
+      "y": 0.965926,
       "size": 8
     },
     {
@@ -177,8 +184,27 @@
       ],
       "bytes": 2910,
       "degree": 4,
-      "x": -0.654861,
-      "y": 0.75575,
+      "x": -0.5,
+      "y": 0.866025,
+      "size": 8
+    },
+    {
+      "id": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
+      "label": "Complete WAI-ARIA APG coverage and schema 4",
+      "type": "journal",
+      "aliases": [],
+      "githubRefs": [
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 22,
+          "url": "https://github.com/verndale/accessibility-standards/issues/22"
+        }
+      ],
+      "bytes": 5125,
+      "degree": 10,
+      "x": -0.707107,
+      "y": 0.707107,
       "size": 8
     },
     {
@@ -189,8 +215,8 @@
       "githubRefs": [],
       "bytes": 2907,
       "degree": 2,
-      "x": 0.959493,
-      "y": 0.281733,
+      "x": 0.965926,
+      "y": 0.258819,
       "size": 12
     },
     {
@@ -208,8 +234,8 @@
       ],
       "bytes": 1210,
       "degree": 3,
-      "x": -0.841254,
-      "y": 0.540641,
+      "x": -0.866025,
+      "y": 0.5,
       "size": 8
     },
     {
@@ -239,8 +265,8 @@
       ],
       "bytes": 17860,
       "degree": 11,
-      "x": -0.959493,
-      "y": 0.281733,
+      "x": -0.965926,
+      "y": 0.258819,
       "size": 8
     },
     {
@@ -270,8 +296,8 @@
       "githubRefs": [],
       "bytes": 1586,
       "degree": 6,
-      "x": -0.959493,
-      "y": -0.281733,
+      "x": -0.965926,
+      "y": -0.258819,
       "size": 8
     },
     {
@@ -289,8 +315,8 @@
       ],
       "bytes": 2819,
       "degree": 10,
-      "x": -0.841254,
-      "y": -0.540641,
+      "x": -0.866025,
+      "y": -0.5,
       "size": 8
     },
     {
@@ -308,8 +334,8 @@
       ],
       "bytes": 1554,
       "degree": 5,
-      "x": -0.654861,
-      "y": -0.75575,
+      "x": -0.707107,
+      "y": -0.707107,
       "size": 8
     },
     {
@@ -327,8 +353,27 @@
       ],
       "bytes": 4652,
       "degree": 4,
-      "x": -0.415415,
-      "y": -0.909632,
+      "x": -0.5,
+      "y": -0.866025,
+      "size": 8
+    },
+    {
+      "id": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "label": "Schema 4: Complete WAI-ARIA APG Pattern and Practice Coverage",
+      "type": "plan",
+      "aliases": [],
+      "githubRefs": [
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 22,
+          "url": "https://github.com/verndale/accessibility-standards/issues/22"
+        }
+      ],
+      "bytes": 10602,
+      "degree": 11,
+      "x": -0.258819,
+      "y": -0.965926,
       "size": 8
     },
     {
@@ -369,6 +414,12 @@
         },
         {
           "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 22,
+          "url": "https://github.com/verndale/accessibility-standards/issues/22"
+        },
+        {
+          "repository": "verndale/accessibility-standards",
           "kind": "pull-request",
           "number": 7,
           "url": "https://github.com/verndale/accessibility-standards/pull/7"
@@ -386,10 +437,10 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 3589,
-      "degree": 9,
-      "x": -0.142315,
-      "y": -0.989821,
+      "bytes": 4520,
+      "degree": 10,
+      "x": 0,
+      "y": -1,
       "size": 12
     },
     {
@@ -415,6 +466,12 @@
           "url": "https://github.com/verndale/accessibility-standards/issues/15"
         },
         {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 22,
+          "url": "https://github.com/verndale/accessibility-standards/issues/22"
+        },
+        {
           "repository": "verndale/ai-orchestration",
           "kind": "issue",
           "number": 609,
@@ -427,10 +484,10 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 2742,
-      "degree": 15,
-      "x": 0.142315,
-      "y": -0.989821,
+      "bytes": 3352,
+      "degree": 19,
+      "x": 0.258819,
+      "y": -0.965926,
       "size": 8
     },
     {
@@ -443,10 +500,10 @@
         "applicability matrix"
       ],
       "githubRefs": [],
-      "bytes": 3890,
-      "degree": 21,
-      "x": 0.415415,
-      "y": -0.909632,
+      "bytes": 4486,
+      "degree": 25,
+      "x": 0.5,
+      "y": -0.866025,
       "size": 8
     },
     {
@@ -470,12 +527,18 @@
           "kind": "issue",
           "number": 15,
           "url": "https://github.com/verndale/accessibility-standards/issues/15"
+        },
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 22,
+          "url": "https://github.com/verndale/accessibility-standards/issues/22"
         }
       ],
-      "bytes": 2665,
-      "degree": 15,
-      "x": 0.654861,
-      "y": -0.75575,
+      "bytes": 3524,
+      "degree": 19,
+      "x": 0.707107,
+      "y": -0.707107,
       "size": 8
     },
     {
@@ -497,8 +560,8 @@
       ],
       "bytes": 3856,
       "degree": 13,
-      "x": 0.841254,
-      "y": -0.540641,
+      "x": 0.866025,
+      "y": -0.5,
       "size": 8
     },
     {
@@ -536,10 +599,10 @@
           "url": "https://github.com/verndale/ui-design-brain/issues/47"
         }
       ],
-      "bytes": 4512,
-      "degree": 20,
-      "x": 0.959493,
-      "y": -0.281733,
+      "bytes": 4781,
+      "degree": 24,
+      "x": 0.965926,
+      "y": -0.258819,
       "size": 8
     }
   ],
@@ -555,6 +618,13 @@
       "id": "012be8fdfbda7146",
       "source": "wiki/INDEX.md",
       "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "03c5b2664d4a0c8d",
+      "source": "wiki/plans/INDEX.md",
+      "target": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
       "type": "link",
       "relation": "link"
     },
@@ -587,6 +657,13 @@
       "relation": "topic"
     },
     {
+      "id": "0a7bebc47f562e7e",
+      "source": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "0b734da6b6603902",
       "source": "wiki/topics/standards-authority.md",
       "target": "wiki/topics/semantic-pattern-model.md",
@@ -599,6 +676,13 @@
       "target": "wiki/topics/sync-and-enforcement.md",
       "type": "topic",
       "relation": "topic"
+    },
+    {
+      "id": "0dcedacf08d2a923",
+      "source": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "link",
+      "relation": "link"
     },
     {
       "id": "0efe20936305b72c",
@@ -713,6 +797,13 @@
       "relation": "link"
     },
     {
+      "id": "411af686e4c7073b",
+      "source": "wiki/topics/consumer-projections.md",
+      "target": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
       "id": "433dd500d6f32f44",
       "source": "wiki/topics/ui-pattern-bindings.md",
       "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
@@ -755,6 +846,13 @@
       "relation": "link"
     },
     {
+      "id": "59ff4a5959a90216",
+      "source": "wiki/topics/standards-authority.md",
+      "target": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
       "id": "5b3ee928e53a959f",
       "source": "wiki/topics/sync-and-enforcement.md",
       "target": "wiki/topics/ui-pattern-bindings.md",
@@ -786,6 +884,13 @@
       "id": "6054eb89bc06ebe2",
       "source": "wiki/INDEX.md",
       "target": "wiki/plans/INDEX.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "62a6e30c12810548",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
       "type": "link",
       "relation": "link"
     },
@@ -837,6 +942,13 @@
       "target": "wiki/topics/ui-pattern-bindings.md",
       "type": "topic",
       "relation": "topic"
+    },
+    {
+      "id": "792396fa3c4ad904",
+      "source": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
+      "type": "link",
+      "relation": "link"
     },
     {
       "id": "80be6179d873e118",
@@ -930,6 +1042,20 @@
       "relation": "link"
     },
     {
+      "id": "98052a459b562895",
+      "source": "wiki/topics/ui-pattern-bindings.md",
+      "target": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "9a4c828ae61cf5d3",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
       "id": "9ad43bff48129ca0",
       "source": "wiki/journal/2026-08-31-wcag-2-2-phase-2-review.md",
       "target": "wiki/topics/sync-and-enforcement.md",
@@ -963,6 +1089,20 @@
       "target": "wiki/plans/2026-08-30-repair-pr-ai-automation-and-release-preflight-704110024e.md",
       "type": "link",
       "relation": "link"
+    },
+    {
+      "id": "ae74be48d3ea54d0",
+      "source": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "b04ff4ad2c4cf0a9",
+      "source": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
+      "target": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "type": "plan",
+      "relation": "plan"
     },
     {
       "id": "b69fb46fcf55fc55",
@@ -1003,6 +1143,20 @@
       "id": "bfc8a7a6eb68a682",
       "source": "wiki/plans/2026-09-02-phase-3-complete-wcag-2-2-a-aa-semantic-coverage-3-2-0-29791704c5.md",
       "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "c49a8da88ef2e2dc",
+      "source": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "target": "wiki/topics/semantic-pattern-model.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "c62168a16bfeaeac",
+      "source": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
+      "target": "wiki/topics/consumer-projections.md",
       "type": "topic",
       "relation": "topic"
     },
@@ -1049,9 +1203,23 @@
       "relation": "link"
     },
     {
+      "id": "d2826d5ddc529b9f",
+      "source": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "d282e1c7cc1534f3",
       "source": "wiki/topics/consumer-projections.md",
       "target": "wiki/plans/2026-08-30-wcag-2-2-coverage-and-pattern-expansion-9afa9d1d04.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
+      "id": "d2a7eb016d986bae",
+      "source": "wiki/topics/semantic-pattern-model.md",
+      "target": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
       "type": "link",
       "relation": "link"
     },
@@ -1098,6 +1266,13 @@
       "relation": "link"
     },
     {
+      "id": "dd847d70362fdf4b",
+      "source": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
+      "target": "wiki/topics/consumer-projections.md",
+      "type": "link",
+      "relation": "link"
+    },
+    {
       "id": "de1880f3fb614939",
       "source": "wiki/topics/ui-pattern-bindings.md",
       "target": "wiki/topics/semantic-pattern-model.md",
@@ -1105,8 +1280,22 @@
       "relation": "link"
     },
     {
+      "id": "df002a6047d1f097",
+      "source": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "target": "wiki/topics/standards-authority.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "df6b32e16c3ba558",
       "source": "wiki/journal/2026-08-30-wcag-2-2-coverage-pattern-expansion.md",
+      "target": "wiki/topics/standards-authority.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
+      "id": "e003150ba4064b33",
+      "source": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
       "target": "wiki/topics/standards-authority.md",
       "type": "topic",
       "relation": "topic"
@@ -1161,6 +1350,13 @@
       "relation": "topic"
     },
     {
+      "id": "f363ed419c40681b",
+      "source": "wiki/plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md",
+      "target": "wiki/topics/ui-pattern-bindings.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "f7d5fab128fd2771",
       "source": "wiki/journal/2026-08-30-shared-accessibility-standards.md",
       "target": "wiki/plans/2026-08-30-shared-accessibility-standards-delivery.md",
@@ -1173,6 +1369,13 @@
       "target": "wiki/topics/consumer-projections.md",
       "type": "topic",
       "relation": "topic"
+    },
+    {
+      "id": "f88adb50eb686aa7",
+      "source": "wiki/journal/2026-09-08-complete-wai-aria-apg-coverage.md",
+      "target": "wiki/topics/standards-authority.md",
+      "type": "link",
+      "relation": "link"
     },
     {
       "id": "fab2acf99e4e3b5c",

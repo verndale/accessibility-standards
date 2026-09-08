@@ -3,9 +3,286 @@
   "$id": "projection-manifest.schema.json",
   "$defs": {
     "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "sha256Digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
     "uiDesignBrain": {
       "type": "object",
-      "required": ["package", "package_version", "catalog_authority_version", "source_digest", "manifest_digest", "binding_digest"]
+      "required": ["package", "package_version", "catalog_authority_version", "repository", "manifest_path", "source_digest", "manifest_digest", "pattern_count", "tracking_issue", "binding_digest"],
+      "additionalProperties": false,
+      "properties": {
+        "package": { "const": "@verndale/ui-design-brain" },
+        "package_version": { "const": "1.16.1" },
+        "catalog_authority_version": { "const": "1.15.1" },
+        "repository": { "const": "https://github.com/verndale/ui-design-brain" },
+        "manifest_path": { "const": "skills/ui-design-brain/catalog-manifest.json" },
+        "source_digest": { "$ref": "#/$defs/sha256Digest" },
+        "manifest_digest": { "$ref": "#/$defs/sha256Digest" },
+        "pattern_count": { "const": 80 },
+        "tracking_issue": { "const": "https://github.com/verndale/ui-design-brain/issues/47" },
+        "binding_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "profileDigests": {
+      "type": "object",
+      "required": ["ai-orchestration", "conductor"],
+      "additionalProperties": false,
+      "properties": {
+        "ai-orchestration": { "$ref": "#/$defs/digest" },
+        "conductor": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "axeLane": {
+      "type": "array",
+      "minItems": 76,
+      "maxItems": 76,
+      "uniqueItems": true,
+      "items": { "enum": ["pattern.accordion","pattern.alert","pattern.alert-dialog","pattern.carousel","pattern.checkbox","pattern.combobox","pattern.dialog","pattern.disclosure","pattern.dynamic-status","pattern.feed","pattern.field","pattern.grid","pattern.image","pattern.listbox","pattern.media-player","pattern.menu","pattern.menu-button","pattern.meter","pattern.pagination","pattern.popover","pattern.progress","pattern.radio-group","pattern.slider","pattern.spinbutton","pattern.switch","pattern.tabs","pattern.toggle-button","pattern.toolbar","pattern.tooltip","pattern.tree-view","pattern.treegrid","pattern.validation","pattern.window-splitter","semantics.accessible-description","semantics.accessible-name","semantics.bypass-blocks","semantics.collection-metadata","semantics.composite-focus","semantics.contrast-minimum","semantics.current-state","semantics.data-table","semantics.disabled-readonly","semantics.expanded-state","semantics.focus-order","semantics.form-error","semantics.form-label","semantics.form-required","semantics.headings","semantics.headings-labels-purpose","semantics.hidden-inert","semantics.images-of-text","semantics.info-relationships","semantics.input-labels-instructions","semantics.input-purpose","semantics.landmarks","semantics.language.page","semantics.language.parts","semantics.link-purpose","semantics.meaningful-sequence","semantics.multiple-ways","semantics.name-role-value","semantics.native-dialog","semantics.native-elements","semantics.non-text-alternative","semantics.non-text-content","semantics.non-text-contrast","semantics.page-title","semantics.presentational-role","semantics.pressed-state","semantics.range-value","semantics.reflow","semantics.roles-states-properties","semantics.selected-state","semantics.sensory-characteristics","semantics.sort-state","semantics.text-spacing"] }
+    },
+    "e2eLane": {
+      "type": "array",
+      "minItems": 101,
+      "maxItems": 101,
+      "uniqueItems": true,
+      "items": { "enum": ["pattern.accordion","pattern.alert","pattern.alert-dialog","pattern.carousel","pattern.checkbox","pattern.combobox","pattern.consequential-submission","pattern.dialog","pattern.disclosure","pattern.dynamic-status","pattern.feed","pattern.field","pattern.grid","pattern.image","pattern.listbox","pattern.media-player","pattern.menu","pattern.menu-button","pattern.meter","pattern.pagination","pattern.popover","pattern.progress","pattern.radio-group","pattern.slider","pattern.spinbutton","pattern.switch","pattern.tabs","pattern.toggle-button","pattern.toolbar","pattern.tooltip","pattern.tree-view","pattern.treegrid","pattern.validation","pattern.window-splitter","semantics.accessible-authentication","semantics.accessible-description","semantics.audio-control","semantics.busy-state","semantics.bypass-blocks","semantics.character-key-shortcuts","semantics.collection-metadata","semantics.composite-focus","semantics.consequential-action","semantics.consistent-help","semantics.consistent-identification","semantics.consistent-navigation","semantics.content-on-hover-or-focus","semantics.context-change.focus","semantics.context-change.input","semantics.contrast-minimum","semantics.current-state","semantics.data-table","semantics.disabled-readonly","semantics.dragging-alternative","semantics.expanded-state","semantics.flash-threshold","semantics.focus-order","semantics.focus.initial","semantics.focus.return","semantics.focus.visible","semantics.form-error","semantics.form-label","semantics.headings","semantics.headings-labels-purpose","semantics.hidden-inert","semantics.info-relationships","semantics.keyboard","semantics.keyboard.escape","semantics.landmarks","semantics.language.page","semantics.language.parts","semantics.live-status","semantics.meaningful-sequence","semantics.media.audio-description-or-alternative-prerecorded","semantics.media.audio-description-prerecorded","semantics.media.captions-live","semantics.media.captions-prerecorded","semantics.media.prerecorded-audio-video-only-alternatives","semantics.motion-actuation","semantics.motion-control","semantics.multiple-ways","semantics.native-dialog","semantics.non-text-contrast","semantics.orientation","semantics.page-title","semantics.pointer-cancellation","semantics.pointer-gestures","semantics.presentational-role","semantics.pressed-state","semantics.range-value","semantics.redundant-entry","semantics.reflow","semantics.resize-text","semantics.roles-states-properties","semantics.selected-state","semantics.sensory-characteristics","semantics.sort-state","semantics.target-size","semantics.text-spacing","semantics.timing-adjustable","semantics.use-of-color"] }
+    },
+    "humanLane": {
+      "type": "array",
+      "minItems": 108,
+      "maxItems": 108,
+      "uniqueItems": true,
+      "items": { "enum": ["pattern.accordion","pattern.alert","pattern.alert-dialog","pattern.carousel","pattern.checkbox","pattern.combobox","pattern.consequential-submission","pattern.dialog","pattern.disclosure","pattern.dynamic-status","pattern.feed","pattern.field","pattern.grid","pattern.image","pattern.listbox","pattern.media-player","pattern.menu","pattern.menu-button","pattern.meter","pattern.pagination","pattern.popover","pattern.progress","pattern.radio-group","pattern.slider","pattern.spinbutton","pattern.switch","pattern.tabs","pattern.toggle-button","pattern.toolbar","pattern.tooltip","pattern.tree-view","pattern.treegrid","pattern.validation","pattern.window-splitter","semantics.accessible-authentication","semantics.accessible-description","semantics.accessible-name","semantics.alert","semantics.audio-control","semantics.busy-state","semantics.bypass-blocks","semantics.character-key-shortcuts","semantics.collection-metadata","semantics.composite-focus","semantics.consequential-action","semantics.consistent-help","semantics.consistent-identification","semantics.consistent-navigation","semantics.content-on-hover-or-focus","semantics.context-change.focus","semantics.context-change.input","semantics.contrast-minimum","semantics.current-state","semantics.data-table","semantics.disabled-readonly","semantics.dragging-alternative","semantics.flash-threshold","semantics.focus-order","semantics.focus.visible","semantics.form-error","semantics.form-label","semantics.headings","semantics.headings-labels-purpose","semantics.hidden-inert","semantics.images-of-text","semantics.info-relationships","semantics.input-labels-instructions","semantics.input-purpose","semantics.keyboard","semantics.landmarks","semantics.language.page","semantics.language.parts","semantics.link-purpose","semantics.live-status","semantics.meaningful-sequence","semantics.media-alternatives","semantics.media.audio-description-or-alternative-prerecorded","semantics.media.audio-description-prerecorded","semantics.media.captions-live","semantics.media.captions-prerecorded","semantics.media.prerecorded-audio-video-only-alternatives","semantics.motion-actuation","semantics.motion-control","semantics.multiple-ways","semantics.name-role-value","semantics.native-dialog","semantics.native-elements","semantics.non-text-alternative","semantics.non-text-content","semantics.non-text-contrast","semantics.orientation","semantics.page-title","semantics.pointer-cancellation","semantics.pointer-gestures","semantics.presentational-role","semantics.pressed-state","semantics.range-value","semantics.redundant-entry","semantics.reflow","semantics.resize-text","semantics.roles-states-properties","semantics.selected-state","semantics.sensory-characteristics","semantics.sort-state","semantics.target-size","semantics.text-spacing","semantics.timing-adjustable","semantics.use-of-color"] }
+    },
+    "unitLane": {
+      "type": "array",
+      "minItems": 60,
+      "maxItems": 60,
+      "uniqueItems": true,
+      "items": { "enum": ["pattern.accordion","pattern.alert","pattern.alert-dialog","pattern.carousel","pattern.checkbox","pattern.combobox","pattern.dialog","pattern.disclosure","pattern.dynamic-status","pattern.feed","pattern.field","pattern.grid","pattern.image","pattern.listbox","pattern.media-player","pattern.menu","pattern.menu-button","pattern.meter","pattern.pagination","pattern.popover","pattern.progress","pattern.radio-group","pattern.slider","pattern.spinbutton","pattern.switch","pattern.tabs","pattern.toggle-button","pattern.toolbar","pattern.tooltip","pattern.tree-view","pattern.treegrid","pattern.validation","pattern.window-splitter","semantics.accessible-description","semantics.accessible-name","semantics.alert","semantics.busy-state","semantics.collection-metadata","semantics.composite-focus","semantics.current-state","semantics.data-table","semantics.disabled-readonly","semantics.expanded-state","semantics.focus.initial","semantics.focus.return","semantics.form-error","semantics.form-label","semantics.form-required","semantics.hidden-inert","semantics.keyboard","semantics.keyboard.escape","semantics.live-status","semantics.name-role-value","semantics.native-elements","semantics.presentational-role","semantics.pressed-state","semantics.range-value","semantics.roles-states-properties","semantics.selected-state","semantics.sort-state"] }
+    },
+    "laneCoverage": {
+      "type": "object",
+      "required": ["axe", "e2e", "human", "unit"],
+      "additionalProperties": false,
+      "properties": {
+        "axe": { "$ref": "#/$defs/axeLane" },
+        "e2e": { "$ref": "#/$defs/e2eLane" },
+        "human": { "$ref": "#/$defs/humanLane" },
+        "unit": { "$ref": "#/$defs/unitLane" }
+      }
+    },
+    "projectedIds": {
+      "type": "array",
+      "minItems": 156,
+      "maxItems": 156,
+      "uniqueItems": true,
+      "items": { "enum": ["applicability.accessible-authentication","applicability.autoplay-audio-control","applicability.character-shortcuts","applicability.complex-pointer","applicability.consequential-submission","applicability.consistent-help","applicability.consistent-identification","applicability.consistent-navigation","applicability.context-change-focus","applicability.context-change-input","applicability.data-table","applicability.dragging-alternative","applicability.dynamic-status","applicability.focus-obstruction","applicability.forms","applicability.hover-focus-content","applicability.input-labels-instructions","applicability.link-purpose","applicability.live-synchronized-audio","applicability.media","applicability.motion-actuation","applicability.motion-timing","applicability.non-text-content","applicability.non-text-content-completeness","applicability.overlays","applicability.page-content-structure","applicability.page-context","applicability.pointer-cancellation","applicability.prerecorded-audio-video-only","applicability.prerecorded-synchronized-audio","applicability.prerecorded-synchronized-video","applicability.redundant-entry","applicability.rendered-content-safeguards","applicability.target-size","applicability.timing-adjustable","applicability.user-information-input-purpose","applicability.validation","applicability.visual-presentation","foundation.conformance-boundary","foundation.standards-hierarchy","foundation.wcag-2.2","pattern.accordion","pattern.alert","pattern.alert-dialog","pattern.carousel","pattern.checkbox","pattern.combobox","pattern.consequential-submission","pattern.dialog","pattern.disclosure","pattern.dynamic-status","pattern.feed","pattern.field","pattern.grid","pattern.image","pattern.listbox","pattern.media-player","pattern.menu","pattern.menu-button","pattern.meter","pattern.pagination","pattern.popover","pattern.progress","pattern.radio-group","pattern.slider","pattern.spinbutton","pattern.switch","pattern.tabs","pattern.toggle-button","pattern.toolbar","pattern.tooltip","pattern.tree-view","pattern.treegrid","pattern.validation","pattern.window-splitter","policy.enhanced-quality","policy.target-size","semantics.accessible-authentication","semantics.accessible-description","semantics.accessible-name","semantics.alert","semantics.audio-control","semantics.busy-state","semantics.bypass-blocks","semantics.character-key-shortcuts","semantics.collection-metadata","semantics.composite-focus","semantics.consequential-action","semantics.consistent-help","semantics.consistent-identification","semantics.consistent-navigation","semantics.content-on-hover-or-focus","semantics.context-change.focus","semantics.context-change.input","semantics.contrast-minimum","semantics.current-state","semantics.data-table","semantics.disabled-readonly","semantics.dragging-alternative","semantics.expanded-state","semantics.flash-threshold","semantics.focus-order","semantics.focus.initial","semantics.focus.return","semantics.focus.visible","semantics.form-error","semantics.form-label","semantics.form-required","semantics.headings","semantics.headings-labels-purpose","semantics.hidden-inert","semantics.images-of-text","semantics.info-relationships","semantics.input-labels-instructions","semantics.input-purpose","semantics.keyboard","semantics.keyboard.escape","semantics.landmarks","semantics.language.page","semantics.language.parts","semantics.link-purpose","semantics.live-status","semantics.meaningful-sequence","semantics.media-alternatives","semantics.media.audio-description-or-alternative-prerecorded","semantics.media.audio-description-prerecorded","semantics.media.captions-live","semantics.media.captions-prerecorded","semantics.media.prerecorded-audio-video-only-alternatives","semantics.motion-actuation","semantics.motion-control","semantics.multiple-ways","semantics.name-role-value","semantics.native-dialog","semantics.native-elements","semantics.non-text-alternative","semantics.non-text-content","semantics.non-text-contrast","semantics.orientation","semantics.page-title","semantics.pointer-cancellation","semantics.pointer-gestures","semantics.presentational-role","semantics.pressed-state","semantics.range-value","semantics.redundant-entry","semantics.reflow","semantics.resize-text","semantics.roles-states-properties","semantics.selected-state","semantics.sensory-characteristics","semantics.sort-state","semantics.target-size","semantics.text-spacing","semantics.timing-adjustable","semantics.use-of-color"] }
+    },
+    "conductorOutputKey": {
+      "enum": [
+        "applicabilityMatrix",
+        "coverageManifest",
+        "pattern:pattern.accordion",
+        "pattern:pattern.alert",
+        "pattern:pattern.alert-dialog",
+        "pattern:pattern.carousel",
+        "pattern:pattern.checkbox",
+        "pattern:pattern.combobox",
+        "pattern:pattern.consequential-submission",
+        "pattern:pattern.dialog",
+        "pattern:pattern.disclosure",
+        "pattern:pattern.dynamic-status",
+        "pattern:pattern.feed",
+        "pattern:pattern.field",
+        "pattern:pattern.grid",
+        "pattern:pattern.image",
+        "pattern:pattern.listbox",
+        "pattern:pattern.media-player",
+        "pattern:pattern.menu",
+        "pattern:pattern.menu-button",
+        "pattern:pattern.meter",
+        "pattern:pattern.pagination",
+        "pattern:pattern.popover",
+        "pattern:pattern.progress",
+        "pattern:pattern.radio-group",
+        "pattern:pattern.slider",
+        "pattern:pattern.spinbutton",
+        "pattern:pattern.switch",
+        "pattern:pattern.tabs",
+        "pattern:pattern.toggle-button",
+        "pattern:pattern.toolbar",
+        "pattern:pattern.tooltip",
+        "pattern:pattern.tree-view",
+        "pattern:pattern.treegrid",
+        "pattern:pattern.validation",
+        "pattern:pattern.window-splitter",
+        "patternContracts",
+        "qualityMarkdown",
+        "semanticsJson",
+        "semanticsMarkdown",
+        "uiDesignBrainBindings"
+      ]
+    },
+    "aiOrchestrationOutputKey": {
+      "enum": [
+        "coverageManifest",
+        "implementation",
+        "pattern:pattern.accordion",
+        "pattern:pattern.alert",
+        "pattern:pattern.alert-dialog",
+        "pattern:pattern.carousel",
+        "pattern:pattern.checkbox",
+        "pattern:pattern.combobox",
+        "pattern:pattern.consequential-submission",
+        "pattern:pattern.dialog",
+        "pattern:pattern.disclosure",
+        "pattern:pattern.dynamic-status",
+        "pattern:pattern.feed",
+        "pattern:pattern.field",
+        "pattern:pattern.grid",
+        "pattern:pattern.image",
+        "pattern:pattern.listbox",
+        "pattern:pattern.media-player",
+        "pattern:pattern.menu",
+        "pattern:pattern.menu-button",
+        "pattern:pattern.meter",
+        "pattern:pattern.pagination",
+        "pattern:pattern.popover",
+        "pattern:pattern.progress",
+        "pattern:pattern.radio-group",
+        "pattern:pattern.slider",
+        "pattern:pattern.spinbutton",
+        "pattern:pattern.switch",
+        "pattern:pattern.tabs",
+        "pattern:pattern.toggle-button",
+        "pattern:pattern.toolbar",
+        "pattern:pattern.tooltip",
+        "pattern:pattern.tree-view",
+        "pattern:pattern.treegrid",
+        "pattern:pattern.validation",
+        "pattern:pattern.window-splitter",
+        "patternContracts",
+        "review",
+        "semantic:semantics.accessible-authentication",
+        "semantic:semantics.accessible-description",
+        "semantic:semantics.accessible-name",
+        "semantic:semantics.alert",
+        "semantic:semantics.audio-control",
+        "semantic:semantics.busy-state",
+        "semantic:semantics.bypass-blocks",
+        "semantic:semantics.character-key-shortcuts",
+        "semantic:semantics.collection-metadata",
+        "semantic:semantics.composite-focus",
+        "semantic:semantics.consequential-action",
+        "semantic:semantics.consistent-help",
+        "semantic:semantics.consistent-identification",
+        "semantic:semantics.consistent-navigation",
+        "semantic:semantics.content-on-hover-or-focus",
+        "semantic:semantics.context-change.focus",
+        "semantic:semantics.context-change.input",
+        "semantic:semantics.contrast-minimum",
+        "semantic:semantics.current-state",
+        "semantic:semantics.data-table",
+        "semantic:semantics.disabled-readonly",
+        "semantic:semantics.dragging-alternative",
+        "semantic:semantics.expanded-state",
+        "semantic:semantics.flash-threshold",
+        "semantic:semantics.focus-order",
+        "semantic:semantics.focus.initial",
+        "semantic:semantics.focus.return",
+        "semantic:semantics.focus.visible",
+        "semantic:semantics.form-error",
+        "semantic:semantics.form-label",
+        "semantic:semantics.form-required",
+        "semantic:semantics.headings",
+        "semantic:semantics.headings-labels-purpose",
+        "semantic:semantics.hidden-inert",
+        "semantic:semantics.images-of-text",
+        "semantic:semantics.info-relationships",
+        "semantic:semantics.input-labels-instructions",
+        "semantic:semantics.input-purpose",
+        "semantic:semantics.keyboard",
+        "semantic:semantics.keyboard.escape",
+        "semantic:semantics.landmarks",
+        "semantic:semantics.language.page",
+        "semantic:semantics.language.parts",
+        "semantic:semantics.link-purpose",
+        "semantic:semantics.live-status",
+        "semantic:semantics.meaningful-sequence",
+        "semantic:semantics.media-alternatives",
+        "semantic:semantics.media.audio-description-or-alternative-prerecorded",
+        "semantic:semantics.media.audio-description-prerecorded",
+        "semantic:semantics.media.captions-live",
+        "semantic:semantics.media.captions-prerecorded",
+        "semantic:semantics.media.prerecorded-audio-video-only-alternatives",
+        "semantic:semantics.motion-actuation",
+        "semantic:semantics.motion-control",
+        "semantic:semantics.multiple-ways",
+        "semantic:semantics.name-role-value",
+        "semantic:semantics.native-dialog",
+        "semantic:semantics.native-elements",
+        "semantic:semantics.non-text-alternative",
+        "semantic:semantics.non-text-content",
+        "semantic:semantics.non-text-contrast",
+        "semantic:semantics.orientation",
+        "semantic:semantics.page-title",
+        "semantic:semantics.pointer-cancellation",
+        "semantic:semantics.pointer-gestures",
+        "semantic:semantics.presentational-role",
+        "semantic:semantics.pressed-state",
+        "semantic:semantics.range-value",
+        "semantic:semantics.redundant-entry",
+        "semantic:semantics.reflow",
+        "semantic:semantics.resize-text",
+        "semantic:semantics.roles-states-properties",
+        "semantic:semantics.selected-state",
+        "semantic:semantics.sensory-characteristics",
+        "semantic:semantics.sort-state",
+        "semantic:semantics.target-size",
+        "semantic:semantics.text-spacing",
+        "semantic:semantics.timing-adjustable",
+        "semantic:semantics.use-of-color",
+        "semanticsJson",
+        "testing",
+        "uiDesignBrainBindings"
+      ]
+    },
+    "conductorOutputPaths": {
+      "type": "object",
+      "minProperties": 42,
+      "maxProperties": 42,
+      "propertyNames": { "anyOf": [{ "$ref": "#/$defs/conductorOutputKey" }, { "const": "source" }] },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "conductorOutputDigests": {
+      "type": "object",
+      "minProperties": 41,
+      "maxProperties": 41,
+      "propertyNames": { "$ref": "#/$defs/conductorOutputKey" },
+      "additionalProperties": { "$ref": "#/$defs/digest" }
+    },
+    "aiOrchestrationOutputPaths": {
+      "type": "object",
+      "minProperties": 121,
+      "maxProperties": 121,
+      "propertyNames": { "anyOf": [{ "$ref": "#/$defs/aiOrchestrationOutputKey" }, { "const": "source" }] },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "aiOrchestrationOutputDigests": {
+      "type": "object",
+      "minProperties": 120,
+      "maxProperties": 120,
+      "propertyNames": { "$ref": "#/$defs/aiOrchestrationOutputKey" },
+      "additionalProperties": { "$ref": "#/$defs/digest" }
+    },
+    "distributionProfile": {
+      "type": "object",
+      "required": ["version", "profile_digest", "source_digest", "outputs"],
+      "additionalProperties": false,
+      "properties": {
+        "version": { "const": "4.0.0" },
+        "profile_digest": { "$ref": "#/$defs/digest" },
+        "source_digest": { "$ref": "#/$defs/digest" },
+        "outputs": { "type": "object" }
+      }
     },
     "consumer": {
       "type": "object",
@@ -25,56 +302,176 @@
         "manifest_digest"
       ],
       "properties": {
-        "_generated": { "type": "string" },
-        "package": { "const": "@verndale/accessibility-standards@3.2.0" },
+        "_generated": { "const": "GENERATED by @verndale/accessibility-standards; DO NOT EDIT" },
+        "package": { "const": "@verndale/accessibility-standards@4.0.0" },
         "profile": { "enum": ["conductor", "ai-orchestration"] },
-        "profile_version": { "const": "3.2.0" },
-        "schema_version": { "const": 3 },
+        "profile_version": { "const": "4.0.0" },
+        "schema_version": { "const": 4 },
         "digests": {
           "type": "object",
           "required": ["source", "profile", "ui_design_brain_bindings", "config", "routes"],
-          "additionalProperties": { "$ref": "#/$defs/digest" }
+          "additionalProperties": false,
+          "properties": {
+            "source": { "$ref": "#/$defs/digest" },
+            "profile": { "$ref": "#/$defs/digest" },
+            "ui_design_brain_bindings": { "$ref": "#/$defs/digest" },
+            "config": { "$ref": "#/$defs/digest" },
+            "routes": { "$ref": "#/$defs/digest" }
+          }
         },
         "ui_design_brain": { "$ref": "#/$defs/uiDesignBrain" },
-        "ui_pattern_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
-        "projected_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
-        "lane_coverage": { "type": "object" },
-        "output_paths": { "type": "object", "additionalProperties": { "type": "string" } },
-        "output_digests": { "type": "object", "additionalProperties": { "$ref": "#/$defs/digest" } },
+        "ui_pattern_ids": {
+          "type": "array",
+          "minItems": 80,
+          "maxItems": 80,
+          "items": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "uniqueItems": true,
+          "allOf": [
+            {
+              "prefixItems": [
+              { "const": "accordion" },
+              { "const": "alert" },
+              { "const": "avatar" },
+              { "const": "badge" },
+              { "const": "breadcrumbs" },
+              { "const": "button" },
+              { "const": "button-group" },
+              { "const": "card" },
+              { "const": "carousel" },
+              { "const": "checkbox" },
+              { "const": "color-picker" },
+              { "const": "combobox" },
+              { "const": "comparison-table" },
+              { "const": "context-menu" },
+              { "const": "date-input" },
+              { "const": "datepicker" },
+              { "const": "drawer" },
+              { "const": "dropdown-menu" },
+              { "const": "empty-state" },
+              { "const": "error-message" },
+              { "const": "eyebrow" },
+              { "const": "fieldset" },
+              { "const": "file" },
+              { "const": "file-upload" },
+              { "const": "filter" },
+              { "const": "footer" },
+              { "const": "form" },
+              { "const": "header" },
+              { "const": "heading" },
+              { "const": "helper-text" },
+              { "const": "hero" },
+              { "const": "icon" },
+              { "const": "image" },
+              { "const": "in-page-navigation" },
+              { "const": "label" },
+              { "const": "link" },
+              { "const": "list" },
+              { "const": "logo-bar" },
+              { "const": "marquee" },
+              { "const": "masthead" },
+              { "const": "media-object" },
+              { "const": "mega-menu" },
+              { "const": "modal" },
+              { "const": "navigation" },
+              { "const": "number-input" },
+              { "const": "pagination" },
+              { "const": "popover" },
+              { "const": "progress-bar" },
+              { "const": "progress-indicator" },
+              { "const": "quote" },
+              { "const": "radio-button" },
+              { "const": "rating" },
+              { "const": "rich-text" },
+              { "const": "rich-text-editor" },
+              { "const": "search-input" },
+              { "const": "search-overlay" },
+              { "const": "section-header" },
+              { "const": "segmented-control" },
+              { "const": "select" },
+              { "const": "separator" },
+              { "const": "sidebar" },
+              { "const": "skeleton" },
+              { "const": "skip-link" },
+              { "const": "slider" },
+              { "const": "spinner" },
+              { "const": "stack" },
+              { "const": "stat" },
+              { "const": "stepper" },
+              { "const": "table" },
+              { "const": "tabs" },
+              { "const": "text-input" },
+              { "const": "textarea" },
+              { "const": "toast" },
+              { "const": "toggle" },
+              { "const": "tooltip" },
+              { "const": "tree-view" },
+              { "const": "utility-bar" },
+              { "const": "video" },
+              { "const": "visually-hidden" },
+              { "const": "wizard" }
+              ]
+            }
+          ]
+        },
+        "projected_ids": { "$ref": "#/$defs/projectedIds" },
+        "lane_coverage": { "$ref": "#/$defs/laneCoverage" },
+        "output_paths": { "type": "object" },
+        "output_digests": { "type": "object" },
         "manifest_digest": { "$ref": "#/$defs/digest" }
       },
-      "additionalProperties": true
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": { "properties": { "profile": { "const": "conductor" } }, "required": ["profile"] },
+          "then": {
+            "properties": {
+              "output_paths": { "$ref": "#/$defs/conductorOutputPaths" },
+              "output_digests": { "$ref": "#/$defs/conductorOutputDigests" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "profile": { "const": "ai-orchestration" } }, "required": ["profile"] },
+          "then": {
+            "properties": {
+              "output_paths": { "$ref": "#/$defs/aiOrchestrationOutputPaths" },
+              "output_digests": { "$ref": "#/$defs/aiOrchestrationOutputDigests" }
+            }
+          }
+        }
+      ]
     },
     "distribution": {
       "type": "object",
       "required": ["_generated", "package", "schema_version", "source_digest", "profile_digests", "ui_design_brain", "profiles"],
       "properties": {
-        "_generated": { "type": "string" },
-        "package": { "const": "@verndale/accessibility-standards@3.2.0" },
-        "schema_version": { "const": 3 },
+        "_generated": { "const": "GENERATED by @verndale/accessibility-standards; DO NOT EDIT" },
+        "package": { "const": "@verndale/accessibility-standards@4.0.0" },
+        "schema_version": { "const": 4 },
         "source_digest": { "$ref": "#/$defs/digest" },
-        "profile_digests": {
-          "type": "object",
-          "required": ["conductor", "ai-orchestration"],
-          "additionalProperties": { "$ref": "#/$defs/digest" }
-        },
+        "profile_digests": { "$ref": "#/$defs/profileDigests" },
         "ui_design_brain": { "$ref": "#/$defs/uiDesignBrain" },
         "profiles": {
           "type": "object",
           "required": ["conductor", "ai-orchestration"],
-          "additionalProperties": {
-            "type": "object",
-            "required": ["version", "profile_digest", "source_digest", "outputs"],
-            "properties": {
-              "version": { "const": "3.2.0" },
-              "profile_digest": { "$ref": "#/$defs/digest" },
-              "source_digest": { "$ref": "#/$defs/digest" },
-              "outputs": { "type": "object", "additionalProperties": { "$ref": "#/$defs/digest" } }
+          "additionalProperties": false,
+          "properties": {
+            "conductor": {
+              "allOf": [
+                { "$ref": "#/$defs/distributionProfile" },
+                { "properties": { "outputs": { "$ref": "#/$defs/conductorOutputDigests" } } }
+              ]
+            },
+            "ai-orchestration": {
+              "allOf": [
+                { "$ref": "#/$defs/distributionProfile" },
+                { "properties": { "outputs": { "$ref": "#/$defs/aiOrchestrationOutputDigests" } } }
+              ]
             }
           }
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     }
   },
   "oneOf": [

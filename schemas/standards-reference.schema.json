@@ -45,6 +45,44 @@
         { "properties": { "identifier": { "$ref": "#/$defs/levelAAAIds" }, "level": { "const": "AAA" } }, "required": ["identifier", "level"] }
       ]
     },
+    "waiAriaReference": {
+      "oneOf": [
+        { "properties": { "identifier": { "const": "alert" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#alert" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-activedescendant" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-activedescendant" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-busy" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-busy" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-colcount" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-colcount" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-colindex" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-colindex" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-colspan" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-colspan" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-current" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-current" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-describedby" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-describedby" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-details" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-details" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-disabled" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-disabled" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-expanded" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-expanded" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-hidden" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-hidden" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-level" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-level" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-posinset" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-posinset" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-pressed" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-pressed" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-readonly" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-readonly" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-rowcount" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-rowcount" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-rowindex" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-rowindex" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-rowspan" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-rowspan" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-selected" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-selected" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-setsize" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-setsize" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-sort" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-sort" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-valuemax" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-valuemax" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-valuemin" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-valuemin" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-valuenow" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-valuenow" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "aria-valuetext" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#aria-valuetext" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "dialog" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#dialog" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "host_general_conflict" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#host_general_conflict" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "namecalculation" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#namecalculation" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "none" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#none" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "presentation" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#presentation" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "progressbar" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#progressbar" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "roles" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#roles" } }, "required": ["identifier", "url"] },
+        { "properties": { "identifier": { "const": "status" }, "url": { "const": "https://www.w3.org/TR/wai-aria-1.2/#status" } }, "required": ["identifier", "url"] }
+      ]
+    },
     "wcagUrl": {
       "type": "string",
       "pattern": "^https://www\\.w3\\.org/TR/WCAG22/#(?:non-text-content|audio-only-and-video-only-prerecorded|captions-prerecorded|audio-description-or-media-alternative-prerecorded|captions-live|audio-description-prerecorded|sign-language-prerecorded|extended-audio-description-prerecorded|media-alternative-prerecorded|audio-only-live|info-and-relationships|meaningful-sequence|sensory-characteristics|orientation|identify-input-purpose|identify-purpose|use-of-color|audio-control|contrast-minimum|resize-text|images-of-text|contrast-enhanced|low-or-no-background-audio|visual-presentation|images-of-text-no-exception|reflow|non-text-contrast|text-spacing|content-on-hover-or-focus|keyboard|no-keyboard-trap|keyboard-no-exception|character-key-shortcuts|timing-adjustable|pause-stop-hide|no-timing|interruptions|re-authenticating|timeouts|three-flashes-or-below-threshold|three-flashes|animation-from-interactions|bypass-blocks|page-titled|focus-order|link-purpose-in-context|multiple-ways|headings-and-labels|focus-visible|location|link-purpose-link-only|section-headings|focus-not-obscured-minimum|focus-not-obscured-enhanced|focus-appearance|pointer-gestures|pointer-cancellation|label-in-name|motion-actuation|target-size-enhanced|concurrent-input-mechanisms|dragging-movements|target-size-minimum|language-of-page|language-of-parts|unusual-words|abbreviations|reading-level|pronunciation|on-focus|on-input|consistent-navigation|consistent-identification|change-on-request|consistent-help|error-identification|labels-or-instructions|error-suggestion|error-prevention-legal-financial-data|help|error-prevention-all|redundant-entry|accessible-authentication-minimum|accessible-authentication-enhanced|name-role-value|status-messages)$"
@@ -58,7 +96,7 @@
   "required": ["authority", "identifier", "url", "normative"],
   "additionalProperties": false,
   "properties": {
-    "authority": { "enum": ["wcag-2.2", "wcag-2.2-understanding", "wai-aria-1.2", "aria-apg"] },
+    "authority": { "enum": ["html", "wcag-2.2", "wcag-2.2-understanding", "wai-aria-1.2", "aria-in-html", "aria-apg"] },
     "identifier": { "type": "string", "pattern": "\\S" },
     "url": { "type": "string", "pattern": "^https://" },
     "normative": { "type": "boolean" },
@@ -88,7 +126,25 @@
     {
       "properties": {
         "authority": { "const": "wai-aria-1.2" },
-        "url": { "type": "string", "pattern": "^https://www\\.w3\\.org/TR/wai-aria-1\\.2/" },
+        "normative": { "const": true }
+      },
+      "allOf": [{ "$ref": "#/$defs/waiAriaReference" }],
+      "not": { "required": ["level"] }
+    },
+    {
+      "properties": {
+        "authority": { "const": "html" },
+        "identifier": { "const": "inert" },
+        "url": { "const": "https://html.spec.whatwg.org/multipage/interaction.html#the-inert-attribute" },
+        "normative": { "const": true }
+      },
+      "not": { "required": ["level"] }
+    },
+    {
+      "properties": {
+        "authority": { "const": "aria-in-html" },
+        "identifier": { "const": "author-conformance" },
+        "url": { "const": "https://www.w3.org/TR/html-aria/" },
         "normative": { "const": true }
       },
       "not": { "required": ["level"] }

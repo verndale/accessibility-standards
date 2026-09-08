@@ -23,6 +23,8 @@ This wiki is the durable project record for decisions, executed plans, and subst
 - [2026-08-30 WCAG 2.2 expansion journal](./journal/2026-08-30-wcag-2-2-coverage-pattern-expansion.md)
 - [Schema-3 UI Projector Provenance Alignment](./plans/2026-08-31-schema-3-ui-projector-provenance-alignment-2666644a2c.md) — implemented
 - [2026-08-31 schema-3 UI projector provenance journal](./journal/2026-08-31-schema-3-ui-projector-provenance.md)
+- [Schema 4: Complete WAI-ARIA APG Pattern and Practice Coverage](./plans/2026-09-07-schema-4-complete-wai-aria-apg-pattern-and-practice-coverage-b0d9993b75.md) — implemented, tracked by [issue 22](https://github.com/verndale/accessibility-standards/issues/22)
+- [2026-09-08 WAI-ARIA APG coverage journal](./journal/2026-09-08-complete-wai-aria-apg-coverage.md)
 
 For a direct single-topic history or rationale question, use the links above and open only the page they route to. Only for a cross-page question, run `node scripts/wiki/navigate.cjs --intent why --query "<terms>"` (or `wiring` / `impact`) and read only its byte-counted itinerary. Never bulk-load `wiki/` or `scripts/wiki/graph/data/graph.json`. If navigation returns candidates or no route, retry with exact Source and Target node IDs; if ambiguity remains, ask one focused question or use one targeted `rg`.
 
