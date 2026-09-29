@@ -1,24 +1,58 @@
 name: Commit message lint
+
 on:
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened, edited]
+
 permissions:
   contents: read
+
+concurrency:
+  group: commitlint-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 env:
+  HUSKY: '0'
+  GRAPHIFY_SKIP_HOOK: '1'
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   commitlint:
+    name: commitlint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-      - uses: actions/setup-node@v4
-        with: { node-version: "24.14.0" }
-      - run: corepack enable && corepack prepare pnpm@11.1.1 --activate
-      - run: pnpm install --frozen-lockfile
+      - name: Checkout immutable revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.14.0'
+      - name: Enable declared pnpm via Corepack
+        run: corepack enable && corepack install
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate PR body
+        if: ${{ !startsWith(github.event.pull_request.head.ref, 'bot/wiki-') }}
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: pnpm run lint:pr
+
       - name: Lint PR title
-        env: { PR_TITLE: "${{ github.event.pull_request.title }}" }
-        run: printf '%s\n' "$PR_TITLE" | pnpm exec commitlint --config commitlint.config.cjs --verbose
-      - name: Lint commits
-        run: pnpm exec commitlint --config commitlint.config.cjs --from "${{ github.event.pull_request.base.sha }}" --to "${{ github.event.pull_request.head.sha }}" --verbose
+        if: github.event_name == 'pull_request'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$PR_TITLE" | pnpm run lint:commit --verbose
+      - name: Lint immutable PR commit range
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git cat-file -e "${BASE_SHA}^{commit}"
+          git cat-file -e "${HEAD_SHA}^{commit}"
+          pnpm run lint:commit --from "$BASE_SHA" --to "$HEAD_SHA" --verbose

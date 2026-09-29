@@ -30,11 +30,11 @@ jobs:
       (github.event.pull_request.merged == true && !startsWith(github.event.pull_request.head.ref, 'bot/wiki-'))
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.PR_BOT_TOKEN }}
+      GH_TOKEN: ${{ secrets.BOT_TOKEN }}
     steps:
       - name: Require bot token
         run: |
-          test -n "$GH_TOKEN" || { echo 'PR_BOT_TOKEN is required'; exit 1; }
+          test -n "$GH_TOKEN" || { echo 'BOT_TOKEN is required'; exit 1; }
           gh auth setup-git
       - name: Resolve merged PR context
         id: context

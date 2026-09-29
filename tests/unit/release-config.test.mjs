@@ -25,6 +25,15 @@ test('analyzes a conventional breaking header as a major release', async () => {
   assert.equal(releaseType, 'major');
 });
 
+test('tooling commits do not publish the package', async () => {
+  const [, options] = analyzer;
+  const releaseType = await analyzeCommits(options, {
+    commits: [{ message: 'chore(git): standardize repository delivery' }],
+    logger,
+  });
+  assert.equal(releaseType, null);
+});
+
 test('generates notes with the same conventional commit parser', () => {
   assert.ok(notes, 'release notes generator configuration is present');
   const [, options] = notes;

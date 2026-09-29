@@ -19,3 +19,13 @@ Use `wiki/` as this repository's durable record of executed plans, decisions, an
 
 This managed block was installed for Codex, Cursor, and Claude (via `@AGENTS.md` in `CLAUDE.md`).
 <!-- wiki-skill:end -->
+
+## Git delivery
+
+1. Confirm the working tree is safe to switch, check out `main`, and run `git pull --ff-only` to update it.
+2. Use the `github-issue-creator` skill to create one actionable, labeled GitHub issue for the work. Read back the issue and its labels.
+3. Create `codex/<issue-number>-<short-slug>` from updated `main`.
+4. Keep the change within the issue scope, update the wiki for substantive work, and run `pnpm run verify:ci`.
+5. Commit with a conventional message enforced by Commitlint, then push the issue branch with ordinary Git.
+6. Open a pull request with a conventional title and the canonical `.github/pull_request_template.md` body. Complete every section and checkbox, include `Closes #<issue-number>`, run `pnpm run lint:pr`, and read back the saved PR.
+7. Stop with the PR open. Do not merge or enable auto-merge, delete the branch, or close the issue.
