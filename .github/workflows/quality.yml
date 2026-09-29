@@ -15,6 +15,37 @@ jobs:
         with: { fetch-depth: 0 }
       - uses: actions/setup-node@v4
         with: { node-version: "24.14.0" }
-      - run: corepack enable && corepack prepare pnpm@11.1.1 --activate
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm verify:ci
+      - name: Classify verification scope
+        id: scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || '' }}
+          HEAD_SHA: ${{ github.sha }}
+          BEFORE_SHA: ${{ github.event.before || '' }}
+        run: |
+          full=true; reason='manual dispatch'
+          if [ "$EVENT_NAME" = 'pull_request' ] || [ "$EVENT_NAME" = 'push' ]; then
+            if [ "$EVENT_NAME" = 'push' ]; then BASE_SHA="$BEFORE_SHA"; fi
+            if [ -z "$BASE_SHA" ] || [ "$BASE_SHA" = '0000000000000000000000000000000000000000' ] || ! git cat-file -e "${BASE_SHA}^{commit}" 2>/dev/null; then
+              echo 'full=true' >> "$GITHUB_OUTPUT"; echo 'reason=change range unavailable' >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            if ! git cat-file -e "${HEAD_SHA}^{commit}" 2>/dev/null || ! changed_files="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")"; then
+              echo 'full=true' >> "$GITHUB_OUTPUT"; echo 'reason=change range unavailable' >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            full=false; reason='wiki-only change'
+            while IFS= read -r file; do
+              case "$file" in wiki/*|scripts/wiki/graph/data/graph.json) ;; *) full=true; reason='substantive change'; break ;; esac
+            done <<< "$changed_files"
+            if [ -z "$changed_files" ]; then full=true; reason='empty change set'; fi
+          fi
+          echo "full=$full" >> "$GITHUB_OUTPUT"
+          echo "reason=$reason" >> "$GITHUB_OUTPUT"
+      - name: Lightweight wiki verification
+        if: steps.scope.outputs.full != 'true'
+        run: node scripts/wiki/check.cjs
+      - if: steps.scope.outputs.full == 'true'
+        run: corepack enable && corepack prepare pnpm@11.1.1 --activate
+      - if: steps.scope.outputs.full == 'true'
+        run: pnpm install --frozen-lockfile
+      - if: steps.scope.outputs.full == 'true'
+        run: pnpm verify:ci

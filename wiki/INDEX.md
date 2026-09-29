@@ -12,6 +12,7 @@ This wiki is the durable project record for decisions, executed plans, and subst
 
 ## Accessibility standards
 
+- [2026-09-29 wiki Quality and bot replay journal](./journal/2026-09-29-wiki-quality-and-bot-replay.md) — focus wiki-only checks and update existing bot PRs with repository-scoped BOT_TOKEN.
 - [2026-09-29 PR body validation journal](./journal/2026-09-29-pr-body-validation.md) — reject hidden PR descriptions and protect the canonical template.
 - [Standards authority](./topics/standards-authority.md)
 - [Semantic and pattern model](./topics/semantic-pattern-model.md)
