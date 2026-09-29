@@ -2,6 +2,7 @@
 date: 2026-09-29
 topics: [sync-and-enforcement]
 issue: https://github.com/verndale/accessibility-standards/issues/30
+issues: ["https://github.com/verndale/accessibility-standards/issues/30"]
 ---
 # Focus wiki Quality and harden bot replay
 
