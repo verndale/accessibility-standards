@@ -1,8 +1,9 @@
 name: Release
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: [Quality]
+    types: [completed]
 
 permissions:
   contents: write
@@ -17,26 +18,57 @@ env:
 
 jobs:
   release:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Verify tested commit
+        env:
+          QUALITY_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: test "$(git rev-parse HEAD)" = "$QUALITY_HEAD_SHA"
+
+      - name: Classify tested revision
+        id: scope
+        env:
+          QUALITY_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          substantive=false
+          while IFS= read -r path; do
+            case "$path" in
+              wiki/*|scripts/wiki/graph/data/graph.json) ;;
+              *) substantive=true ;;
+            esac
+          done < <(git diff --name-only "${QUALITY_HEAD_SHA}^1" "$QUALITY_HEAD_SHA")
+          echo "substantive=$substantive" >> "$GITHUB_OUTPUT"
+          if [ "$substantive" != true ]; then
+            echo 'Wiki-only revisions are ineligible for release.' >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Setup Node
+        if: steps.scope.outputs.substantive == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "24.14.0"
 
       - name: Enable pnpm via Corepack
+        if: steps.scope.outputs.substantive == 'true'
         run: corepack enable && corepack prepare pnpm@11.1.1 --activate
 
       - name: Get pnpm store path
+        if: steps.scope.outputs.substantive == 'true'
         id: pnpm-cache
         run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
 
       - name: Cache pnpm store
+        if: steps.scope.outputs.substantive == 'true'
         uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
@@ -45,21 +77,47 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
+        if: steps.scope.outputs.substantive == 'true'
         run: pnpm install --frozen-lockfile
 
       - name: Reject aggregated breaking-change bodies
+        if: steps.scope.outputs.substantive == 'true'
         run: pnpm release:preflight
 
       - name: Verify source and projections
+        if: steps.scope.outputs.substantive == 'true'
         run: pnpm verify:ci
 
       - name: Pack and clean-install tarball
+        if: steps.scope.outputs.substantive == 'true'
         run: node scripts/verify-packed-consumer.mjs
 
       - name: Inspect packed artifact
+        if: steps.scope.outputs.substantive == 'true'
         run: npm publish --dry-run --ignore-scripts --tag development
 
+      - name: Adopt wiki-only main descendants
+        if: steps.scope.outputs.substantive == 'true'
+        env:
+          QUALITY_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          git fetch --no-tags origin main
+          latest="$(git rev-parse origin/main)"
+          if [ "$latest" = "$QUALITY_HEAD_SHA" ]; then exit 0; fi
+          git merge-base --is-ancestor "$QUALITY_HEAD_SHA" "$latest" || {
+            echo 'main no longer descends from the tested revision.' >&2; exit 1;
+          }
+          while IFS= read -r path; do
+            case "$path" in
+              wiki/*|scripts/wiki/graph/data/graph.json) ;;
+              *) echo "Untested main change blocks release: $path" >&2; exit 1 ;;
+            esac
+          done < <(git diff --name-only "$QUALITY_HEAD_SHA" "$latest")
+          git checkout --detach "$latest"
+
       - name: Publish, tag, changelog, and GitHub release
+        if: steps.scope.outputs.substantive == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          HUSKY: '0'
         run: pnpm exec semantic-release

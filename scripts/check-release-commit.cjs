@@ -9,7 +9,7 @@ const { join } = require('node:path');
 const BREAKING_BODY = /^BREAKING[ -]CHANGE:\s*/m;
 const BREAKING_HEADER = /^[a-z]+(?:\([^)]+\))?!:/;
 const CONVENTIONAL_HEADER = /^([a-z]+)(?:\([^)]+\))?(!)?:/;
-const PATCH_TYPES = new Set(['build', 'chore', 'ci', 'docs', 'fix', 'perf', 'refactor', 'revert', 'style', 'test']);
+const PATCH_TYPES = new Set(['fix', 'revert']);
 // PR #7 was merged before this preflight could reject its duplicated footer.
 // Its feat(wcag)! header already declares the intended v3 major release.
 // Keep this exact, one-time migration exception; all future bodies fail closed.
@@ -93,6 +93,7 @@ function computedNextVersion(lastTag, commits) {
 
 function validateReleaseTarget({ lastTag, commits, targetVersion }) {
   const nextVersion = computedNextVersion(lastTag, commits);
+  if (nextVersion === null && lastTag === `v${targetVersion}`) return [];
   if (nextVersion !== targetVersion) {
     return [`release commits compute ${nextVersion ?? 'no release'} but package contract targets ${targetVersion}; use the exact conventional squash title required by the version policy`];
   }

@@ -45,6 +45,12 @@ assert.equal(
   computedNextVersion('v1.0.0', [{ subject: 'feat(standards)!: revise authority contract' }]),
   '2.0.0',
 );
+assert.equal(computedNextVersion('v1.0.0', [{ subject: 'chore(git): standardize delivery' }]), null);
+assert.deepEqual(validateReleaseTarget({
+  lastTag: 'v1.0.0',
+  commits: [{ subject: 'chore(git): standardize delivery' }],
+  targetVersion: '1.0.0',
+}), []);
 assert.deepEqual(
   validateReleaseTarget({
     lastTag: 'v1.0.0',
@@ -59,7 +65,7 @@ assert.match(
     commits: [{ subject: 'docs: describe a breaking implementation' }],
     targetVersion: '2.0.0',
   })[0],
-  /compute 1\.0\.1 but package contract targets 2\.0\.0/,
+  /compute no release but package contract targets 2\.0\.0/,
 );
 assert.match(
   validateReleaseCommit({ subject: 'feat(standards) !: malformed', body: '' })[0],
