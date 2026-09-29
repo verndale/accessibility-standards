@@ -4,6 +4,7 @@ topics: [sync-and-enforcement]
 plans: [2026-09-29-standardize-git-delivery-in-accessibility-standards-f273f98bb6.md]
 issue: https://github.com/verndale/accessibility-standards/issues/24
 branch: codex/24-git-delivery
+issues: ["https://github.com/verndale/accessibility-standards/issues/24"]
 ---
 # Deterministic Git delivery
 
