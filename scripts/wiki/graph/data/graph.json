@@ -2,11 +2,11 @@
   "version": 1,
   "wikiRoot": "wiki",
   "counts": {
-    "nodes": 26,
-    "edges": 119,
+    "nodes": 27,
+    "edges": 122,
     "byType": {
       "index": 3,
-      "journal": 9,
+      "journal": 10,
       "plan": 9,
       "topic": 5
     }
@@ -25,8 +25,8 @@
           "url": "https://github.com/verndale/accessibility-standards/issues/22"
         }
       ],
-      "bytes": 2756,
-      "degree": 15,
+      "bytes": 2912,
+      "degree": 16,
       "x": 1,
       "y": 0,
       "size": 12
@@ -52,8 +52,8 @@
       ],
       "bytes": 1439,
       "degree": 2,
-      "x": 0.885456,
-      "y": 0.464723,
+      "x": 0.893633,
+      "y": 0.448799,
       "size": 8
     },
     {
@@ -89,8 +89,8 @@
       ],
       "bytes": 3765,
       "degree": 7,
-      "x": 0.748511,
-      "y": 0.663123,
+      "x": 0.766044,
+      "y": 0.642788,
       "size": 8
     },
     {
@@ -108,8 +108,8 @@
       ],
       "bytes": 3986,
       "degree": 6,
-      "x": 0.568065,
-      "y": 0.822984,
+      "x": 0.597159,
+      "y": 0.802123,
       "size": 8
     },
     {
@@ -127,8 +127,8 @@
       ],
       "bytes": 1958,
       "degree": 3,
-      "x": 0.354605,
-      "y": 0.935016,
+      "x": 0.39608,
+      "y": 0.918216,
       "size": 8
     },
     {
@@ -146,8 +146,8 @@
       ],
       "bytes": 3516,
       "degree": 3,
-      "x": 0.120537,
-      "y": 0.992709,
+      "x": 0.173648,
+      "y": 0.984808,
       "size": 8
     },
     {
@@ -165,8 +165,8 @@
       ],
       "bytes": 2479,
       "degree": 5,
-      "x": -0.120537,
-      "y": 0.992709,
+      "x": -0.058145,
+      "y": 0.998308,
       "size": 8
     },
     {
@@ -184,8 +184,8 @@
       ],
       "bytes": 2910,
       "degree": 4,
-      "x": -0.354605,
-      "y": 0.935016,
+      "x": -0.286803,
+      "y": 0.95799,
       "size": 8
     },
     {
@@ -203,8 +203,8 @@
       ],
       "bytes": 5125,
       "degree": 10,
-      "x": -0.568065,
-      "y": 0.822984,
+      "x": -0.5,
+      "y": 0.866025,
       "size": 8
     },
     {
@@ -222,8 +222,27 @@
       ],
       "bytes": 1391,
       "degree": 3,
-      "x": -0.748511,
-      "y": 0.663123,
+      "x": -0.686242,
+      "y": 0.727374,
+      "size": 8
+    },
+    {
+      "id": "wiki/journal/2026-09-29-pr-body-validation.md",
+      "label": "Reject hidden PR descriptions",
+      "type": "journal",
+      "aliases": [],
+      "githubRefs": [
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 27,
+          "url": "https://github.com/verndale/accessibility-standards/issues/27"
+        }
+      ],
+      "bytes": 706,
+      "degree": 3,
+      "x": -0.835488,
+      "y": 0.549509,
       "size": 8
     },
     {
@@ -234,8 +253,8 @@
       "githubRefs": [],
       "bytes": 2918,
       "degree": 2,
-      "x": 0.970942,
-      "y": 0.239316,
+      "x": 0.973045,
+      "y": 0.230616,
       "size": 12
     },
     {
@@ -253,8 +272,8 @@
       ],
       "bytes": 1210,
       "degree": 3,
-      "x": -0.885456,
-      "y": 0.464723,
+      "x": -0.939693,
+      "y": 0.34202,
       "size": 8
     },
     {
@@ -284,8 +303,8 @@
       ],
       "bytes": 17860,
       "degree": 11,
-      "x": -0.970942,
-      "y": 0.239316,
+      "x": -0.993238,
+      "y": 0.116093,
       "size": 8
     },
     {
@@ -303,8 +322,8 @@
       ],
       "bytes": 4618,
       "degree": 11,
-      "x": -1,
-      "y": 0,
+      "x": -0.993238,
+      "y": -0.116093,
       "size": 8
     },
     {
@@ -315,8 +334,8 @@
       "githubRefs": [],
       "bytes": 1586,
       "degree": 6,
-      "x": -0.970942,
-      "y": -0.239316,
+      "x": -0.939693,
+      "y": -0.34202,
       "size": 8
     },
     {
@@ -334,8 +353,8 @@
       ],
       "bytes": 2819,
       "degree": 10,
-      "x": -0.885456,
-      "y": -0.464723,
+      "x": -0.835488,
+      "y": -0.549509,
       "size": 8
     },
     {
@@ -353,8 +372,8 @@
       ],
       "bytes": 1554,
       "degree": 5,
-      "x": -0.748511,
-      "y": -0.663123,
+      "x": -0.686242,
+      "y": -0.727374,
       "size": 8
     },
     {
@@ -372,8 +391,8 @@
       ],
       "bytes": 4652,
       "degree": 4,
-      "x": -0.568065,
-      "y": -0.822984,
+      "x": -0.5,
+      "y": -0.866025,
       "size": 8
     },
     {
@@ -391,8 +410,8 @@
       ],
       "bytes": 10602,
       "degree": 11,
-      "x": -0.354605,
-      "y": -0.935016,
+      "x": -0.286803,
+      "y": -0.95799,
       "size": 8
     },
     {
@@ -403,8 +422,8 @@
       "githubRefs": [],
       "bytes": 943,
       "degree": 3,
-      "x": -0.120537,
-      "y": -0.992709,
+      "x": -0.058145,
+      "y": -0.998308,
       "size": 8
     },
     {
@@ -470,8 +489,8 @@
       ],
       "bytes": 4897,
       "degree": 11,
-      "x": 0.120537,
-      "y": -0.992709,
+      "x": 0.173648,
+      "y": -0.984808,
       "size": 12
     },
     {
@@ -517,8 +536,8 @@
       ],
       "bytes": 3352,
       "degree": 19,
-      "x": 0.354605,
-      "y": -0.935016,
+      "x": 0.39608,
+      "y": -0.918216,
       "size": 8
     },
     {
@@ -533,8 +552,8 @@
       "githubRefs": [],
       "bytes": 4486,
       "degree": 25,
-      "x": 0.568065,
-      "y": -0.822984,
+      "x": 0.597159,
+      "y": -0.802123,
       "size": 8
     },
     {
@@ -568,8 +587,8 @@
       ],
       "bytes": 3524,
       "degree": 19,
-      "x": 0.748511,
-      "y": -0.663123,
+      "x": 0.766044,
+      "y": -0.642788,
       "size": 8
     },
     {
@@ -587,12 +606,18 @@
           "kind": "issue",
           "number": 4,
           "url": "https://github.com/verndale/accessibility-standards/issues/4"
+        },
+        {
+          "repository": "verndale/accessibility-standards",
+          "kind": "issue",
+          "number": 27,
+          "url": "https://github.com/verndale/accessibility-standards/issues/27"
         }
       ],
-      "bytes": 4016,
-      "degree": 16,
-      "x": 0.885456,
-      "y": -0.464723,
+      "bytes": 4317,
+      "degree": 18,
+      "x": 0.893633,
+      "y": -0.448799,
       "size": 8
     },
     {
@@ -632,8 +657,8 @@
       ],
       "bytes": 4781,
       "degree": 24,
-      "x": 0.970942,
-      "y": -0.239316,
+      "x": 0.973045,
+      "y": -0.230616,
       "size": 8
     }
   ],
@@ -772,6 +797,13 @@
       "relation": "link"
     },
     {
+      "id": "20ca200277556c5a",
+      "source": "wiki/journal/2026-09-29-pr-body-validation.md",
+      "target": "wiki/topics/sync-and-enforcement.md",
+      "type": "topic",
+      "relation": "topic"
+    },
+    {
       "id": "2b1b75bcf1c859c5",
       "source": "wiki/plans/INDEX.md",
       "target": "wiki/plans/2026-08-31-schema-3-ui-projector-provenance-alignment-2666644a2c.md",
@@ -861,6 +893,13 @@
       "target": "wiki/topics/standards-authority.md",
       "type": "topic",
       "relation": "topic"
+    },
+    {
+      "id": "49aab1c67ba2568c",
+      "source": "wiki/INDEX.md",
+      "target": "wiki/journal/2026-09-29-pr-body-validation.md",
+      "type": "link",
+      "relation": "link"
     },
     {
       "id": "4b7e3def9178a736",
@@ -1176,6 +1215,13 @@
       "target": "wiki/plans/2026-08-31-phase-2-wcag-2-2-review-and-hardening-2d3c64a3c5.md",
       "type": "plan",
       "relation": "plan"
+    },
+    {
+      "id": "be6b03744afe99fe",
+      "source": "wiki/topics/sync-and-enforcement.md",
+      "target": "wiki/journal/2026-09-29-pr-body-validation.md",
+      "type": "link",
+      "relation": "link"
     },
     {
       "id": "bfaaea4646a93a57",
