@@ -2,6 +2,7 @@
 date: 2026-09-29
 topics: [sync-and-enforcement]
 issue: https://github.com/verndale/accessibility-standards/issues/27
+issues: ["https://github.com/verndale/accessibility-standards/issues/27"]
 ---
 # Reject hidden PR descriptions
 
