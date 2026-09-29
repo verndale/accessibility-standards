@@ -15,3 +15,5 @@ Git delivery uses an issue branch from updated `main`, standalone Commitlint, an
 PR 7 merged the v3 WCAG contract as `a94d3e3d731f76a4e07c7cd198600413dd4d2bc4`, whose valid `feat(wcag)!` header was accompanied by a duplicate `BREAKING CHANGE:` footer. Because rewriting merged history is riskier than a transparent migration, release preflight exempts only that full hash. The exception is covered by a near-match rejection test; all future aggregate breaking-change bodies continue to fail closed.
 
 Related: [UI pattern bindings](./ui-pattern-bindings.md), [consumer projections](./consumer-projections.md), the [delivery plan](../plans/2026-08-30-shared-accessibility-standards-delivery.md), the [Phase 2 review plan](../plans/2026-08-31-phase-2-wcag-2-2-review-and-hardening-2d3c64a3c5.md), and the [Git delivery journal](../journal/2026-09-28-git-delivery-standard.md).
+
+The PR-body gate recognizes only visible, same-line headings outside comments and code fences; this prevents hidden descriptions from satisfying the delivery contract ([issue 27](https://github.com/verndale/accessibility-standards/issues/27), [journal](../journal/2026-09-29-pr-body-validation.md)).

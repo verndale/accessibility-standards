@@ -12,6 +12,7 @@ This wiki is the durable project record for decisions, executed plans, and subst
 
 ## Accessibility standards
 
+- [2026-09-29 PR body validation journal](./journal/2026-09-29-pr-body-validation.md) — reject hidden PR descriptions and protect the canonical template.
 - [Standards authority](./topics/standards-authority.md)
 - [Semantic and pattern model](./topics/semantic-pattern-model.md)
 - [UI pattern bindings](./topics/ui-pattern-bindings.md)
